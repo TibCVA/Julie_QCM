@@ -1,9 +1,10 @@
-/* Service Worker — Julie la championne (rev. 2025-08-13b)
+/* Service Worker — Julie la championne (rev. 2025-08-13c)
    - Pré-cache les assets principaux + JSON
    - Cache-first pour statiques / Stale-While-Revalidate pour JSON
    - Compatible GitHub Pages (chemins relatifs)
+   - ✨ JSON: on ne "ignore" plus la querystring pour permettre un bust propre
 */
-const CACHE = 'julie-cache-v11';
+const CACHE = 'julie-cache-v12';
 
 const ASSETS = [
   './',
@@ -33,13 +34,19 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-async function staleWhileRevalidate(event){
+async function staleWhileRevalidateJSON(request){
   const cache = await caches.open(CACHE);
-  const cached = await cache.match(event.request, { ignoreSearch:true });
-  const fetchPromise = fetch(event.request)
-    .then(res => { cache.put(event.request, res.clone()); return res; })
-    .catch(() => cached || Promise.reject('offline'));
-  return cached || fetchPromise;
+  const cached = await cache.match(request /* ✨ pas d'ignoreSearch */);
+  try {
+    const network = await fetch(request);
+    // on met à jour le cache (cloné) si OK
+    if (network && network.ok) cache.put(request, network.clone());
+    return cached || network;
+  } catch (err) {
+    // offline → renvoyer le cache si dispo
+    if (cached) return cached;
+    throw err;
+  }
 }
 
 self.addEventListener('fetch', (event) => {
@@ -49,10 +56,11 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(req.url);
 
   if (url.pathname.endsWith('.json')){
-    event.respondWith(staleWhileRevalidate(event));
+    event.respondWith(staleWhileRevalidateJSON(req));
     return;
   }
 
+  // Statiques : cache first (✨ ignoreSearch pour ne pas dupliquer)
   event.respondWith(
     caches.match(req, { ignoreSearch:true })
       .then(hit => hit || fetch(req))
