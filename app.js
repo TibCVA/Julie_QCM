@@ -1,4 +1,4 @@
-/* Julie la championne — Web App QCM (rev. 2025‑08‑13c)
+/* Julie la championne — Web App QCM (rev. 2025‑08‑13e)
    - Deux datasets JSON: Annales 2020–2024 (enrichi) + Actualités 2024Q4
    - Mobile-first, PWA, révisions espacées (SM‑2 light), stats, mode examen
    - Chemins relatifs (GitHub Pages)
@@ -8,8 +8,8 @@
   'use strict';
 
   // ========= Constantes & config =========
-  const APP_VER = '4.1.1'; // ✨ bump
-  const LS_KEY  = 'julie.v3.state';     // conserve la clé
+  const APP_VER = '4.2.0'; // ✨ bump
+  const LS_KEY  = 'julie.v3.state';
   const DAY     = 24 * 60 * 60 * 1000;
 
   // IMPORTANT : laissez les chemins *relatifs* au repo GitHub Pages.
@@ -27,7 +27,7 @@
     index: 0,         // index dans la session en cours
     selection: new Set(SOURCES.map(s => s.url)), // sources cochées par défaut
 
-    // ✨ Options persistées et appliquées
+    // Options persistées
     opts: {
       newOnly: false,
       dueFirst: true,
@@ -87,26 +87,13 @@
   function toast(msg, bad=false){
     const el = document.createElement('div');
     el.className = 'toast' + (bad ? ' bad' : '');
-    el.setAttribute('role','status');              // ✨ a11y
-    el.setAttribute('aria-live','polite');         // ✨ a11y
+    el.setAttribute('role','status');
+    el.setAttribute('aria-live','polite');
     el.textContent = msg;
     document.body.appendChild(el);
     requestAnimationFrame(() => el.classList.add('show'));
     setTimeout(() => { el.classList.remove('show'); el.remove(); }, 2600);
   }
-
-  // Style minimal pour toasts (autonome)
-  (function injectToastCSS(){
-    const style = document.createElement('style');
-    style.textContent = `
-      .toast{position:fixed;left:50%;bottom:18px;transform:translate(-50%,20px);opacity:0;
-        background:#111827;border:1px solid #e5e7eb;color:#f9fafb;padding:10px 14px;border-radius:10px;
-        box-shadow:0 8px 30px rgba(0,0,0,.2);transition:.2s;font-size:14px;z-index:9999}
-      .toast.show{transform:translate(-50%,0);opacity:1}
-      .toast.bad{background:#7f1d1d}
-    `;
-    document.head.appendChild(style);
-  })();
 
   // ========= SRS (SM‑2 simplifié) =========
   function initItemStat(id, srcUrl, srcLabel){
@@ -248,7 +235,7 @@
   // ========= Chargement des fichiers =========
   async function fetchJson(url){
     const abs = new URL(url, location.href).href;
-    const res = await fetch(abs, { cache: 'no-store' }); // ✨ on laisse SW gérer le cache
+    const res = await fetch(abs, { cache: 'no-store' }); // SW gère le cache
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     return res.json();
   }
@@ -279,7 +266,6 @@
       goalDaily: state.goalDaily,
       stats: state.stats,
       history: state.history,
-      // ✨ on persiste les options
       opts: state.opts
     };
     try { localStorage.setItem(LS_KEY, JSON.stringify(dump)); } catch { /* ignore */ }
@@ -297,7 +283,6 @@
         state.history   = obj.history || { practice:[], exam:[] };
         const def = SOURCES.map(s => s.url);
         state.selection = new Set(Array.isArray(obj.selection) ? obj.selection : def);
-        // ✨ restau options
         if (obj.opts) state.opts = Object.assign(state.opts, obj.opts);
       }
     } catch { /* ignore */ }
@@ -308,31 +293,38 @@
     const keep = new Set(state.selection);
     let items = state.all.filter(q => keep.has(q.srcUrl));
 
-    // ✨ filtrage/tri selon options
     if (state.opts.newOnly){
       items = items.filter(q => (state.stats.q[q.id]?.attempts || 0) === 0);
     }
 
-    if (state.opts.dueFirst){
-      const now = Date.now();
-      items = items.slice().sort((a,b) => {
-        const sa = state.stats.q[a.id] || {}, sb = state.stats.q[b.id] || {};
-        const da = sa.dueAt || 0, db = sb.dueAt || 0;
-        const aDue = da <= now, bDue = db <= now;
-        if (aDue !== bDue) return aDue ? -1 : 1;   // dues d’abord
-        return (da || Infinity) - (db || Infinity); // puis par échéance
-      });
-    }
+    const now = Date.now();
 
-    if (state.opts.shuffle){
-      items = shuffle(items);
+    if (state.opts.dueFirst){
+      const due = [];
+      const later = [];
+      for (const q of items){
+        const s = state.stats.q[q.id] || {};
+        const d = s.dueAt || 0;
+        if (d <= now) due.push(q);
+        else later.push(q);
+      }
+      if (state.opts.shuffle){
+        shuffle(due); shuffle(later);
+      } else {
+        const getDue = q => (state.stats.q[q.id]?.dueAt ?? 0);
+        due.sort((a,b) => getDue(a) - getDue(b));
+        later.sort((a,b) => getDue(a) - getDue(b));
+      }
+      items = [...due, ...later]; // ✅ due-first préservé même avec shuffle
+    } else if (state.opts.shuffle){
+      shuffle(items);
     }
 
     return items;
   }
 
   function startSession(kind){
-    state.mode = kind;               // 'practice' | 'exam' | 'review'
+    state.mode = kind; // 'practice' | 'exam' | 'review'
     const items = buildFilteredItems();
     let pool = [];
 
@@ -341,12 +333,13 @@
         const s = state.stats.q[q.id];
         return s && s.attempts > 0 && s.correct < s.attempts; // uniquement manquées
       });
-      pool = shuffle(wrong.slice()).slice(0, Math.min(20, wrong.length));
+      const target = Math.min(Math.max(10, state.goalDaily), wrong.length || 0);
+      pool = shuffle(wrong.slice()).slice(0, target);
     } else if (kind === 'exam'){
       pool = items.slice(0, Math.min(state.exam.total, items.length));
       if (state.opts.shuffle) shuffle(pool);
     } else { // practice
-      pool = items.slice(0, Math.min(20, items.length));
+      pool = items.slice(0, Math.min(state.goalDaily, items.length)); // ✅ aligné sur l’objectif
     }
 
     state.pool = pool;
@@ -446,7 +439,7 @@
     // Reboot complet (hard reset + SW)
     $('#btn-reboot')?.addEventListener('click', hardResetApp);
 
-    // Raccourcis clavier (✨ A/B/C/D corrigé)
+    // Raccourcis clavier
     document.addEventListener('keydown', (e) => {
       if (['INPUT','TEXTAREA'].includes(document.activeElement?.tagName)) return;
       if (e.code === 'Space'){ e.preventDefault(); validate(); }
@@ -469,7 +462,7 @@
       e.preventDefault();
       state.ui.deferredPrompt = e;
       const btn = $('#btn-install');
-      if (btn) btn.hidden = false; // ✨ au lieu de style inline
+      if (btn) btn.hidden = false; // ✅ désormais pris en charge par CSS [hidden]
     });
     $('#btn-install')?.addEventListener('click', () => {
       if (state.ui.deferredPrompt){ state.ui.deferredPrompt.prompt(); }
@@ -508,7 +501,6 @@
       if (i === 0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
     });
     ctx.stroke();
-    // ✨ points pleins de la même couleur
     ctx.fillStyle = '#0ea5e9';
     days.forEach((v,i) => {
       const x = 32 + i * ((W - 48) / 13);
@@ -616,16 +608,18 @@
 
     const wrap = $('#q-choices'); if (wrap) {
       wrap.innerHTML = '';
-      wrap.setAttribute('role','radiogroup'); // a11y
+      wrap.setAttribute('role','radiogroup');
       wrap.setAttribute('aria-labelledby','q-text');
 
       q.options.forEach((opt, i) => {
+        const inputId = `ch-${state.index}-${i}`;
         const lab = document.createElement('label');
         lab.className = 'choice';
+        lab.setAttribute('for', inputId);
         lab.innerHTML = `
-          <input type="radio" name="choice">
+          <input type="radio" id="${inputId}" name="choice" aria-checked="false" aria-labelledby="${inputId}-txt">
           <span class="letter">${ABCD[i]}</span>
-          <span class="opt-text">${opt}</span>
+          <span class="opt-text" id="${inputId}-txt">${opt}</span>
         `;
         wrap.appendChild(lab);
       });
@@ -637,6 +631,10 @@
     state.solutionShown = false;
     state.revealed = false;
     updateNextLabel();
+  }
+
+  function setChoicesDisabled(disabled){
+    $$('#q-choices input[type=radio]').forEach(r => { r.disabled = disabled; r.setAttribute('aria-disabled', disabled ? 'true' : 'false'); });
   }
 
   function mark(correctIdx, chosenIdx, showSolution){
@@ -675,22 +673,15 @@
     const ok = (idx === q.answerIndex);
 
     // Marquage : en examen on ne montre pas la solution tant que non "Révéler"
-    if (state.session.kind === 'exam'){
-      mark(q.answerIndex, idx, /*showSolution*/false);
-    } else {
-      mark(q.answerIndex, idx, /*showSolution*/false);
-    }
+    mark(q.answerIndex, idx, /*showSolution*/false);
 
     // Feedback minimal
     const fb = $('#q-feedback');
     if (fb){
-      if (state.session.kind === 'exam'){
-        fb.className = 'feedback';
-        fb.textContent = 'Réponse enregistrée. Tu peux passer à la suivante (utilise “Révéler” pour afficher la solution).';
-      } else {
-        fb.className = 'feedback';
-        fb.textContent = 'Réponse enregistrée.';
-      }
+      fb.className = 'feedback';
+      fb.textContent = (state.session.kind === 'exam')
+        ? 'Réponse enregistrée. Tu peux passer à la suivante (utilise “Révéler” pour afficher la solution).'
+        : 'Réponse enregistrée.';
     }
 
     // SRS + stats
@@ -706,6 +697,7 @@
     if (ok) state.session.score++;
 
     state.answered = true;
+    setChoicesDisabled(true); // ✅ empêche de modifier après validation
     save();
     renderKPIs();
     renderHUD();
@@ -714,8 +706,6 @@
 
   function reveal(){
     const q = current(); if (!q) return;
-
-    // Affiche la solution + explication
     const lastChosen = state.session.answers.at(-1)?.chosen ?? -1;
     mark(q.answerIndex, lastChosen, /*showSolution*/true);
     const fb = $('#q-feedback');
@@ -724,7 +714,6 @@
       const txt = `Réponse : ${ABCD[q.answerIndex]}. ${q.explanation || ''}`.trim();
       fb.textContent = txt;
     }
-
     state.solutionShown = true;
     state.revealed = true;
     updateNextLabel();
@@ -732,7 +721,8 @@
 
   function goNextQuestionOrFinish(){
     if (state.index < state.pool.length - 1){
-      state.index++; renderQuestion();
+      state.index++;
+      renderQuestion();
     } else {
       finishSession();
     }
@@ -740,19 +730,19 @@
 
   function next(){
     const mode = state.session.kind;
-
-    // si rien n'est coché → on valide pour générer le feedback
     const anyChecked = $$('#q-choices input[type=radio]').some(r => r.checked);
-    if (!anyChecked){ validate(); return; }
 
     if (mode === 'exam'){
-      // examen : jamais de solution automatique
-      if (!state.answered){ validate(); return; }
-      goNextQuestionOrFinish();
+      if (!state.answered){
+        if (!anyChecked){ validate(); return; }
+        validate();
+      } else {
+        goNextQuestionOrFinish();
+      }
       return;
     }
 
-    // entraînement / révision : 1er clic après validation → montrer la solution
+    // entraînement / révision
     if (!state.answered){ validate(); return; }
     if (!state.solutionShown){ reveal(); return; }
     goNextQuestionOrFinish();
@@ -823,10 +813,8 @@
     `;
     res.classList.remove('hidden');
 
-    // bouton recommencer (si présent)
     $('#res-restart')?.addEventListener('click', () => startSession(state.session.kind === 'review' ? 'review' : 'practice'));
 
-    // retour automatique de l’onglet visuel sur "Entraînement" après un examen
     if (kind === 'exam'){
       $$('.seg').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
       const t = document.querySelector('.seg[data-mode="practice"]');
@@ -883,7 +871,6 @@
 
   // ========= Init =========
   async function init(){
-    // Sous-titre (sources actives)
     const st = $('#subtitle'); if (st) st.textContent = SOURCES.map(s => s.label).join(' + ');
 
     restore();
@@ -896,7 +883,7 @@
     }
 
     renderKPIs();
-    startSession('practice');   // démarre une première session de 20 questions
+    startSession('practice');   // démarre une première session
 
     // Service worker
     if ('serviceWorker' in navigator){
@@ -905,7 +892,7 @@
     }
   }
 
-  // Expose quelques actions (debug)
+  // Expose (debug)
   window.JulieQCM = {
     version: APP_VER,
     state, startSession, renderKPIs, renderQuestion
