@@ -1,16 +1,16 @@
-/* Julie la championne — Web App QCM (rev. 2025‑08‑13b)
+/* Julie la championne — Web App QCM (rev. 2025‑08‑13r)
    - Sessions : Entraînement (20), Examen (50, chrono), Révisions (20 ratées)
-   - Historique persistant, UI claire, feedback conforme
-   - Chemins relatifs (GitHub Pages)
+   - Historique persistant, SRS (SM‑2 simplifié), UI accessible
+   - Chemins relatifs (GitHub Pages), PWA offline friendly
 */
-
 (() => {
   'use strict';
 
   // ========= Constantes & config =========
-  const APP_VER = '4.1.0';
-  const LS_KEY  = 'julie.v3.state';     // on garde la clé pour ne pas perdre la progression existante
+  const APP_VER = '4.2.0';
+  const LS_KEY  = 'julie.v3.state'; // on garde la clé (compat)
   const DAY     = 24 * 60 * 60 * 1000;
+  const ABCD    = 'ABCD';
 
   const SOURCES = [
     { id:'annales',  label:'Annales 2020–2024', url:'./data/annales_qcm_2020_2024_enrichi.json', enabled:true },
@@ -21,19 +21,18 @@
   const state = {
     _ver: APP_VER,
     mode: 'practice', // practice | exam | review
-    all: [],          // toutes les questions normalisées
+    all: [],          // questions normalisées
     pool: [],         // sélection courante (session)
     index: 0,
-    selection: new Set(SOURCES.map(s => s.url)), // sources cochées par défaut
+    selection: new Set(SOURCES.map(s => s.url)),
     goalDaily: 20,
     exam: { total: 50, timer: 50*60, startedAt: 0 }, // 50 questions / 50 min
     stats: {
       // par qid: { attempts, correct, streak, easiness, interval, dueAt, lastAt, srcUrl, srcLabel }
       q: {},
-      // par jour (YYYY-MM-DD): validations (tentatives comptées)
+      // par jour (YYYY-MM-DD): nb validations
       days: {}
     },
-    // session en cours
     session: {
       kind: 'practice', // practice | exam | review
       startedAt: 0,
@@ -48,8 +47,8 @@
       exam: []      // {ts, score, total, durationSec, sources[], items:[{qid, chosen, correct}]}
     },
     ui: { deferredPrompt: null },
-    answered: false,   // question courante validée ?
-    readyForNext: false // 1er clic “Suivante” = montrer explication ; 2e clic = avancer
+    answered: false,     // question courante validée ?
+    readyForNext: false  // 1er clic “Suivante” = montrer explication ; 2e clic = avancer
   };
 
   // ========= Utilitaires DOM & divers =========
@@ -57,7 +56,6 @@
   const $$ = sel => Array.from(document.querySelectorAll(sel));
   const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
   const todayKey = () => new Date().toISOString().slice(0,10);
-  const ABCD = 'ABCD';
 
   function shuffle(arr){
     for (let i = arr.length - 1; i > 0; i--){
@@ -76,15 +74,16 @@
     setTimeout(() => { el.classList.remove('show'); el.remove(); }, 2600);
   }
 
-  // Style toasts (utilise variables CSS)
+  // Style toasts (utilise variables CSS si dispo)
   (function injectToastCSS(){
     const style = document.createElement('style');
     style.textContent = `
       .toast{position:fixed;left:50%;bottom:18px;transform:translate(-50%,20px);opacity:0;
-        background:var(--panel);border:1px solid var(--border);color:var(--text);padding:10px 14px;border-radius:10px;
-        box-shadow:0 8px 24px rgba(2,6,23,.12);transition:.2s;font-size:14px;z-index:9999}
+        background:var(--panel, #fff);border:1px solid var(--border, #e5e7eb);color:var(--text, #0f172a);
+        padding:10px 14px;border-radius:10px;box-shadow:0 8px 24px rgba(2,6,23,.12);transition:.2s;font-size:14px;z-index:9999}
       .toast.show{transform:translate(-50%,0);opacity:1}
       .toast.bad{border-color:#fecaca;color:#7f1d1d;background:#fee2e2}
+      @media (prefers-reduced-motion: reduce){ .toast{transition:none} }
     `;
     document.head.appendChild(style);
   })();
@@ -101,6 +100,7 @@
 
   function scheduleNext(s, wasCorrect){
     const q = wasCorrect ? 5 : 2;
+    // SM-2 modifié (plafonné, borne basse 1.3)
     s.easiness = Math.max(1.3, s.easiness + (0.1 - (5 - q) * (0.08 + (5 - q) * 0.02)));
     if (!wasCorrect){
       s.interval = 1; s.streak = 0;
@@ -222,8 +222,9 @@
 
   // ========= Chargement =========
   async function fetchJson(url){
+    // On laisse le Service Worker gérer le cache (offline). Pas de 'no-store'.
     const abs = new URL(url, location.href).href;
-    const res = await fetch(abs, { cache: 'no-store' });
+    const res = await fetch(abs);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     return res.json();
   }
@@ -255,7 +256,7 @@
       stats: state.stats,
       history: state.history
     };
-    try { localStorage.setItem(LS_KEY, JSON.stringify(dump)); } catch { /* ignore */ }
+    try { localStorage.setItem(LS_KEY, JSON.stringify(dump)); } catch { /* ignore quota */ }
   }
 
   function restore(){
@@ -265,22 +266,19 @@
       const obj = JSON.parse(raw);
       if (obj && obj._ver){
         state.mode      = obj.mode || 'practice';
-        state.goalDaily = obj.goalDaily || 20;
+        state.goalDaily = clamp(obj.goalDaily || 20, 1, 500);
         state.stats     = obj.stats || { q:{}, days:{} };
         state.history   = obj.history || { practice:[], exam:[] };
         const def = SOURCES.map(s => s.url);
         state.selection = new Set(Array.isArray(obj.selection) ? obj.selection : def);
       }
-    } catch { /* ignore */ }
+    } catch { /* ignore parse */ }
   }
 
-  // ========= Pool / file =========
-  function buildPool(){
-    const keep = new Set(state.selection);
-    const items = state.all.filter(q => keep.has(q.srcUrl));
-
+  // ========= Tri/ordre pour sessions =========
+  function orderForPractice(items){
     const dueFirst = $('#opt-dueFirst')?.checked;
-    const newOnly  = $('#opt-newOnly')?.checked;
+    const newBoost = $('#opt-newOnly')?.checked;
     const shuffleOn= $('#opt-shuffle')?.checked;
 
     const now = Date.now();
@@ -290,15 +288,13 @@
       const isDue = (s.dueAt || 0) <= now;
       let score = Math.random();
       if (dueFirst && isDue) score += 5;
-      if (newOnly && isNew) score += 3;
+      if (newBoost && isNew) score += 3;
       return { q, score };
     });
 
     let arr = scored.sort((a,b)=>b.score-a.score).map(x=>x.q);
-    if (shuffleOn && !dueFirst && !newOnly) arr = shuffle(arr);
-
-    state.pool = arr;
-    state.index = 0;
+    if (shuffleOn && !dueFirst && !newBoost) arr = shuffle(arr);
+    return arr;
   }
 
   // ========= Rendu UI =========
@@ -309,7 +305,7 @@
       const id = `src-${src.id}`;
       const label = document.createElement('label');
       label.innerHTML = `
-        <input type="checkbox" id="${id}">
+        <input type="checkbox" id="${id}" aria-label="${src.label}">
         <span>${src.label}</span>
       `;
       box?.appendChild(label);
@@ -324,11 +320,13 @@
       }
     }
 
-    // Modes
+    // Modes (onglets)
     $$('.seg').forEach(btn => {
       btn.addEventListener('click', () => {
-        $$('.seg').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+        $$('.seg').forEach(b => {
+          b.classList.remove('active'); b.setAttribute('aria-selected','false');
+        });
+        btn.classList.add('active'); btn.setAttribute('aria-selected','true');
         const mode = btn.dataset.mode;
         state.mode = mode;
         startSession(mode); save();
@@ -441,7 +439,7 @@
     // Stats par source
     const list = $('#by-source'); if (list) list.innerHTML = '';
     const agg = {};
-    for (const [qid,s] of Object.entries(state.stats.q)){
+    for (const [,s] of Object.entries(state.stats.q)){
       const key = s.srcLabel || 'Source';
       agg[key] ||= { attempts:0, correct:0 };
       agg[key].attempts += s.attempts || 0;
@@ -466,7 +464,6 @@
     const total = state.session.total || state.pool.length || 0;
 
     if (kind === 'exam'){
-      // Chrono affiché
       const elapsed = Math.max(0, Math.floor((Date.now() - state.exam.startedAt)/1000));
       const remain  = Math.max(0, state.exam.timer - elapsed);
       const mm = String(Math.floor(remain / 60)).padStart(2,'0');
@@ -499,10 +496,12 @@
 
     const wrap = $('#q-choices'); if (wrap) wrap.innerHTML = '';
     q.options.forEach((opt, i) => {
+      const id = `opt-${state.index}-${i}`;
       const lab = document.createElement('label');
       lab.className = 'choice';
+      lab.setAttribute('for', id);
       lab.innerHTML = `
-        <input type="radio" name="choice">
+        <input id="${id}" type="radio" name="choice" aria-label="Réponse ${ABCD[i]}">
         <span class="letter">${ABCD[i]}</span>
         <span>${opt}</span>
       `;
@@ -521,6 +520,12 @@
     state.answered = false;
     state.readyForNext = false;
     renderSessionBar();
+
+    // Focus clavier sur la première proposition
+    requestAnimationFrame(() => {
+      const first = $('#q-choices input[type=radio]');
+      first?.focus();
+    });
   }
 
   function mark(correctIdx, chosenIdx){
@@ -588,17 +593,16 @@
     if (idx < 0){ toast('Choisis une réponse'); return; }
 
     state.session.answers[state.index] = idx;
-    // on met à jour le SRS/compteurs sans afficher la solution
+    // mise à jour SRS/compteurs sans afficher la solution
     const ok = (idx === q.answerIndex);
     bumpStats(q, ok);
 
-    // pas de feedback automatique
     nextQuestionOrFinish();
     save(); renderKPIs();
   }
 
   function reveal(){
-    if (state.mode !== 'exam') return; // training/review affichent déjà au clic Suivante
+    if (state.mode !== 'exam') return;
     const q = current(); if (!q) return;
     mark(q.answerIndex, state.session.answers[state.index] ?? -1);
     const fb = $('#q-feedback');
@@ -611,7 +615,6 @@
 
   function onNext(){
     if (state.mode === 'exam'){
-      // En examen : un clic = on enregistre si pas fait, sinon on passe
       const hasAnswer = Number.isInteger(state.session.answers[state.index]);
       if (!hasAnswer){ recordChoiceExam(); return; }
       nextQuestionOrFinish(); return;
@@ -631,14 +634,13 @@
   }
 
   function startSession(mode){
-    buildPool();
-
     const keep = new Set(state.selection);
     const items = state.all.filter(q => keep.has(q.srcUrl));
 
     let chosen = [];
     if (mode === 'practice'){
-      chosen = shuffle(items).slice(0, 20);
+      const ordered = orderForPractice(items);
+      chosen = ordered.slice(0, Math.min(20, ordered.length));
     } else if (mode === 'review'){
       const missed = items.filter(q => {
         const s = state.stats.q[q.id];
@@ -649,12 +651,14 @@
         state.mode = 'practice';
         $$('.seg').forEach(b => b.classList.remove('active'));
         document.querySelector('.seg[data-mode="practice"]')?.classList.add('active');
-        chosen = shuffle(items).slice(0, 20);
+        const ordered = orderForPractice(items);
+        chosen = ordered.slice(0, Math.min(20, ordered.length));
       } else {
         chosen = shuffle(missed).slice(0, Math.min(20, missed.length));
       }
     } else if (mode === 'exam'){
-      chosen = shuffle(items).slice(0, Math.min(state.exam.total, items.length));
+      const base = shuffle(items);
+      chosen = base.slice(0, Math.min(state.exam.total, base.length));
       state.exam.startedAt = Date.now();
       tickExam();
     }
@@ -695,13 +699,13 @@
     const durationSec = Math.round((state.session.finishedAt - state.session.startedAt)/1000);
     const total = state.session.total || state.pool.length;
 
-    // Calcul final (examen : on calcule le score ici pour fiabilité)
+    // Score final (examen recalculé pour fiabilité)
     let score = state.session.score;
     if (kind === 'exam'){
       score = state.pool.reduce((acc,q,i) => acc + ((state.session.answers[i] === q.answerIndex) ? 1 : 0), 0);
     }
 
-    // Sauvegarde historique (pas pour review)
+    // Historique (pas pour review)
     const histItem = {
       ts: Date.now(),
       score, total,
@@ -758,7 +762,7 @@
         const li = document.createElement('li');
         const chosenTxt = Number.isInteger(chosen) ? ABCD[chosen] : '—';
         li.innerHTML = `
-          <div><span class="${ok?'ok':'ko'}">${ok?'✓':'✗'}</span> ${q.question}</div>
+          <div><span class="${ok?'ok':'ko'}" aria-hidden="true">${ok?'✓':'✗'}</span> ${q.question}</div>
           <div class="muted">Votre réponse : ${chosenTxt} • Juste : ${ABCD[q.answerIndex]}</div>
         `;
         list.appendChild(li);
@@ -792,9 +796,9 @@
     });
   }
 
-  // ========= Import/Export (caché dans l’UI) — conservé si besoin technique =========
-  function exportProgress(){ /* retiré de l’UI */ }
-  function importProgress(){ /* retiré de l’UI */ }
+  // ========= Import/Export (placeholder) =========
+  function exportProgress(){ /* réservé ultérieurement */ }
+  function importProgress(){ /* réservé ultérieurement */ }
 
   function resetProgress(){
     if (!confirm('Effacer TOUTE la progression (SRS), mais conserver l’historique ?')) return;
@@ -825,7 +829,7 @@
     try { await loadAll(); }
     catch { toast('Erreur de chargement', true); }
 
-    startSession('practice');   // par défaut on part sur entraînement (20)
+    startSession('practice');   // par défaut : entraînement (20)
     renderKPIs();
 
     // Service worker
