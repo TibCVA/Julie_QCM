@@ -1,0 +1,14 @@
+{
+  "name": "Julie la championne",
+  "short_name": "Julie",
+  "description": "QCM Annales 2020–2024 et Actualités 2024Q4 — entraînement, examen, révisions, stats.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0b1120",
+  "theme_color": "#0ea5e9",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
