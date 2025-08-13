@@ -7,7 +7,7 @@
   <meta name="description" content="QCM ultra rigoureux — Annales & Actualités" />
   <meta name="theme-color" content="#0ea5e9" />
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="format-detection" content="telephone=no">
   <meta name="color-scheme" content="light dark">
@@ -27,7 +27,7 @@
       </div>
     </div>
     <nav class="top-actions">
-      <!-- ✨ type="button" + hidden par défaut (affiché au prompt PWA) -->
+      <!-- ✨ rendu visible via JS (beforeinstallprompt) -->
       <button id="btn-install" class="ghost" type="button" hidden>Installer</button>
     </nav>
   </header>
@@ -78,7 +78,6 @@
         <div>
           <label class="lbl">Options</label>
           <div class="opts">
-            <!-- ✨ id conservés, maintenant reliés à l’état et persistés -->
             <label><input type="checkbox" id="opt-newOnly"> Prioriser nouvelles</label>
             <label><input type="checkbox" id="opt-dueFirst" checked> Réviser d’abord les questions dues</label>
             <label><input type="checkbox" id="opt-shuffle" checked> Aléatoire</label>
@@ -109,7 +108,6 @@
       </div>
       <h2 id="q-text">Chargement…</h2>
 
-      <!-- ✨ radiogroup a11y -->
       <div id="q-choices" class="choices" role="radiogroup" aria-labelledby="q-text"></div>
 
       <div id="q-feedback" class="feedback" aria-live="polite"></div>
