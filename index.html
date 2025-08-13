@@ -1,104 +1,152 @@
 <!doctype html>
-<html lang="fr" data-theme="light">
+<html lang="fr">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Entraînement — QCM</title>
-  <link rel="stylesheet" href="styles.css" />
-  <script defer src="app.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Julie la championne</title>
+  <meta name="description" content="QCM ultra rigoureux — Annales & Actualités" />
+  <meta name="theme-color" content="#0ea5e9" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="color-scheme" content="light dark">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png" sizes="192x192">
+  <link rel="icon" href="icons/icon-512.png" sizes="512x512">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header class="app-header">
-    <div class="container header-row">
-      <h1 class="app-title">Entraînement — QCM</h1>
-
-      <div class="toolbar">
-        <label class="file-btn" title="Importer un fichier .json de questions">
-          <input id="fileInput" type="file" accept=".json,application/json" />
-          Importer .json
-        </label>
-
-        <div class="dataset-pill" id="datasetInfo" aria-live="polite">
-          Dataset : Démo (10 questions)
-        </div>
-
-        <div class="theme-toggle">
-          <input type="checkbox" id="themeSwitch" />
-          <label for="themeSwitch" class="switch">
-            <span class="switch__knob" aria-hidden="true"></span>
-            <span class="switch__label">Mode sombre</span>
-          </label>
-        </div>
+  <header class="appbar">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">🏆</div>
+      <div class="title">
+        <h1>Julie la championne</h1>
+        <small id="subtitle">Annales 2020–2024 + Actualités 2024Q4</small>
       </div>
     </div>
+    <nav class="top-actions">
+      <!-- ✨ rendu visible via JS (beforeinstallprompt) -->
+      <button id="btn-install" class="ghost" type="button" hidden>Installer</button>
+    </nav>
   </header>
 
-  <main class="container main">
-    <section class="card config" id="configCard">
-      <h2>Configurer la session</h2>
-      <div class="config-grid">
+  <main class="container">
+
+    <!-- KPIs -->
+    <section class="kpis" aria-label="indicateurs">
+      <div class="kpi">
+        <div class="kpi-value" id="kpi-total">0</div>
+        <div class="kpi-label">Questions</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-value" id="kpi-due">0</div>
+        <div class="kpi-label">À réviser</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-value" id="kpi-accuracy">—</div>
+        <div class="kpi-label">Précision</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-value" id="kpi-goal">0/0</div>
+        <div class="kpi-label">Objectif jour</div>
+      </div>
+    </section>
+
+    <!-- Filtres & modes -->
+    <section class="card" id="filters">
+      <div class="card-header">
+        <strong>Filtrer & mode</strong>
+        <div class="segmented" role="tablist" aria-label="Modes">
+          <button data-mode="practice" class="seg active" role="tab" aria-selected="true" type="button">Entraînement</button>
+          <button data-mode="exam" class="seg" role="tab" aria-selected="false" type="button">Examen</button>
+          <button data-mode="review" class="seg" role="tab" aria-selected="false" type="button">Révisions</button>
+        </div>
+        <div id="session-hud" class="session-hud hidden" aria-live="polite">
+          <span id="hud-left"></span>
+          <span id="hud-mid"></span>
+          <span id="hud-right"></span>
+        </div>
+      </div>
+
+      <div class="grid2">
         <div>
-          <p class="muted">Taille de la série</p>
-          <div class="radio-row" role="radiogroup" aria-label="Taille de la série">
-            <label class="radio">
-              <input type="radio" name="seriesSize" value="20" checked />
-              20 questions
-            </label>
-            <label class="radio">
-              <input type="radio" name="seriesSize" value="50" />
-              50 questions
-            </label>
+          <label class="lbl">Sources</label>
+          <div id="sources"></div>
+        </div>
+        <div>
+          <label class="lbl">Options</label>
+          <div class="opts">
+            <label><input type="checkbox" id="opt-newOnly"> Prioriser nouvelles</label>
+            <label><input type="checkbox" id="opt-dueFirst" checked> Réviser d’abord les questions dues</label>
+            <label><input type="checkbox" id="opt-shuffle" checked> Aléatoire</label>
           </div>
         </div>
+      </div>
 
-        <div class="start-col">
-          <button id="startBtn" class="btn btn-primary">Démarrer la session</button>
-          <div id="configHint" class="hint" aria-live="polite"></div>
+      <div class="grid2">
+        <div>
+          <label class="lbl" for="goal-input">Objectif quotidien</label>
+          <div class="goal">
+            <button id="goal-dec" class="ghost" type="button" aria-label="Diminuer l’objectif">−</button>
+            <input id="goal-input" type="number" min="1" max="500" value="20" inputmode="numeric" aria-live="off">
+            <button id="goal-inc" class="ghost" type="button" aria-label="Augmenter l’objectif">+</button>
+          </div>
+        </div>
+        <div class="right">
+          <button id="btn-reset" class="danger" type="button">Réinitialiser progression</button>
         </div>
       </div>
     </section>
 
-    <!-- Encadré de progression : toujours au-dessus du bloc Q/R -->
-    <div id="statusBox" class="status-box" hidden>
-      <strong>Entraînement</strong> — Question <span id="statusQuestionIdx">0</span>/<span id="statusTotal">0</span> — Score <span id="statusScore">0</span>/<span id="statusScoreTotal">0</span>
-    </div>
+    <!-- Question -->
+    <section class="card" id="qcard" aria-live="polite">
+      <div class="q-meta">
+        <span id="q-tag" class="tag">—</span>
+        <span id="q-index" class="muted">—</span>
+      </div>
+      <h2 id="q-text">Chargement…</h2>
 
-    <section id="qaCard" class="card qa" hidden>
-      <div id="questionText" class="question" aria-live="polite"></div>
+      <div id="q-choices" class="choices" role="radiogroup" aria-labelledby="q-text"></div>
 
-      <div id="choices" class="choices" role="group" aria-label="Réponses proposées"></div>
-
-      <div id="feedback" class="feedback" aria-live="polite"></div>
-
-      <div class="qa-actions">
-        <button id="nextBtn" class="btn btn-primary" disabled>Question suivante</button>
+      <div id="q-feedback" class="feedback" aria-live="polite"></div>
+      <div class="actions">
+        <button id="btn-reveal" class="ghost" type="button">Révéler</button>
+        <button id="btn-next" class="primary" type="button">Suivante ↵</button>
+        <button id="btn-restart" class="ghost" type="button">Recommencer</button>
       </div>
     </section>
 
-    <section id="endCard" class="card end" hidden aria-live="polite">
-      <h2>Session terminée</h2>
-      <p class="lead">
-        Score final : <strong><span id="finalScore">0</span>/<span id="finalTotal">0</span></strong>
-      </p>
-      <div class="end-actions">
-        <button id="restartBtn" class="btn">Rejouer la même série</button>
-        <button id="newSessionBtn" class="btn btn-primary">Nouvelle session</button>
+    <!-- Résultats de session -->
+    <section class="card hidden" id="results"></section>
+
+    <!-- Stats -->
+    <section class="card" id="stats">
+      <div class="card-header"><strong>Statistiques</strong></div>
+      <div class="grid2">
+        <div>
+          <ul id="by-source" class="list"></ul>
+        </div>
+        <div>
+          <canvas id="spark" width="600" height="200" aria-label="Historique 14 jours"></canvas>
+        </div>
       </div>
+      <div class="card-subheader">Historique des sessions</div>
+      <ul id="history" class="list"></ul>
+      <div class="muted right">Raccourcis : <kbd>N</kbd> suivante • <kbd>R</kbd> révéler • <kbd>␣</kbd> valider</div>
     </section>
 
-    <section id="historyCard" class="card history">
-      <div class="history-head">
-        <h2>Historique des sessions</h2>
-        <button id="clearHistoryBtn" class="btn btn-quiet">Effacer l’historique</button>
-      </div>
-      <div id="historyList" class="history-list empty">
-        <p class="muted">Aucune session enregistrée pour le moment.</p>
-      </div>
-    </section>
   </main>
 
-  <footer class="container footer">
-    <p class="muted">Astuce : importez votre fichier <code>.json</code> de questions (même format qu’avant). Les sessions et le thème sont mémorisés sur cet appareil.</p>
+  <footer class="foot">
+    <div class="foot-actions">
+      <button id="btn-reboot" class="danger-outline" type="button">Redémarrer l’application (remise à zéro)</button>
+    </div>
+    <small>© 2025 – Julie la championne • Ultra rigoureux, zéro invention • Offline/PWA</small>
   </footer>
+
+  <noscript>Veuillez activer JavaScript pour utiliser l’application.</noscript>
+  <script src="app.js" defer></script>
 </body>
 </html>
