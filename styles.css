@@ -1,89 +1,223 @@
+/* ==========================================================================
+   Julie la championne — Styles globaux (mobile-first, iPhone friendly)
+   ========================================================================== */
+
+/* Reset minimal + variables */
 :root{
-  --bg:#0b1120;
-  --card:#0f172a;
-  --muted:#94a3b8;
-  --text:#e2e8f0;
-  --primary:#0ea5e9;
-  --primary-2:#38bdf8;
-  --danger:#ef4444;
-  --ok:#10b981;
-  --warn:#f59e0b;
-  --radius:16px;
-  --shadow:0 8px 32px rgba(2,6,23,.35);
+  --bg:            #0b1326;  /* fond global */
+  --panel:         #0f172a;  /* cartes / panneaux */
+  --panel-2:       #0d152a;
+  --muted:         #94a3b8;
+  --text:          #e2e8f0;
+  --brand:         #2563eb;
+  --brand-2:       #60a5fa;
+  --ok:            #16a34a;
+  --bad:           #dc2626;
+  --border:        #1f2a44;
+  --shadow:        0 10px 30px rgba(0,0,0,.45);
+
+  --radius:        14px;
+  --radius-sm:     10px;
+  --space:         14px;
+  --space-lg:      22px;
+
+  --font-ui:       Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
 }
 
-*{box-sizing:border-box}
-html,body{height:100%}
+*{ box-sizing:border-box; }
+html, body{ height:100%; }
+html{ -webkit-text-size-adjust:100%; }
+
+/* Corps */
 body{
-  margin:0; font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial;
-  background: radial-gradient(1200px 600px at 10% -10%, #0ea5e930, transparent), var(--bg);
+  margin:0;
+  background:var(--bg);
   color:var(--text);
-  -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+  font-family:var(--font-ui);
+  line-height:1.45;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  padding-bottom: calc(env(safe-area-inset-bottom, 0) + 16px);
 }
 
-.appbar{
-  position:sticky; top:0; z-index:30;
-  display:flex; align-items:center; justify-content:space-between;
-  padding:12px 14px; background:linear-gradient(180deg, rgba(2,8,23,.9), rgba(2,8,23,.7));
-  backdrop-filter: saturate(160%) blur(14px); border-bottom:1px solid #1f2937;
+/* Liens & focus */
+a{ color:var(--brand-2); text-decoration:none; }
+a:hover{ text-decoration:underline; }
+:focus-visible{ outline:2px solid var(--brand); outline-offset:2px; }
+
+/* Conteneur principal */
+.container{
+  max-width:980px;
+  margin:0 auto;
+  padding: 18px var(--space);
 }
-.brand{display:flex; gap:12px; align-items:center}
-.logo{font-size:28px}
-.title h1{margin:0; font-size:18px; letter-spacing:.2px}
-.title small{color:var(--muted)}
-.top-actions{display:flex; gap:8px}
-.ghost{background:transparent; border:1px solid #334155; color:var(--text); padding:8px 12px; border-radius:10px}
-.ghost:hover{border-color:#556}
 
-.container{max-width:920px; padding:14px; margin:0 auto}
-.kpis{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:10px 0 16px}
-.kpi{background:linear-gradient(180deg, #0b1225, #0a1020); border:1px solid #1f2a44; border-radius:var(--radius); padding:10px 12px; text-align:center; box-shadow:var(--shadow)}
-.kpi-value{font-size:22px; font-weight:700}
-.kpi-label{font-size:12px; color:var(--muted)}
+/* En-tête */
+.header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:var(--space-lg);
+}
+.title{
+  display:flex; flex-direction:column; gap:4px;
+}
+h1{
+  margin:0;
+  font-size:24px; font-weight:800; letter-spacing:.2px;
+}
+#subtitle{
+  font-size:13px; color:var(--muted);
+}
 
-.card{background:linear-gradient(180deg, #0e162b, #0d1426); border:1px solid #1d2540; border-radius:var(--radius); padding:14px; box-shadow:var(--shadow); margin:14px 0}
-.card-header{display:flex; align-items:center; justify-content:space-between; margin-bottom:10px}
-.lbl{display:block; font-size:13px; color:var(--muted); margin-bottom:6px}
-.grid2{display:grid; grid-template-columns:1fr; gap:12px}
-@media(min-width:680px){ .grid2{grid-template-columns:1fr 1fr} }
-.opts label{display:block; margin:6px 0}
+/* Actions d’en-tête */
+.top-actions{
+  display:flex; align-items:center; gap:8px;
+}
+.top-actions button{
+  height:36px; padding:0 12px; border-radius:10px; border:1px solid var(--border);
+  background:linear-gradient(180deg, #111c34, #0d152a);
+  color:var(--text); font-weight:600;
+}
+.top-actions button:hover{ border-color:#2a3b65; }
 
-.segmented{display:flex; gap:6px}
-.seg{border:1px solid #1f2a44; background:transparent; color:var(--text); padding:6px 10px; border-radius:999px; font-size:14px}
-.seg.active{background:linear-gradient(180deg, var(--primary), var(--primary-2)); color:#00121a; border:0}
+/* Ajout demandé : le bouton "Installer" caché par défaut (iOS ne montre pas l’événement) */
+.top-actions #btn-install{ display:none; } /* sera affiché si beforeinstallprompt dispo */
 
-.goal{display:flex; align-items:center; gap:8px}
-.goal input{width:80px; text-align:center; border:1px solid #243049; background:#0a1221; color:var(--text); padding:8px 6px; border-radius:10px}
-.right{text-align:right}
-.danger{background:linear-gradient(180deg, #ff4747, #e11d48); border:0; color:white; padding:10px 12px; border-radius:12px}
-.primary{background:linear-gradient(180deg, #22d3ee, #0ea5e9); border:0; color:#002637; padding:12px 14px; border-radius:12px; font-weight:700}
-.primary:active{transform:translateY(1px)}
-.actions{display:flex; gap:10px; justify-content:flex-end; margin-top:8px}
+/* KPIs */
+.kpis{
+  display:grid; grid-template-columns:repeat(4,1fr); gap:10px;
+  margin-bottom:var(--space-lg);
+}
+.kpi{
+  background:var(--panel); border:1px solid var(--border); border-radius:var(--radius);
+  padding:12px; box-shadow:var(--shadow);
+}
+.kpi .label{ font-size:12px; color:var(--muted); }
+.kpi .value{ font-size:22px; font-weight:800; margin-top:2px; }
 
-.q-meta{display:flex; gap:10px; align-items:center; margin-bottom:8px}
-.tag{background:#0b3a4a; color:#a5f3fc; padding:4px 8px; border-radius:999px; font-size:12px; border:1px solid #155e75}
-.muted{color:var(--muted); font-size:12px}
+/* Sparkline canvas */
+#spark{
+  width:100%; height:110px; display:block;
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0));
+  border:1px dashed var(--border); border-radius:var(--radius);
+}
 
-h2{margin:6px 0 10px; font-size:18px}
-.choices{display:grid; gap:8px}
+/* Segmented control (modes) */
+.segmented{
+  display:flex; background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:4px;
+  box-shadow:var(--shadow); margin-bottom:var(--space-lg);
+}
+.segmented .seg{
+  flex:1 1 auto; height:38px; border:0; background:transparent; color:var(--text);
+  border-radius:10px; font-weight:700;
+}
+.segmented .seg.active{ background:#16233f; border:1px solid #23345b; }
+
+/* Filtres et options */
+.filters{
+  display:grid; gap:10px; grid-template-columns:1fr;
+  margin-bottom:var(--space-lg);
+}
+.panel{
+  background:var(--panel); border:1px solid var(--border); border-radius:var(--radius);
+  padding:12px; box-shadow:var(--shadow);
+}
+.panel h3{ margin:0 0 8px 0; font-size:14px; color:var(--muted); }
+
+/* Liste des sources (checkbox) */
+#sources{ display:grid; grid-template-columns:1fr; gap:6px; }
+.src{ display:block; margin:6px 0 } /* Ajout explicitement demandé */
+#sources label{
+  display:flex; align-items:center; gap:10px;
+  padding:8px 10px; border-radius:10px; border:1px solid var(--border); background:#0e1730;
+}
+#sources input[type="checkbox"]{ width:18px; height:18px; }
+
+/* Options (toggles) */
+.options{ display:grid; gap:8px; }
+.options label{ display:flex; align-items:center; gap:10px; }
+
+/* Objectif */
+.goal{
+  display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+}
+.goal input{
+  width:80px; height:36px; text-align:center;
+  background:#0d152a; border:1px solid var(--border); color:var(--text); border-radius:8px;
+}
+
+/* Boutons génériques */
+button{
+  background:linear-gradient(180deg, #1b2b53, #16233f);
+  color:var(--text); border:1px solid var(--border); border-radius:12px;
+  height:40px; padding:0 14px; font-weight:700;
+}
+button.ghost{ background:transparent; }
+button.primary{ background:linear-gradient(180deg, #2563eb, #1d4ed8); border-color:#1e40af; }
+
+/* Carte question */
+.card{
+  background:var(--panel); border:1px solid var(--border); border-radius:var(--radius);
+  padding:16px; box-shadow:var(--shadow);
+}
+.meta{
+  display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px;
+  color:var(--muted); font-size:12px;
+}
+#q-text{
+  font-size:18px; font-weight:700; margin:0 0 10px 0;
+}
+#q-choices{ display:grid; gap:8px; margin:10px 0; }
 .choice{
-  display:flex; align-items:flex-start; gap:8px; padding:10px; border:1px solid #253252; border-radius:12px; background:#0b1326;
+  display:grid; grid-template-columns:26px 1fr; gap:10px; align-items:center;
+  padding:10px; border:1px solid var(--border); border-radius:12px; background:#0e1730;
 }
-.choice input{margin-top:3px}
-.choice .letter{width:24px; height:24px; border-radius:50%; display:inline-grid; place-content:center; background:#0c2033; border:1px solid #254161; font-weight:700; color:#7dd3fc}
-.choice.correct{border-color:#136c5e; background:linear-gradient(180deg, #06231a, #09251f)}
-.choice.wrong{border-color:#7f1d1d; background:linear-gradient(180deg, #220909, #1a0a0a)}
-.feedback{min-height:22px; color:#a7f3d0; margin-top:6px}
-.feedback.bad{color:#fecaca}
+.choice input{ width:18px; height:18px; }
+.choice .letter{
+  display:inline-flex; width:24px; height:24px; border-radius:7px; align-items:center; justify-content:center;
+  background:#0a142b; border:1px solid var(--border); font-weight:800; font-size:12px; color:#bcd0ff;
+}
+.choice.correct{ border-color: #155e37; background: #0f1f1a; }
+.choice.wrong{   border-color: #7f1d1d; background: #1a0f12; }
 
-.list{list-style:none; margin:0; padding:0}
-.list li{display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px dashed #1f2a44}
+.feedback{
+  margin-top:8px; padding:10px; border:1px dashed var(--border); border-radius:10px; color:var(--text);
+  background:#0e1730;
+}
+.feedback.bad{ border-color:#7f1d1d; color:#fecaca; background:#1a0f12; }
 
-.foot{padding:40px 14px; color:var(--muted); text-align:center}
+/* Barre d’actions question */
+.actions{
+  display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;
+}
 
-button{cursor:pointer}
-button:disabled{opacity:.6; cursor:not-allowed}
+/* Liste performance par source */
+#by-source{ list-style:none; padding:0; margin:0; display:grid; gap:6px; }
+#by-source li{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:8px 10px; border:1px solid var(--border); border-radius:10px; background:#0e1730;
+}
+.muted{ color:var(--muted); }
 
-kbd{background:#111827; border:1px solid #374151; padding:2px 6px; border-radius:6px; font-size:12px}
+/* Grilles desktop */
+@media (min-width: 900px){
+  .grid{
+    display:grid; gap:14px; grid-template-columns: 320px 1fr;
+    align-items:start;
+  }
+}
 
-canvas{max-width:100%; height:auto; display:block; background:transparent}
+/* Footer léger */
+footer{
+  margin-top:24px; color:var(--muted); font-size:12px; text-align:center;
+}
+
+/* Utilitaires */
+.hidden{ display:none !important; }
+
+/* Ajout demandé (rappel) – bouton Installer masqué par défaut sur iOS */
+.top-actions #btn-install{ display:none } /* sera affiché si beforeinstallprompt dispo */
+
+/* Fin du fichier */
