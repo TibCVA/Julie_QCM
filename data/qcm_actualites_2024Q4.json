@@ -113,8 +113,6 @@
       "answer": "C",
       "answer_text": "Il faut être CAC durabilité (liste L.821-13 II)."
     },
-
-    /* ------------ SLB (11–20) ------------ */
     {
       "question": "Quelle caractéristique distingue les SLB des Green Bonds ?",
       "choices": {
@@ -225,94 +223,160 @@
       "answer": "B",
       "answer_text": "KPI/cibles font foi dans le contrat."
     },
-
-    /* ------------ Formation continue A.821-46 (21–35) ------------ */
     {
       "question": "Obligation annuelle minimale d’un CAC en formation continue :",
-      "choices": { "A": "Aucune", "B": "10 h", "C": "20 h", "D": "30 h" },
+      "choices": {
+        "A": "Aucune",
+        "B": "10 h",
+        "C": "20 h",
+        "D": "30 h"
+      },
       "answer": "C",
       "answer_text": "120 h/3 ans dont au moins 20 h la même année."
     },
     {
       "question": "Volume total sur trois années consécutives :",
-      "choices": { "A": "60 h", "B": "90 h", "C": "100 h", "D": "120 h" },
+      "choices": {
+        "A": "60 h",
+        "B": "90 h",
+        "C": "100 h",
+        "D": "120 h"
+      },
       "answer": "D",
       "answer_text": "120 heures triennales."
     },
     {
       "question": "Limite colloques/conférences sur 3 ans :",
-      "choices": { "A": "Aucune", "B": "20 h", "C": "45 h", "D": "60 h" },
+      "choices": {
+        "A": "Aucune",
+        "B": "20 h",
+        "C": "45 h",
+        "D": "60 h"
+      },
       "answer": "C",
       "answer_text": "Plafond de 45 heures."
     },
     {
       "question": "Heures retenues par an pour concevoir/assurer des formations :",
-      "choices": { "A": "10 h", "B": "20 h", "C": "30 h", "D": "45 h" },
+      "choices": {
+        "A": "10 h",
+        "B": "20 h",
+        "C": "30 h",
+        "D": "45 h"
+      },
       "answer": "B",
       "answer_text": "Conception/animation : 20 h/an maximum."
     },
     {
       "question": "Limite triennale pour la rédaction/publication de travaux techniques :",
-      "choices": { "A": "10 h", "B": "20 h", "C": "30 h", "D": "45 h" },
+      "choices": {
+        "A": "10 h",
+        "B": "20 h",
+        "C": "30 h",
+        "D": "45 h"
+      },
       "answer": "C",
       "answer_text": "Plafond 30 h/3 ans."
     },
     {
       "question": "Les programmes d’autoformation encadrée comptent-ils ?",
-      "choices": { "A": "Non", "B": "Oui", "C": "Uniquement si accrédités ISO", "D": "Au-delà de 20 h" },
+      "choices": {
+        "A": "Non",
+        "B": "Oui",
+        "C": "Uniquement si accrédités ISO",
+        "D": "Au-delà de 20 h"
+      },
       "answer": "B",
       "answer_text": "Ils entrent dans l’obligation."
     },
     {
       "question": "Participation à des travaux techniques : plafond :",
-      "choices": { "A": "10 h/an", "B": "20 h/an", "C": "30 h/3 ans", "D": "45 h/3 ans" },
+      "choices": {
+        "A": "10 h/an",
+        "B": "20 h/an",
+        "C": "30 h/3 ans",
+        "D": "45 h/3 ans"
+      },
       "answer": "B",
       "answer_text": "20 heures par an."
     },
     {
       "question": "Programme de formation continue particulière :",
-      "choices": { "A": "Non pris en compte", "B": "Compte dans l’obligation", "C": "Réservé aux EIP", "D": "Remplace la formation générale" },
+      "choices": {
+        "A": "Non pris en compte",
+        "B": "Compte dans l’obligation",
+        "C": "Réservé aux EIP",
+        "D": "Remplace la formation générale"
+      },
       "answer": "B",
       "answer_text": "Il se cumule dans les 120 h."
     },
     {
       "question": "La base réglementaire citée pour l’obligation de formation :",
-      "choices": { "A": "L.821-10", "B": "A.821-46", "C": "L.821-31", "D": "D.821-82" },
+      "choices": {
+        "A": "L.821-10",
+        "B": "A.821-46",
+        "C": "L.821-31",
+        "D": "D.821-82"
+      },
       "answer": "B",
       "answer_text": "Article A.821-46."
     },
     {
       "question": "Enseignement à distance encadré :",
-      "choices": { "A": "Ne compte pas", "B": "Compte dans les 120 h", "C": "Limité à 10 h/an", "D": "Nécessite accréditation COFRAC" },
+      "choices": {
+        "A": "Ne compte pas",
+        "B": "Compte dans les 120 h",
+        "C": "Limité à 10 h/an",
+        "D": "Nécessite accréditation COFRAC"
+      },
       "answer": "B",
       "answer_text": "Pris en compte, sous encadrement."
     },
     {
       "question": "Cours à l’université : limite annuelle retenue :",
-      "choices": { "A": "Non pris en compte", "B": "45 h/an", "C": "20 h/an", "D": "30 h/3 ans" },
+      "choices": {
+        "A": "Non pris en compte",
+        "B": "45 h/an",
+        "C": "20 h/an",
+        "D": "30 h/3 ans"
+      },
       "answer": "C",
       "answer_text": "Jusqu’à 20 h/an."
     },
     {
       "question": "Un colloque d’une journée (7 h) :",
-      "choices": { "A": "Jamais retenu", "B": "Retenu dans la limite 45 h/3 ans", "C": "Compense l’obligation annuelle", "D": "Valide automatiquement 20 h" },
+      "choices": {
+        "A": "Jamais retenu",
+        "B": "Retenu dans la limite 45 h/3 ans",
+        "C": "Compense l’obligation annuelle",
+        "D": "Valide automatiquement 20 h"
+      },
       "answer": "B",
       "answer_text": "Entre dans le plafond colloques."
     },
     {
       "question": "Somme de toutes activités de formation sur 3 ans :",
-      "choices": { "A": "Ne dépasse jamais 120 h", "B": "Peut dépasser 120 h", "C": "Remplace les formations structurées", "D": "Sans plafond" },
+      "choices": {
+        "A": "Ne dépasse jamais 120 h",
+        "B": "Peut dépasser 120 h",
+        "C": "Remplace les formations structurées",
+        "D": "Sans plafond"
+      },
       "answer": "A",
       "answer_text": "Le total reste 120 h sur 3 ans."
     },
     {
       "question": "Les autoformations encadrées et webinaires :",
-      "choices": { "A": "Exclus", "B": "Pris en compte dans les plafonds", "C": "Comptent double", "D": "Réservés aux EIP" },
+      "choices": {
+        "A": "Exclus",
+        "B": "Pris en compte dans les plafonds",
+        "C": "Comptent double",
+        "D": "Réservés aux EIP"
+      },
       "answer": "B",
       "answer_text": "Comptabilisés selon les plafonds applicables."
     },
-
-    /* ------------ Incompatibilités/Indépendance (36–50) ------------ */
     {
       "question": "Activité incompatible de manière générale avec la fonction de CAC :",
       "choices": {
@@ -359,406 +423,719 @@
     },
     {
       "question": "Emploi rémunéré chez un expert-comptable :",
-      "choices": { "A": "Toujours incompatible", "B": "Toujours compatible", "C": "Admis par L.821-27", "D": "Compatible seulement en enseignement" },
+      "choices": {
+        "A": "Toujours incompatible",
+        "B": "Toujours compatible",
+        "C": "Admis par L.821-27",
+        "D": "Compatible seulement en enseignement"
+      },
       "answer": "C",
       "answer_text": "C’est une des exceptions prévues par le texte."
     },
     {
       "question": "Qui, en plus des associés, est visé par l’interdiction de transactions ?",
-      "choices": { "A": "Uniquement stagiaires", "B": "Uniquement le signataire", "C": "Toute personne participant à la mission", "D": "Les clients du cabinet" },
+      "choices": {
+        "A": "Uniquement stagiaires",
+        "B": "Uniquement le signataire",
+        "C": "Toute personne participant à la mission",
+        "D": "Les clients du cabinet"
+      },
       "answer": "C",
       "answer_text": "Interdiction étendue à toute personne impliquée."
     },
     {
       "question": "Intérêt dans une filiale de l’entité auditée :",
-      "choices": { "A": "Autorisé si non consolidée", "B": "Prohibé également", "C": "Interdit uniquement pour EIP", "D": "Sans effet" },
+      "choices": {
+        "A": "Autorisé si non consolidée",
+        "B": "Prohibé également",
+        "C": "Interdit uniquement pour EIP",
+        "D": "Sans effet"
+      },
       "answer": "B",
       "answer_text": "L.821-31 vise contrôlées/contrôlante."
     },
     {
       "question": "L’enseignement rattaché à la profession :",
-      "choices": { "A": "Interdit", "B": "Exception admise à l’interdiction d’emploi salarié", "C": "Soumis à autorisation H2A", "D": "Ne compte pas en formation" },
+      "choices": {
+        "A": "Interdit",
+        "B": "Exception admise à l’interdiction d’emploi salarié",
+        "C": "Soumis à autorisation H2A",
+        "D": "Ne compte pas en formation"
+      },
       "answer": "B",
       "answer_text": "Exception expresse de L.821-27."
     },
     {
       "question": "Détention d’un fonds indiciel large comprenant l’émetteur :",
-      "choices": { "A": "Explicitement autorisée par la diapo", "B": "Non détaillée ; prudence au regard de l’indépendance", "C": "Interdite sans exception", "D": "Autorisé pour non-EIP" },
+      "choices": {
+        "A": "Explicitement autorisée par la diapo",
+        "B": "Non détaillée ; prudence au regard de l’indépendance",
+        "C": "Interdite sans exception",
+        "D": "Autorisé pour non-EIP"
+      },
       "answer": "B",
       "answer_text": "Non traité ; appliquer l’analyse d’indépendance."
     },
     {
       "question": "La règle d’interdiction s’applique aux missions :",
-      "choices": { "A": "Comptes uniquement", "B": "Comptes et informations de durabilité", "C": "Conseil", "D": "Compilation" },
+      "choices": {
+        "A": "Comptes uniquement",
+        "B": "Comptes et informations de durabilité",
+        "C": "Conseil",
+        "D": "Compilation"
+      },
       "answer": "B",
       "answer_text": "La mission de certification englobe comptes et durabilité."
     },
     {
       "question": "Possession indirecte d’un intérêt comprend :",
-      "choices": { "A": "Uniquement titres en direct", "B": "Intérêts via véhicules contrôlés", "C": "Uniquement dérivés", "D": "Uniquement titres nominatifs" },
+      "choices": {
+        "A": "Uniquement titres en direct",
+        "B": "Intérêts via véhicules contrôlés",
+        "C": "Uniquement dérivés",
+        "D": "Uniquement titres nominatifs"
+      },
       "answer": "B",
       "answer_text": "La notion couvre l’indirect (véhicules contrôlés)."
     },
     {
       "question": "Salarié du cabinet participant ponctuellement :",
-      "choices": { "A": "Peut négocier après accord", "B": "Libre si intérêt non substantiel", "C": "Soumis à l’interdiction de transaction", "D": "Non concerné" },
+      "choices": {
+        "A": "Peut négocier après accord",
+        "B": "Libre si intérêt non substantiel",
+        "C": "Soumis à l’interdiction de transaction",
+        "D": "Non concerné"
+      },
       "answer": "C",
       "answer_text": "Toute personne participant à la mission est visée."
     },
     {
       "question": "Activité commerciale non accessoire à l’EC :",
-      "choices": { "A": "Prohibée par L.821-27", "B": "Permise < 10 k€", "C": "Selon comité d’audit", "D": "Permise hors ressort" },
+      "choices": {
+        "A": "Prohibée par L.821-27",
+        "B": "Permise < 10 k€",
+        "C": "Selon comité d’audit",
+        "D": "Permise hors ressort"
+      },
       "answer": "A",
       "answer_text": "Interdite de principe."
     },
     {
       "question": "Contrôle du respect de l’indépendance :",
-      "choices": { "A": "Assemblées générales", "B": "Contrôles H2A/H3C et revues de mandats", "C": "Contrôles fiscaux", "D": "AMF uniquement" },
+      "choices": {
+        "A": "Assemblées générales",
+        "B": "Contrôles H2A/H3C et revues de mandats",
+        "C": "Contrôles fiscaux",
+        "D": "AMF uniquement"
+      },
       "answer": "B",
       "answer_text": "Thème des contrôles 2023."
     },
     {
       "question": "Base juridique mentionnée pour les incompatibilités/indépendance :",
-      "choices": { "A": "L.821-27 & L.821-31", "B": "L.823-10", "C": "A.225-1", "D": "C. mon. fin." },
+      "choices": {
+        "A": "L.821-27 & L.821-31",
+        "B": "L.823-10",
+        "C": "A.225-1",
+        "D": "C. mon. fin."
+      },
       "answer": "A",
       "answer_text": "Articles cités sur la diapo déontologie."
     },
-
-    /* ------------ Signalement & révélation (51–60) ------------ */
     {
       "question": "À qui le CAC signale-t-il les irrégularités/inexactitudes ?",
-      "choices": { "A": "Uniquement à l’AG", "B": "À la plus prochaine AG ou organe compétent", "C": "Au comité d’audit uniquement", "D": "À la H2A" },
+      "choices": {
+        "A": "Uniquement à l’AG",
+        "B": "À la plus prochaine AG ou organe compétent",
+        "C": "Au comité d’audit uniquement",
+        "D": "À la H2A"
+      },
       "answer": "B",
       "answer_text": "Signalement à la prochaine AG ou organe compétent."
     },
     {
       "question": "Dans quels cas informer aussi les organes d’administration/direction ?",
-      "choices": { "A": "Toujours", "B": "Jamais", "C": "En cas de mission de certification des comptes ou de durabilité", "D": "Uniquement pour les EIP" },
+      "choices": {
+        "A": "Toujours",
+        "B": "Jamais",
+        "C": "En cas de mission de certification des comptes ou de durabilité",
+        "D": "Uniquement pour les EIP"
+      },
       "answer": "C",
       "answer_text": "Ajout prévu par L.821-63 (durabilité)."
     },
     {
       "question": "Que doit faire le CAC face à des faits délictueux ?",
-      "choices": { "A": "Les garder sous scellés", "B": "Les révéler au procureur", "C": "Les soumettre au vote de l’AG", "D": "Les adresser à l’AMF" },
+      "choices": {
+        "A": "Les garder sous scellés",
+        "B": "Les révéler au procureur",
+        "C": "Les soumettre au vote de l’AG",
+        "D": "Les adresser à l’AMF"
+      },
       "answer": "B",
       "answer_text": "Révélation obligatoire au procureur."
     },
     {
       "question": "Le signalement prévu par L.821-10 concerne :",
-      "choices": { "A": "Uniquement fraude fiscale", "B": "Irrégularités et inexactitudes", "C": "Uniquement LCB-FT", "D": "Uniquement EIP" },
+      "choices": {
+        "A": "Uniquement fraude fiscale",
+        "B": "Irrégularités et inexactitudes",
+        "C": "Uniquement LCB-FT",
+        "D": "Uniquement EIP"
+      },
       "answer": "B",
       "answer_text": "Portée générale du texte."
     },
     {
       "question": "Révélation au procureur remplace-t-elle le signalement AG ?",
-      "choices": { "A": "Oui", "B": "Non, obligations distinctes", "C": "Uniquement pour non-EIP", "D": "Uniquement en 2024" },
+      "choices": {
+        "A": "Oui",
+        "B": "Non, obligations distinctes",
+        "C": "Uniquement pour non-EIP",
+        "D": "Uniquement en 2024"
+      },
       "answer": "B",
       "answer_text": "Les deux obligations se cumulent selon les cas."
     },
     {
       "question": "Base du dispositif de signalement citée :",
-      "choices": { "A": "L.821-27", "B": "L.821-10", "C": "A.821-46", "D": "D.821-82" },
+      "choices": {
+        "A": "L.821-27",
+        "B": "L.821-10",
+        "C": "A.821-46",
+        "D": "D.821-82"
+      },
       "answer": "B",
       "answer_text": "L.821-10 (révélation/irrégularités)."
     },
     {
       "question": "Le support précise cette obligation pour le CAC qui :",
-      "choices": { "A": "Assure une mission es qualité de CAC", "B": "Fait du seul conseil", "C": "Intervient en audit interne", "D": "N’est pas signataire" },
+      "choices": {
+        "A": "Assure une mission es qualité de CAC",
+        "B": "Fait du seul conseil",
+        "C": "Intervient en audit interne",
+        "D": "N’est pas signataire"
+      },
       "answer": "A",
       "answer_text": "Visé dès qu’il agit en qualité de CAC."
     },
     {
       "question": "Information des organes d’administration/direction est liée :",
-      "choices": { "A": "Au comité RSE", "B": "À la certification comptes/durabilité", "C": "À la rotation", "D": "À la présence d’une filiale" },
+      "choices": {
+        "A": "Au comité RSE",
+        "B": "À la certification comptes/durabilité",
+        "C": "À la rotation",
+        "D": "À la présence d’une filiale"
+      },
       "answer": "B",
       "answer_text": "Liée à la mission de certification."
     },
     {
       "question": "La révélation au procureur est :",
-      "choices": { "A": "Facultative", "B": "Obligatoire pour des faits délictueux", "C": "Soumise à accord du client", "D": "Limitée aux EIP" },
+      "choices": {
+        "A": "Facultative",
+        "B": "Obligatoire pour des faits délictueux",
+        "C": "Soumise à accord du client",
+        "D": "Limitée aux EIP"
+      },
       "answer": "B",
       "answer_text": "Obligation légale de révélation."
     },
     {
       "question": "Référence complémentaire mentionnée :",
-      "choices": { "A": "L.821-54", "B": "L.821-63 (durabilité)", "C": "L.822-11-3", "D": "A.225-1" },
+      "choices": {
+        "A": "L.821-54",
+        "B": "L.821-63 (durabilité)",
+        "C": "L.822-11-3",
+        "D": "A.225-1"
+      },
       "answer": "B",
       "answer_text": "Renvoi à L.821-63 pour la durabilité."
     },
-
-    /* ------------ Contrôles 2023 H3C/H2A (61–75) ------------ */
     {
       "question": "Nombre de contrôles de cabinets EIP en 2023 :",
-      "choices": { "A": "52", "B": "60", "C": "72", "D": "97" },
+      "choices": {
+        "A": "52",
+        "B": "60",
+        "C": "72",
+        "D": "97"
+      },
       "answer": "C",
       "answer_text": "72 contrôles EIP."
     },
     {
       "question": "Contrôles de cabinets non EIP en 2023 (majoritairement CNCC) :",
-      "choices": { "A": "426", "B": "526", "C": "726", "D": "926" },
+      "choices": {
+        "A": "426",
+        "B": "526",
+        "C": "726",
+        "D": "926"
+      },
       "answer": "C",
       "answer_text": "726 non EIP dont 707 par la CNCC."
     },
     {
       "question": "Taux d’insuffisance NEP 330 chez les EIP (2023) :",
-      "choices": { "A": "38 %", "B": "52 %", "C": "60 %", "D": "65 %"},
+      "choices": {
+        "A": "38 %",
+        "B": "52 %",
+        "C": "60 %",
+        "D": "65 %"
+      },
       "answer": "C",
       "answer_text": "NEP 330 : 60 % pour les EIP."
     },
     {
       "question": "Taux d’insuffisance NEP 600 chez les non EIP (2023) :",
-      "choices": { "A": "10 %", "B": "20 %", "C": "35 %", "D": "38 %" },
+      "choices": {
+        "A": "10 %",
+        "B": "20 %",
+        "C": "35 %",
+        "D": "38 %"
+      },
       "answer": "D",
       "answer_text": "NEP 600 : 38 % non EIP (65 % EIP)."
     },
     {
       "question": "NEP 230 (documentation), insuffisance chez les EIP (2023) :",
-      "choices": { "A": "35 %", "B": "52 %", "C": "60 %", "D": "65 %" },
+      "choices": {
+        "A": "35 %",
+        "B": "52 %",
+        "C": "60 %",
+        "D": "65 %"
+      },
       "answer": "B",
       "answer_text": "NEP 230 : 52 % EIP."
     },
     {
       "question": "Thèmes particulièrement vérifiés en 2023 :",
-      "choices": { "A": "Formation, indépendance, LCB-FT, acceptation/poursuite", "B": "IFRS 15", "C": "Devises", "D": "Crypto-actifs" },
+      "choices": {
+        "A": "Formation, indépendance, LCB-FT, acceptation/poursuite",
+        "B": "IFRS 15",
+        "C": "Devises",
+        "D": "Crypto-actifs"
+      },
       "answer": "A",
       "answer_text": "Ces thèmes sont listés dans le panorama."
     },
     {
       "question": "Taux d’insuffisance NEP 540 chez les non EIP (2023) :",
-      "choices": { "A": "1 %", "B": "10 %", "C": "13 %", "D": "20 %" },
+      "choices": {
+        "A": "1 %",
+        "B": "10 %",
+        "C": "13 %",
+        "D": "20 %"
+      },
       "answer": "A",
       "answer_text": "NEP 540 : 1 % non EIP (55 % EIP)."
     },
     {
       "question": "NEP affichant ~13 % d’insuffisance chez les EIP (10 % non EIP) :",
-      "choices": { "A": "NEP 315", "B": "NEP 330", "C": "NEP 570", "D": "NEP 9605" },
+      "choices": {
+        "A": "NEP 315",
+        "B": "NEP 330",
+        "C": "NEP 570",
+        "D": "NEP 9605"
+      },
       "answer": "C",
       "answer_text": "NEP 570 – continuité d’exploitation."
     },
     {
       "question": "Part des contrôles non EIP assurés par la CNCC (2023) :",
-      "choices": { "A": "65 %", "B": "80 %", "C": "97 %", "D": "100 %" },
+      "choices": {
+        "A": "65 %",
+        "B": "80 %",
+        "C": "97 %",
+        "D": "100 %"
+      },
       "answer": "C",
       "answer_text": "707/726 ≈ 97 %."
     },
     {
       "question": "NEP visées par les vérifications thématiques sur mandats (2023) :",
-      "choices": { "A": "315, 330 et 600", "B": "500, 520 et 570", "C": "402, 550 et 710", "D": "240, 265 et 402" },
+      "choices": {
+        "A": "315, 330 et 600",
+        "B": "500, 520 et 570",
+        "C": "402, 550 et 710",
+        "D": "240, 265 et 402"
+      },
       "answer": "A",
       "answer_text": "315/330/600 explicitement citées."
     },
     {
       "question": "Autres vérifications 2023 incluent :",
-      "choices": { "A": "Prévention des difficultés des entreprises", "B": "Seule LCB-FT", "C": "Uniquement IFRS 9", "D": "Aucune" },
+      "choices": {
+        "A": "Prévention des difficultés des entreprises",
+        "B": "Seule LCB-FT",
+        "C": "Uniquement IFRS 9",
+        "D": "Aucune"
+      },
       "answer": "A",
       "answer_text": "Thème listé par le H3C."
     },
     {
       "question": "Dispositif de contrôle de qualité interne :",
-      "choices": { "A": "L.821-10", "B": "A.821-46", "C": "D.821-82", "D": "L.822-11-3" },
+      "choices": {
+        "A": "L.821-10",
+        "B": "A.821-46",
+        "C": "D.821-82",
+        "D": "L.822-11-3"
+      },
       "answer": "C",
       "answer_text": "Référence citée : D.821-82."
     },
     {
       "question": "Taux d’insuffisance NEP 315 chez les EIP (2023) :",
-      "choices": { "A": "20 %", "B": "27 %", "C": "35 %", "D": "38 %" },
+      "choices": {
+        "A": "20 %",
+        "B": "27 %",
+        "C": "35 %",
+        "D": "38 %"
+      },
       "answer": "D",
       "answer_text": "NEP 315 : 38 % EIP (20 % non EIP)."
     },
     {
       "question": "Taux d’insuffisance NEP 9605 chez les non EIP (2023) :",
-      "choices": { "A": "1 %", "B": "4 %", "C": "10 %", "D": "20 %" },
+      "choices": {
+        "A": "1 %",
+        "B": "4 %",
+        "C": "10 %",
+        "D": "20 %"
+      },
       "answer": "B",
       "answer_text": "NEP 9605 : 4 % non EIP (20 % EIP)."
     },
     {
       "question": "Bonne combinaison des volumes de contrôles 2023 :",
-      "choices": { "A": "EIP 72 / non EIP 726 (707 CNCC)", "B": "EIP 97 / non EIP 503", "C": "EIP 60 / non EIP 600", "D": "EIP 52 / non EIP 452" },
+      "choices": {
+        "A": "EIP 72 / non EIP 726 (707 CNCC)",
+        "B": "EIP 97 / non EIP 503",
+        "C": "EIP 60 / non EIP 600",
+        "D": "EIP 52 / non EIP 452"
+      },
       "answer": "A",
       "answer_text": "Chiffres exacts rappelés par la présentation."
     },
-
-    /* ------------ Liste des CAC & H2A (76–80) ------------ */
     {
       "question": "Modifications d’une société de CAC à notifier à la H2A :",
-      "choices": { "A": "Changement d’adresse seul", "B": "Forme sociale, répartition droits de vote, dirigeants", "C": "Arrivée d’un associé", "D": "Changement d’enseigne" },
+      "choices": {
+        "A": "Changement d’adresse seul",
+        "B": "Forme sociale, répartition droits de vote, dirigeants",
+        "C": "Arrivée d’un associé",
+        "D": "Changement d’enseigne"
+      },
       "answer": "B",
       "answer_text": "Ces trois cas sont listés explicitement."
     },
     {
       "question": "À défaut d’information de la H2A, l’inscription modificative au greffe :",
-      "choices": { "A": "Sans effet", "B": "Suspendue", "C": "Radiée", "D": "Amendée" },
+      "choices": {
+        "A": "Sans effet",
+        "B": "Suspendue",
+        "C": "Radiée",
+        "D": "Amendée"
+      },
       "answer": "B",
       "answer_text": "Suspension de l’inscription modificative."
     },
     {
       "question": "Pour modifier la liste des CAC il faut :",
-      "choices": { "A": "Publication au JORF", "B": "Décision de la H2A", "C": "Accord du comité d’audit", "D": "Vote CNCC" },
+      "choices": {
+        "A": "Publication au JORF",
+        "B": "Décision de la H2A",
+        "C": "Accord du comité d’audit",
+        "D": "Vote CNCC"
+      },
       "answer": "B",
       "answer_text": "Nécessité d’une décision H2A."
     },
     {
       "question": "Entités concernées par ces obligations :",
-      "choices": { "A": "Uniquement EIP", "B": "Toutes les sociétés de CAC concernées", "C": "Structures > 10 associés", "D": "Région Île-de-France seulement" },
+      "choices": {
+        "A": "Uniquement EIP",
+        "B": "Toutes les sociétés de CAC concernées",
+        "C": "Structures > 10 associés",
+        "D": "Région Île-de-France seulement"
+      },
       "answer": "B",
       "answer_text": "Aucune restriction aux EIP sur la diapo."
     },
     {
       "question": "Lien de ces obligations avec la H2A :",
-      "choices": { "A": "Certification des comptes", "B": "Tenue/actualisation de la liste", "C": "Fixation des honoraires", "D": "Formation professionnelle" },
+      "choices": {
+        "A": "Certification des comptes",
+        "B": "Tenue/actualisation de la liste",
+        "C": "Fixation des honoraires",
+        "D": "Formation professionnelle"
+      },
       "answer": "B",
       "answer_text": "Rôle de la H2A sur la liste."
     },
-
-    /* ------------ Modernisation états financiers ANC 2022-06 (81–100) ------------ */
     {
       "question": "Quand un élément est-il « exceptionnel » (ANC 2022-06) ?",
-      "choices": { "A": "Dès qu’il est inhabituel", "B": "S’il est non récurrent par nature", "C": "S’il résulte d’événements majeurs non récurrents à effet significatif", "D": "S’il dépasse 50 k€" },
+      "choices": {
+        "A": "Dès qu’il est inhabituel",
+        "B": "S’il est non récurrent par nature",
+        "C": "S’il résulte d’événements majeurs non récurrents à effet significatif",
+        "D": "S’il dépasse 50 k€"
+      },
       "answer": "C",
       "answer_text": "Caractère majeur/rare et effets significatifs."
     },
     {
       "question": "Exemple d’événement pouvant conduire à un résultat exceptionnel :",
-      "choices": { "A": "Variation courante de stock", "B": "Catastrophe naturelle ou expropriation", "C": "Escompte obtenu", "D": "Frais de formation" },
+      "choices": {
+        "A": "Variation courante de stock",
+        "B": "Catastrophe naturelle ou expropriation",
+        "C": "Escompte obtenu",
+        "D": "Frais de formation"
+      },
       "answer": "B",
       "answer_text": "Exemples listés : catastrophe, expropriation…"
     },
     {
       "question": "Les transferts de charges (sauf subrogation) :",
-      "choices": { "A": "Sont maintenus", "B": "Sont supprimés", "C": "Réservés aux EIP", "D": "Obligatoires pour assurances" },
+      "choices": {
+        "A": "Sont maintenus",
+        "B": "Sont supprimés",
+        "C": "Réservés aux EIP",
+        "D": "Obligatoires pour assurances"
+      },
       "answer": "B",
       "answer_text": "Suppression hors subrogation."
     },
     {
       "question": "Conséquence de la suppression des transferts :",
-      "choices": { "A": "Baisse résultat imposable", "B": "Meilleure comparabilité et ventilation à l’origine", "C": "Annexe allégée obligatoire", "D": "Suppression du bilan" },
+      "choices": {
+        "A": "Baisse résultat imposable",
+        "B": "Meilleure comparabilité et ventilation à l’origine",
+        "C": "Annexe allégée obligatoire",
+        "D": "Suppression du bilan"
+      },
       "answer": "B",
       "answer_text": "Comparabilité et rattachement par nature."
     },
     {
       "question": "Modèles de bilan désormais possibles :",
-      "choices": { "A": "Liste uniquement", "B": "Tableau ou liste", "C": "Tableau uniquement", "D": "IFRS seulement" },
+      "choices": {
+        "A": "Liste uniquement",
+        "B": "Tableau ou liste",
+        "C": "Tableau uniquement",
+        "D": "IFRS seulement"
+      },
       "answer": "B",
       "answer_text": "Deux formats normalisés."
     },
     {
       "question": "Classement des indemnités d’assurance :",
-      "choices": { "A": "Toujours exceptionnel", "B": "Toujours exploitation", "C": "Selon nature (dommages vs pertes d’exploitation…)", "D": "Uniquement financier" },
+      "choices": {
+        "A": "Toujours exceptionnel",
+        "B": "Toujours exploitation",
+        "C": "Selon nature (dommages vs pertes d’exploitation…)",
+        "D": "Uniquement financier"
+      },
       "answer": "C",
       "answer_text": "Traitement selon la nature de l’indemnité."
     },
     {
       "question": "La structure de l’annexe :",
-      "choices": { "A": "Inchangée", "B": "Réorganisée et allégée sur certains points", "C": "Remplacée par rapport de gestion", "D": "Supprimée pour PME" },
+      "choices": {
+        "A": "Inchangée",
+        "B": "Réorganisée et allégée sur certains points",
+        "C": "Remplacée par rapport de gestion",
+        "D": "Supprimée pour PME"
+      },
       "answer": "B",
       "answer_text": "Réorganisation présentée dans le diaporama."
     },
     {
       "question": "La réforme modernise :",
-      "choices": { "A": "Uniquement le résultat financier", "B": "Appellations/sous-totaux, présentation, principes de classement", "C": "Uniquement la liasse fiscale", "D": "Le plan des collectivités" },
+      "choices": {
+        "A": "Uniquement le résultat financier",
+        "B": "Appellations/sous-totaux, présentation, principes de classement",
+        "C": "Uniquement la liasse fiscale",
+        "D": "Le plan des collectivités"
+      },
       "answer": "B",
       "answer_text": "Plusieurs volets de présentation."
     },
     {
       "question": "Appréciation de l’« exceptionnel » :",
-      "choices": { "A": "Seuil monétaire unique", "B": "Rareté/événement majeur/effet significatif", "C": "Comparaison sectorielle", "D": "Décision AG" },
+      "choices": {
+        "A": "Seuil monétaire unique",
+        "B": "Rareté/événement majeur/effet significatif",
+        "C": "Comparaison sectorielle",
+        "D": "Décision AG"
+      },
       "answer": "B",
       "answer_text": "Pas de seuil monétaire unique."
     },
     {
       "question": "Sous-totaux modernisés du compte de résultat :",
-      "choices": { "A": "Exploitation, financier, exceptionnel modernisés", "B": "Résultat net seul", "C": "Exploitation et financier uniquement", "D": "Cinq agrégats IFRS" },
+      "choices": {
+        "A": "Exploitation, financier, exceptionnel modernisés",
+        "B": "Résultat net seul",
+        "C": "Exploitation et financier uniquement",
+        "D": "Cinq agrégats IFRS"
+      },
       "answer": "A",
       "answer_text": "Le règlement précise la présentation."
     },
     {
       "question": "Traitement d’éléments ordinaires mis autrefois en 'exceptionnel' :",
-      "choices": { "A": "Maintien", "B": "Reclassement par nature adéquate", "C": "Suppression", "D": "Annexe seule" },
+      "choices": {
+        "A": "Maintien",
+        "B": "Reclassement par nature adéquate",
+        "C": "Suppression",
+        "D": "Annexe seule"
+      },
       "answer": "B",
       "answer_text": "Exceptionnel resserré → reclassement."
     },
     {
       "question": "Caractérisation des « événements majeurs » :",
-      "choices": { "A": "Fréquents et peu significatifs", "B": "Rares et d’ampleur importante", "C": "Non budgétés", "D": "Changements d’estimation" },
+      "choices": {
+        "A": "Fréquents et peu significatifs",
+        "B": "Rares et d’ampleur importante",
+        "C": "Non budgétés",
+        "D": "Changements d’estimation"
+      },
       "answer": "B",
       "answer_text": "Rares, effets significatifs."
     },
     {
       "question": "Indemnités d’assurance — cas d’exploitation :",
-      "choices": { "A": "Toujours financière", "B": "Peut relever de l’exploitation (pertes d’exploitation)", "C": "Anti-réglementaire", "D": "Jamais au compte de résultat" },
+      "choices": {
+        "A": "Toujours financière",
+        "B": "Peut relever de l’exploitation (pertes d’exploitation)",
+        "C": "Anti-réglementaire",
+        "D": "Jamais au compte de résultat"
+      },
       "answer": "B",
       "answer_text": "Selon la nature (ex. pertes d’exploitation)."
     },
     {
       "question": "Objectif général de la modernisation :",
-      "choices": { "A": "Alléger contrôle fiscal", "B": "Renforcer lisibilité et comparabilité", "C": "Supprimer l’annexe", "D": "Imposer IFRS" },
+      "choices": {
+        "A": "Alléger contrôle fiscal",
+        "B": "Renforcer lisibilité et comparabilité",
+        "C": "Supprimer l’annexe",
+        "D": "Imposer IFRS"
+      },
       "answer": "B",
       "answer_text": "Lisibilité et comparabilité accrues."
     },
     {
       "question": "Impact sur le plan de comptes :",
-      "choices": { "A": "Aucun", "B": "Ajustements liés aux nouvelles présentations", "C": "Uniquement banques", "D": "Uniquement assurances" },
+      "choices": {
+        "A": "Aucun",
+        "B": "Ajustements liés aux nouvelles présentations",
+        "C": "Uniquement banques",
+        "D": "Uniquement assurances"
+      },
       "answer": "B",
       "answer_text": "Des adaptations du plan sont prévues."
     },
     {
       "question": "Événement ordinaire d’un montant élevé est-il « exceptionnel » ?",
-      "choices": { "A": "Oui", "B": "Non", "C": "Si > 5 % du CA", "D": "Si > 1 M€" },
+      "choices": {
+        "A": "Oui",
+        "B": "Non",
+        "C": "Si > 5 % du CA",
+        "D": "Si > 1 M€"
+      },
       "answer": "B",
       "answer_text": "La nature prime sur le seul montant."
     },
     {
       "question": "Le diaporama fournit-il des exemples d’« exceptionnel » ?",
-      "choices": { "A": "Oui (catastrophe, expropriation…)", "B": "Non", "C": "Uniquement fiscaux", "D": "Uniquement financiers" },
+      "choices": {
+        "A": "Oui (catastrophe, expropriation…)",
+        "B": "Non",
+        "C": "Uniquement fiscaux",
+        "D": "Uniquement financiers"
+      },
       "answer": "A",
       "answer_text": "Exemples concrets listés."
     },
     {
       "question": "Approche de ventilation des charges après suppression des transferts :",
-      "choices": { "A": "Créer 'autres produits'", "B": "Ventiler dans les postes d’origine", "C": "Rester en 791", "D": "Annexe seulement" },
+      "choices": {
+        "A": "Créer 'autres produits'",
+        "B": "Ventiler dans les postes d’origine",
+        "C": "Rester en 791",
+        "D": "Annexe seulement"
+      },
       "answer": "B",
       "answer_text": "Ventilation par nature d’origine."
     },
     {
       "question": "Présentation du bilan — liberté offerte :",
-      "choices": { "A": "Libre sans cadre", "B": "Choix entre deux formats normalisés", "C": "Liste uniquement", "D": "Tableau uniquement" },
+      "choices": {
+        "A": "Libre sans cadre",
+        "B": "Choix entre deux formats normalisés",
+        "C": "Liste uniquement",
+        "D": "Tableau uniquement"
+      },
       "answer": "B",
       "answer_text": "Choix entre tableau et liste."
     },
-
-    /* ------------ Scissions partielles (101–105) ------------ */
     {
       "question": "Principe d’allocation des valeurs comptables en scission partielle :",
-      "choices": { "A": "Juste valeur systématique", "B": "Proportionnalité et maintien des VNC", "C": "Annulation plus-values latentes", "D": "Passage en résultat" },
+      "choices": {
+        "A": "Juste valeur systématique",
+        "B": "Proportionnalité et maintien des VNC",
+        "C": "Annulation plus-values latentes",
+        "D": "Passage en résultat"
+      },
       "answer": "B",
       "answer_text": "Répartition par VNC (PCG 747-1/747-2)."
     },
     {
       "question": "Traitement de la VNC des immobilisations transférées :",
-      "choices": { "A": "À la juste valeur", "B": "À la VNC répartie selon PCG", "C": "En charges exceptionnelles", "D": "En capitaux propres" },
+      "choices": {
+        "A": "À la juste valeur",
+        "B": "À la VNC répartie selon PCG",
+        "C": "En charges exceptionnelles",
+        "D": "En capitaux propres"
+      },
       "answer": "B",
       "answer_text": "Application des règles PCG."
     },
     {
       "question": "La scission partielle entraîne :",
-      "choices": { "A": "Aucune modification de périmètre", "B": "Changement d’entité pour les actifs transférés", "C": "Fusion parallèle obligatoire", "D": "Consolidation IFRS automatique" },
+      "choices": {
+        "A": "Aucune modification de périmètre",
+        "B": "Changement d’entité pour les actifs transférés",
+        "C": "Fusion parallèle obligatoire",
+        "D": "Consolidation IFRS automatique"
+      },
       "answer": "B",
       "answer_text": "Périmètre transféré identifié."
     },
     {
       "question": "Le diaporama présente-t-il des exemples chiffrés de scission ?",
-      "choices": { "A": "Oui", "B": "Non", "C": "Un seul cas fiscal", "D": "Uniquement droit boursier" },
+      "choices": {
+        "A": "Oui",
+        "B": "Non",
+        "C": "Un seul cas fiscal",
+        "D": "Uniquement droit boursier"
+      },
       "answer": "A",
       "answer_text": "Cas chiffrés illustratifs."
     },
     {
       "question": "Références PCG de la scission partielle :",
-      "choices": { "A": "747-1 et 747-2", "B": "512-1 et 512-2", "C": "606-1", "D": "514-3" },
+      "choices": {
+        "A": "747-1 et 747-2",
+        "B": "512-1 et 512-2",
+        "C": "606-1",
+        "D": "514-3"
+      },
       "answer": "A",
       "answer_text": "PCG 747-1/747-2."
     },
-
-    /* ------------ Fusions sans échange de titres (106–110) ------------ */
     {
       "question": "Fusion sans échange de titres :",
       "choices": {
@@ -772,276 +1149,487 @@
     },
     {
       "question": "Point d’attention pour le CAA dans ces opérations :",
-      "choices": { "A": "Aucun commissariat", "B": "Points d’attention spécifiques méthode/évaluation", "C": "Rapport AMF obligatoire", "D": "Pouvoirs du CAA supprimés" },
+      "choices": {
+        "A": "Aucun commissariat",
+        "B": "Points d’attention spécifiques méthode/évaluation",
+        "C": "Rapport AMF obligatoire",
+        "D": "Pouvoirs du CAA supprimés"
+      },
       "answer": "B",
       "answer_text": "Points techniques malgré l’absence d’échange."
     },
     {
       "question": "Incidence sur les capitaux propres de l’absorbante :",
-      "choices": { "A": "Toujours nulle", "B": "Peut exister (écarts/éliminations) sans émission", "C": "Doit passer en résultat", "D": "Non traitée" },
+      "choices": {
+        "A": "Toujours nulle",
+        "B": "Peut exister (écarts/éliminations) sans émission",
+        "C": "Doit passer en résultat",
+        "D": "Non traitée"
+      },
       "answer": "B",
       "answer_text": "Effets comptables à traiter."
     },
     {
       "question": "La documentation du diaporama comporte :",
-      "choices": { "A": "Aucun exemple", "B": "Des cas pratiques", "C": "Renvoi IFRS strict", "D": "Uniquement fiscalité" },
+      "choices": {
+        "A": "Aucun exemple",
+        "B": "Des cas pratiques",
+        "C": "Renvoi IFRS strict",
+        "D": "Uniquement fiscalité"
+      },
       "answer": "B",
       "answer_text": "Cas concrets présentés."
     },
     {
       "question": "Absence d’échange de titres signifie :",
-      "choices": { "A": "Jamais d’apports", "B": "Pas d’augmentation de capital liée à l’opération", "C": "Opération interdite", "D": "Dispense de consolidation" },
+      "choices": {
+        "A": "Jamais d’apports",
+        "B": "Pas d’augmentation de capital liée à l’opération",
+        "C": "Opération interdite",
+        "D": "Dispense de consolidation"
+      },
       "answer": "B",
       "answer_text": "Pas de rémunération de l’apport par émission."
     },
-
-    /* ------------ NEP 315/330/600 (111–120) ------------ */
     {
       "question": "La NEP 315 porte sur :",
-      "choices": { "A": "Documentation", "B": "Connaissance de l’entité et évaluation des risques", "C": "Estimations comptables", "D": "Comptabilités informatisées" },
+      "choices": {
+        "A": "Documentation",
+        "B": "Connaissance de l’entité et évaluation des risques",
+        "C": "Estimations comptables",
+        "D": "Comptabilités informatisées"
+      },
       "answer": "B",
       "answer_text": "Compréhension de l’entité et risques d’anomalies significatives."
     },
     {
       "question": "La NEP 330 traite :",
-      "choices": { "A": "Réponses d’audit aux risques identifiés", "B": "Comité d’audit", "C": "Publications AMF", "D": "Consolidation" },
+      "choices": {
+        "A": "Réponses d’audit aux risques identifiés",
+        "B": "Comité d’audit",
+        "C": "Publications AMF",
+        "D": "Consolidation"
+      },
       "answer": "A",
       "answer_text": "Procédures en réponse aux risques."
     },
     {
       "question": "La NEP 600 traite :",
-      "choices": { "A": "Audit des comptes consolidés", "B": "Parties liées", "C": "Événements post-clôture", "D": "Seuils de signification" },
+      "choices": {
+        "A": "Audit des comptes consolidés",
+        "B": "Parties liées",
+        "C": "Événements post-clôture",
+        "D": "Seuils de signification"
+      },
       "answer": "A",
       "answer_text": "Spécificités de l’audit consolidé."
     },
     {
       "question": "Quel taux d’insuffisance 2023 pour la NEP 600 chez les EIP ?",
-      "choices": { "A": "38 %", "B": "52 %", "C": "60 %", "D": "65 %" },
+      "choices": {
+        "A": "38 %",
+        "B": "52 %",
+        "C": "60 %",
+        "D": "65 %"
+      },
       "answer": "D",
       "answer_text": "NEP 600 : 65 % EIP."
     },
     {
       "question": "Articulation 315/330 :",
-      "choices": { "A": "330 précède 315", "B": "315 évalue les risques ; 330 définit les réponses", "C": "Indépendantes", "D": "330 pour EIP uniquement" },
+      "choices": {
+        "A": "330 précède 315",
+        "B": "315 évalue les risques ; 330 définit les réponses",
+        "C": "Indépendantes",
+        "D": "330 pour EIP uniquement"
+      },
       "answer": "B",
       "answer_text": "Évaluation puis réponses."
     },
     {
       "question": "En 2023, ces NEP ont fait l’objet :",
-      "choices": { "A": "D’aucun examen", "B": "De vérifications thématiques", "C": "D’une simple veille", "D": "D’une suspension" },
+      "choices": {
+        "A": "D’aucun examen",
+        "B": "De vérifications thématiques",
+        "C": "D’une simple veille",
+        "D": "D’une suspension"
+      },
       "answer": "B",
       "answer_text": "Vérifications ciblées 315/330/600."
     },
     {
       "question": "La NEP 315 n’implique pas :",
-      "choices": { "A": "Compréhension du contrôle interne pertinent", "B": "Identification de risques d’AS", "C": "Stratégie d’échantillonnage", "D": "Détermination du périmètre consolidé" },
+      "choices": {
+        "A": "Compréhension du contrôle interne pertinent",
+        "B": "Identification de risques d’AS",
+        "C": "Stratégie d’échantillonnage",
+        "D": "Détermination du périmètre consolidé"
+      },
       "answer": "D",
       "answer_text": "Le périmètre consolidé relève d’autres référentiels."
     },
     {
       "question": "La NEP 330 couvre :",
-      "choices": { "A": "Tests de cheminement uniquement", "B": "Réponses globales et procédures de fond", "C": "Circularisation seule", "D": "Revue analytique seule" },
+      "choices": {
+        "A": "Tests de cheminement uniquement",
+        "B": "Réponses globales et procédures de fond",
+        "C": "Circularisation seule",
+        "D": "Revue analytique seule"
+      },
       "answer": "B",
       "answer_text": "Réponses globales + procédures de fond."
     },
     {
       "question": "La NEP 600 peut conduire à :",
-      "choices": { "A": "Aucun travail sur composantes", "B": "Coordination des travaux sur composantes", "C": "Suppression des seuils", "D": "Absence de communication" },
+      "choices": {
+        "A": "Aucun travail sur composantes",
+        "B": "Coordination des travaux sur composantes",
+        "C": "Suppression des seuils",
+        "D": "Absence de communication"
+      },
       "answer": "B",
       "answer_text": "Coordination/composantes en consolidé."
     },
     {
       "question": "Constat global du panorama 2023 sur ces NEP :",
-      "choices": { "A": "Conformité unanime", "B": "Taux d’insuffisance significatifs à corriger", "C": "Absence de contrôle", "D": "EIP uniquement" },
+      "choices": {
+        "A": "Conformité unanime",
+        "B": "Taux d’insuffisance significatifs à corriger",
+        "C": "Absence de contrôle",
+        "D": "EIP uniquement"
+      },
       "answer": "B",
       "answer_text": "Nécessite vigilance renforcée."
     },
-
-    /* ------------ Transposition CSRD (121–130) ------------ */
     {
       "question": "Effet de la transposition CSRD en France :",
-      "choices": { "A": "Aucun", "B": "Recodification d’articles du code de commerce", "C": "Suppression du rapport de durabilité", "D": "Report général à 2027" },
+      "choices": {
+        "A": "Aucun",
+        "B": "Recodification d’articles du code de commerce",
+        "C": "Suppression du rapport de durabilité",
+        "D": "Report général à 2027"
+      },
       "answer": "B",
       "answer_text": "Recodification (ex. L.823-10 → L.821-54)."
     },
     {
       "question": "Nouvelle référence remplaçant L.823-10 :",
-      "choices": { "A": "L.821-54", "B": "L.821-27", "C": "L.821-10", "D": "L.821-13" },
+      "choices": {
+        "A": "L.821-54",
+        "B": "L.821-27",
+        "C": "L.821-10",
+        "D": "L.821-13"
+      },
       "answer": "A",
       "answer_text": "Transfert vers L.821-54."
     },
     {
       "question": "La CSRD conduit à :",
-      "choices": { "A": "Maintien illimité de la DPEF", "B": "Rapport de durabilité conforme ESRS", "C": "Suppression des obligations RSE", "D": "Aucun changement" },
+      "choices": {
+        "A": "Maintien illimité de la DPEF",
+        "B": "Rapport de durabilité conforme ESRS",
+        "C": "Suppression des obligations RSE",
+        "D": "Aucun changement"
+      },
       "answer": "B",
       "answer_text": "Déploiement du rapport de durabilité."
     },
     {
       "question": "Pour 2024, la DPEF :",
-      "choices": { "A": "N’est plus vérifiable", "B": "Peut être vérifiée par OTI historique/CAC durabilité/OTI vert", "C": "Doit être certifiée raisonnablement", "D": "Est remplacée par ESRS" },
+      "choices": {
+        "A": "N’est plus vérifiable",
+        "B": "Peut être vérifiée par OTI historique/CAC durabilité/OTI vert",
+        "C": "Doit être certifiée raisonnablement",
+        "D": "Est remplacée par ESRS"
+      },
       "answer": "B",
       "answer_text": "Intervenants autorisés précisés."
     },
     {
       "question": "Raisons de mise à jour de l’avis technique :",
-      "choices": { "A": "AMF uniquement", "B": "COFRAC + actualisation légale", "C": "RGPD", "D": "Directive bancaire" },
+      "choices": {
+        "A": "AMF uniquement",
+        "B": "COFRAC + actualisation légale",
+        "C": "RGPD",
+        "D": "Directive bancaire"
+      },
       "answer": "B",
       "answer_text": "Retours COFRAC et mises à jour du code."
     },
     {
       "question": "Attestation de présence de la DPEF :",
-      "choices": { "A": "Supprimée définitivement", "B": "Maintenue par position CNCC (omission matérielle)", "C": "Réservée aux EIP", "D": "Remplacée par attestation fiscale" },
+      "choices": {
+        "A": "Supprimée définitivement",
+        "B": "Maintenue par position CNCC (omission matérielle)",
+        "C": "Réservée aux EIP",
+        "D": "Remplacée par attestation fiscale"
+      },
       "answer": "B",
       "answer_text": "CNCC parle d’erreur de plume."
     },
     {
       "question": "Applicabilité des articles A.225-1 à A.225-4 :",
-      "choices": { "A": "OTI uniquement", "B": "Applicables au CAC durabilité 2024", "C": "Abrogés", "D": "Réservés aux ONG" },
+      "choices": {
+        "A": "OTI uniquement",
+        "B": "Applicables au CAC durabilité 2024",
+        "C": "Abrogés",
+        "D": "Réservés aux ONG"
+      },
       "answer": "B",
       "answer_text": "Applicables directement au CAC durabilité."
     },
     {
       "question": "Assurance sur le rapport de durabilité CSRD (phase initiale) :",
-      "choices": { "A": "Raisonnable obligatoire", "B": "Limitée au départ", "C": "Aucune", "D": "Absolue" },
+      "choices": {
+        "A": "Raisonnable obligatoire",
+        "B": "Limitée au départ",
+        "C": "Aucune",
+        "D": "Absolue"
+      },
       "answer": "B",
       "answer_text": "Assurance limitée au lancement."
     },
     {
       "question": "Formation des équipes d’audit à la durabilité :",
-      "choices": { "A": "41 h structurées en 3 séquences", "B": "120 h obligatoires", "C": "7 h uniques", "D": "Aucune durée" },
+      "choices": {
+        "A": "41 h structurées en 3 séquences",
+        "B": "120 h obligatoires",
+        "C": "7 h uniques",
+        "D": "Aucune durée"
+      },
       "answer": "A",
       "answer_text": "41 h au total, 3 séquences."
     },
     {
       "question": "Références documentaires de la séquence CSRD :",
-      "choices": { "A": "CNCC – communiqué transposition", "B": "AMF uniquement", "C": "DGFIP", "D": "IASB" },
+      "choices": {
+        "A": "CNCC – communiqué transposition",
+        "B": "AMF uniquement",
+        "C": "DGFIP",
+        "D": "IASB"
+      },
       "answer": "A",
       "answer_text": "Lien documentaire CNCC."
     },
-
-    /* ------------ Formation équipes durabilité & prestations hors CSRD (131–140) ------------ */
     {
       "question": "Séquence 1 « Rapport de durabilité » — durée indiquée :",
-      "choices": { "A": "3 h", "B": "7 h", "C": "14 h", "D": "20 h" },
+      "choices": {
+        "A": "3 h",
+        "B": "7 h",
+        "C": "14 h",
+        "D": "20 h"
+      },
       "answer": "B",
       "answer_text": "Séquence de 7 heures."
     },
     {
       "question": "Séquence 2 « ESRS/EFRAG » — durée indiquée :",
-      "choices": { "A": "3 h", "B": "7 h", "C": "14 h", "D": "20 h" },
+      "choices": {
+        "A": "3 h",
+        "B": "7 h",
+        "C": "14 h",
+        "D": "20 h"
+      },
       "answer": "C",
       "answer_text": "Séquence de 14 heures."
     },
     {
       "question": "Séquence 3 « Audit & assurance durabilité » — durée indiquée :",
-      "choices": { "A": "3 h", "B": "7 h", "C": "14 h", "D": "20 h" },
+      "choices": {
+        "A": "3 h",
+        "B": "7 h",
+        "C": "14 h",
+        "D": "20 h"
+      },
       "answer": "D",
       "answer_text": "Séquence de 20 heures."
     },
     {
       "question": "Prestations « hors CSRD » proposées aux clients incluent :",
-      "choices": { "A": "Audit interne obligatoire", "B": "Diagnostic RSE et trajectoire extra-financière", "C": "Certification ISO 9001", "D": "Accompagnement juridique AMF" },
+      "choices": {
+        "A": "Audit interne obligatoire",
+        "B": "Diagnostic RSE et trajectoire extra-financière",
+        "C": "Certification ISO 9001",
+        "D": "Accompagnement juridique AMF"
+      },
       "answer": "B",
       "answer_text": "Diagnostic RSE/diagnostic extra-financier proposés."
     },
     {
       "question": "Prestation « vérification post-émission » concerne :",
-      "choices": { "A": "Les Green Loans", "B": "Les SLB", "C": "Les OPCVM", "D": "Les IPO" },
+      "choices": {
+        "A": "Les Green Loans",
+        "B": "Les SLB",
+        "C": "Les OPCVM",
+        "D": "Les IPO"
+      },
       "answer": "B",
       "answer_text": "Vérification contractuelle des KPI SLB."
     },
     {
       "question": "Public visé par la formation équipes durabilité :",
-      "choices": { "A": "CAC et équipes audit", "B": "Direction financière seule", "C": "RH uniquement", "D": "IT uniquement" },
+      "choices": {
+        "A": "CAC et équipes audit",
+        "B": "Direction financière seule",
+        "C": "RH uniquement",
+        "D": "IT uniquement"
+      },
       "answer": "A",
       "answer_text": "Formation destinée aux équipes d’audit."
     },
     {
       "question": "La séquence ESRS couvre :",
-      "choices": { "A": "Uniquement taxonomie", "B": "Cadre ESRS/EFRAG et principes", "C": "IFRS 15", "D": "RGPD" },
+      "choices": {
+        "A": "Uniquement taxonomie",
+        "B": "Cadre ESRS/EFRAG et principes",
+        "C": "IFRS 15",
+        "D": "RGPD"
+      },
       "answer": "B",
       "answer_text": "Cœur de la séquence n°2."
     },
     {
       "question": "La séquence « Audit durabilité » vise :",
-      "choices": { "A": "Procédures et assurance limitées", "B": "Only ESG ratings", "C": "Fiscalité verte", "D": "Droit du travail" },
+      "choices": {
+        "A": "Procédures et assurance limitées",
+        "B": "Only ESG ratings",
+        "C": "Fiscalité verte",
+        "D": "Droit du travail"
+      },
       "answer": "A",
       "answer_text": "Procédures/audit & assurance."
     },
     {
       "question": "Un livrable typique « hors CSRD » indiqué :",
-      "choices": { "A": "Prospectus AMF", "B": "Attestation DPEF 2024", "C": "Modèle 2050", "D": "Liasse fiscale" },
+      "choices": {
+        "A": "Prospectus AMF",
+        "B": "Attestation DPEF 2024",
+        "C": "Modèle 2050",
+        "D": "Liasse fiscale"
+      },
       "answer": "B",
       "answer_text": "Attestation DPEF 2024 par CAC durabilité."
     },
     {
       "question": "Durée totale de la formation équipes durabilité :",
-      "choices": { "A": "20 h", "B": "21 h", "C": "34 h", "D": "41 h" },
+      "choices": {
+        "A": "20 h",
+        "B": "21 h",
+        "C": "34 h",
+        "D": "41 h"
+      },
       "answer": "D",
       "answer_text": "Total de 41 heures."
     },
-
-    /* ------------ Compléments DPEF/CSRD (141–150) ------------ */
     {
       "question": "Quel triptyque explique la révision de l’avis technique DPEF 2024 ?",
-      "choices": { "A": "LCB-FT, RGPD, IFRS", "B": "COFRAC, actualisation code, recodification CSRD", "C": "AMF, IASB, EFRAG", "D": "COFRAC et RGPD" },
+      "choices": {
+        "A": "LCB-FT, RGPD, IFRS",
+        "B": "COFRAC, actualisation code, recodification CSRD",
+        "C": "AMF, IASB, EFRAG",
+        "D": "COFRAC et RGPD"
+      },
       "answer": "B",
       "answer_text": "Les trois ressorts explicités sur les slides."
     },
     {
       "question": "L’omission de l’alinéa sur l’attestation de présence lors de la recodification est considérée comme :",
-      "choices": { "A": "Volontaire", "B": "Erreur matérielle selon la CNCC", "C": "Transformation en attestation renforcée", "D": "Abrogation définitive" },
+      "choices": {
+        "A": "Volontaire",
+        "B": "Erreur matérielle selon la CNCC",
+        "C": "Transformation en attestation renforcée",
+        "D": "Abrogation définitive"
+      },
       "answer": "B",
       "answer_text": "Erreur de plume mentionnée."
     },
     {
       "question": "Intervenants possibles pour la DPEF 2024 (rappel) :",
-      "choices": { "A": "OTI historique, CAC durabilité, OTI vert", "B": "CAC financier seul", "C": "OTI vert seul", "D": "H2A" },
+      "choices": {
+        "A": "OTI historique, CAC durabilité, OTI vert",
+        "B": "CAC financier seul",
+        "C": "OTI vert seul",
+        "D": "H2A"
+      },
       "answer": "A",
       "answer_text": "Trois profils listés explicitement."
     },
     {
       "question": "ISO 17029 pour la DPEF 2024 assurée par un CAC durabilité est :",
-      "choices": { "A": "Obligatoire", "B": "Partiellement applicable", "C": "Non pertinente selon la présentation", "D": "Remplace A.225-1 à A.225-4" },
+      "choices": {
+        "A": "Obligatoire",
+        "B": "Partiellement applicable",
+        "C": "Non pertinente selon la présentation",
+        "D": "Remplace A.225-1 à A.225-4"
+      },
       "answer": "C",
       "answer_text": "Le support indique qu’elle n’est pas pertinente."
     },
     {
       "question": "La DPEF 2024 est-elle encore mentionnée au rapport de gestion ?",
-      "choices": { "A": "Non", "B": "Oui, avec attestation de présence évoquée", "C": "Uniquement EIP", "D": "En annexe uniquement" },
+      "choices": {
+        "A": "Non",
+        "B": "Oui, avec attestation de présence évoquée",
+        "C": "Uniquement EIP",
+        "D": "En annexe uniquement"
+      },
       "answer": "B",
       "answer_text": "Mention et attestation de présence évoquées."
     },
     {
       "question": "Si l’entité entre dans le champ CSRD dès 2024, la DPEF ancienne rédaction :",
-      "choices": { "A": "S’applique quand même", "B": "Ne s’applique pas", "C": "Est remplacée par la taxonomie", "D": "Devient volontaire" },
+      "choices": {
+        "A": "S’applique quand même",
+        "B": "Ne s’applique pas",
+        "C": "Est remplacée par la taxonomie",
+        "D": "Devient volontaire"
+      },
       "answer": "B",
       "answer_text": "Le maintien 2024 vise les entités hors champ CSRD."
     },
     {
       "question": "Rôle des articles A.225-1 à A.225-4 en 2024 pour un CAC durabilité :",
-      "choices": { "A": "Aucun", "B": "Référentiel applicable pour la DPEF 2024", "C": "Obsolètes", "D": "Réservés aux OTI seuls" },
+      "choices": {
+        "A": "Aucun",
+        "B": "Référentiel applicable pour la DPEF 2024",
+        "C": "Obsolètes",
+        "D": "Réservés aux OTI seuls"
+      },
       "answer": "B",
       "answer_text": "Applicables directement."
     },
     {
       "question": "Finalité de la CSRD en matière de reporting :",
-      "choices": { "A": "Remplacer la RSE par la liasse fiscale", "B": "Imposer un rapport de durabilité conforme ESRS", "C": "Supprimer l’audit légal", "D": "Limiter l’information aux EIP" },
+      "choices": {
+        "A": "Remplacer la RSE par la liasse fiscale",
+        "B": "Imposer un rapport de durabilité conforme ESRS",
+        "C": "Supprimer l’audit légal",
+        "D": "Limiter l’information aux EIP"
+      },
       "answer": "B",
       "answer_text": "Rapport de durabilité ESRS."
     },
     {
       "question": "Quel est le bon enchaînement ?",
-      "choices": { "A": "CSRD→DPEF renforcée", "B": "DPEF transitoire 2024 → Abrogation 2025 → CSRD", "C": "DPEF 2025→CSRD 2027", "D": "DPEF + CSRD cumulées" },
+      "choices": {
+        "A": "CSRD→DPEF renforcée",
+        "B": "DPEF transitoire 2024 → Abrogation 2025 → CSRD",
+        "C": "DPEF 2025→CSRD 2027",
+        "D": "DPEF + CSRD cumulées"
+      },
       "answer": "B",
       "answer_text": "Transition décrite dans les slides."
     },
     {
       "question": "Pour un CAC durabilité intervenant en 2024 sur DPEF, le périmètre de vérification :",
-      "choices": { "A": "Se borne à ISO 17029", "B": "Suit A.225-1 à A.225-4 et l’avis technique", "C": "Est laissé au client", "D": "Couvre uniquement le climat" },
+      "choices": {
+        "A": "Se borne à ISO 17029",
+        "B": "Suit A.225-1 à A.225-4 et l’avis technique",
+        "C": "Est laissé au client",
+        "D": "Couvre uniquement le climat"
+      },
       "answer": "B",
       "answer_text": "Conformément aux dispositions précisées sur les slides."
     }
   ]
 }
-
