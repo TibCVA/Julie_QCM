@@ -6,21 +6,29 @@
   <title>Julie la championne</title>
   <meta name="description" content="QCM ultra rigoureux — Annales & Actualités" />
   <meta name="theme-color" content="#0ea5e9" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="color-scheme" content="light dark">
   <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png" sizes="192x192">
+  <link rel="icon" href="icons/icon-512.png" sizes="512x512">
   <link rel="apple-touch-icon" href="icons/icon-192.png">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header class="appbar">
     <div class="brand">
-      <div class="logo">🏆</div>
+      <div class="logo" aria-hidden="true">🏆</div>
       <div class="title">
         <h1>Julie la championne</h1>
         <small id="subtitle">Annales 2020–2024 + Actualités 2024Q4</small>
       </div>
     </div>
     <nav class="top-actions">
-      <button id="btn-install" class="ghost">Installer</button>
+      <!-- ✨ type="button" + hidden par défaut (affiché au prompt PWA) -->
+      <button id="btn-install" class="ghost" type="button" hidden>Installer</button>
     </nav>
   </header>
 
@@ -50,12 +58,12 @@
     <section class="card" id="filters">
       <div class="card-header">
         <strong>Filtrer & mode</strong>
-        <div class="segmented">
-          <button data-mode="practice" class="seg active">Entraînement</button>
-          <button data-mode="exam" class="seg">Examen</button>
-          <button data-mode="review" class="seg">Révisions</button>
+        <div class="segmented" role="tablist" aria-label="Modes">
+          <button data-mode="practice" class="seg active" role="tab" aria-selected="true" type="button">Entraînement</button>
+          <button data-mode="exam" class="seg" role="tab" aria-selected="false" type="button">Examen</button>
+          <button data-mode="review" class="seg" role="tab" aria-selected="false" type="button">Révisions</button>
         </div>
-        <div id="session-hud" class="session-hud hidden">
+        <div id="session-hud" class="session-hud hidden" aria-live="polite">
           <span id="hud-left"></span>
           <span id="hud-mid"></span>
           <span id="hud-right"></span>
@@ -70,6 +78,7 @@
         <div>
           <label class="lbl">Options</label>
           <div class="opts">
+            <!-- ✨ id conservés, maintenant reliés à l’état et persistés -->
             <label><input type="checkbox" id="opt-newOnly"> Prioriser nouvelles</label>
             <label><input type="checkbox" id="opt-dueFirst" checked> Réviser d’abord les questions dues</label>
             <label><input type="checkbox" id="opt-shuffle" checked> Aléatoire</label>
@@ -79,15 +88,15 @@
 
       <div class="grid2">
         <div>
-          <label class="lbl">Objectif quotidien</label>
+          <label class="lbl" for="goal-input">Objectif quotidien</label>
           <div class="goal">
-            <button id="goal-dec" class="ghost">−</button>
-            <input id="goal-input" type="number" min="1" max="500" value="20" inputmode="numeric">
-            <button id="goal-inc" class="ghost">+</button>
+            <button id="goal-dec" class="ghost" type="button" aria-label="Diminuer l’objectif">−</button>
+            <input id="goal-input" type="number" min="1" max="500" value="20" inputmode="numeric" aria-live="off">
+            <button id="goal-inc" class="ghost" type="button" aria-label="Augmenter l’objectif">+</button>
           </div>
         </div>
         <div class="right">
-          <button id="btn-reset" class="danger">Réinitialiser progression</button>
+          <button id="btn-reset" class="danger" type="button">Réinitialiser progression</button>
         </div>
       </div>
     </section>
@@ -99,12 +108,15 @@
         <span id="q-index" class="muted">—</span>
       </div>
       <h2 id="q-text">Chargement…</h2>
-      <div id="q-choices" class="choices"></div>
-      <div id="q-feedback" class="feedback"></div>
+
+      <!-- ✨ radiogroup a11y -->
+      <div id="q-choices" class="choices" role="radiogroup" aria-labelledby="q-text"></div>
+
+      <div id="q-feedback" class="feedback" aria-live="polite"></div>
       <div class="actions">
-        <button id="btn-reveal" class="ghost">Révéler</button>
-        <button id="btn-next" class="primary">Suivante ↵</button>
-        <button id="btn-restart" class="ghost">Recommencer</button>
+        <button id="btn-reveal" class="ghost" type="button">Révéler</button>
+        <button id="btn-next" class="primary" type="button">Suivante ↵</button>
+        <button id="btn-restart" class="ghost" type="button">Recommencer</button>
       </div>
     </section>
 
@@ -131,11 +143,12 @@
 
   <footer class="foot">
     <div class="foot-actions">
-      <button id="btn-reboot" class="danger-outline">Redémarrer l’application (remise à zéro)</button>
+      <button id="btn-reboot" class="danger-outline" type="button">Redémarrer l’application (remise à zéro)</button>
     </div>
     <small>© 2025 – Julie la championne • Ultra rigoureux, zéro invention • Offline/PWA</small>
   </footer>
 
+  <noscript>Veuillez activer JavaScript pour utiliser l’application.</noscript>
   <script src="app.js" defer></script>
 </body>
 </html>
