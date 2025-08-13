@@ -1,4 +1,4 @@
-/* Julie la championne — Web App QCM (rev. 2025‑08‑13b)
+/* Julie la championne — Web App QCM (rev. 2025‑08‑13c)
    - Deux datasets JSON: Annales 2020–2024 (enrichi) + Actualités 2024Q4
    - Mobile-first, PWA, révisions espacées (SM‑2 light), stats, mode examen
    - Chemins relatifs (GitHub Pages)
@@ -8,8 +8,8 @@
   'use strict';
 
   // ========= Constantes & config =========
-  const APP_VER = '4.1.0';
-  const LS_KEY  = 'julie.v3.state';     // on garde la clé pour conserver l’existant
+  const APP_VER = '4.1.1'; // ✨ bump
+  const LS_KEY  = 'julie.v3.state';     // conserve la clé
   const DAY     = 24 * 60 * 60 * 1000;
 
   // IMPORTANT : laissez les chemins *relatifs* au repo GitHub Pages.
@@ -27,7 +27,14 @@
     index: 0,         // index dans la session en cours
     selection: new Set(SOURCES.map(s => s.url)), // sources cochées par défaut
 
-    goalDaily: 20, // demandé
+    // ✨ Options persistées et appliquées
+    opts: {
+      newOnly: false,
+      dueFirst: true,
+      shuffle: true
+    },
+
+    goalDaily: 20,
 
     // Paramètres d’examen
     exam: { total: 50, timer: 50*60, startedAt: 0 },
@@ -80,6 +87,8 @@
   function toast(msg, bad=false){
     const el = document.createElement('div');
     el.className = 'toast' + (bad ? ' bad' : '');
+    el.setAttribute('role','status');              // ✨ a11y
+    el.setAttribute('aria-live','polite');         // ✨ a11y
     el.textContent = msg;
     document.body.appendChild(el);
     requestAnimationFrame(() => el.classList.add('show'));
@@ -239,7 +248,7 @@
   // ========= Chargement des fichiers =========
   async function fetchJson(url){
     const abs = new URL(url, location.href).href;
-    const res = await fetch(abs, { cache: 'no-store' });
+    const res = await fetch(abs, { cache: 'no-store' }); // ✨ on laisse SW gérer le cache
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     return res.json();
   }
@@ -269,7 +278,9 @@
       selection: Array.from(state.selection),
       goalDaily: state.goalDaily,
       stats: state.stats,
-      history: state.history
+      history: state.history,
+      // ✨ on persiste les options
+      opts: state.opts
     };
     try { localStorage.setItem(LS_KEY, JSON.stringify(dump)); } catch { /* ignore */ }
   }
@@ -286,6 +297,8 @@
         state.history   = obj.history || { practice:[], exam:[] };
         const def = SOURCES.map(s => s.url);
         state.selection = new Set(Array.isArray(obj.selection) ? obj.selection : def);
+        // ✨ restau options
+        if (obj.opts) state.opts = Object.assign(state.opts, obj.opts);
       }
     } catch { /* ignore */ }
   }
@@ -293,7 +306,29 @@
   // ========= Construction du pool et gestion des sessions =========
   function buildFilteredItems(){
     const keep = new Set(state.selection);
-    return state.all.filter(q => keep.has(q.srcUrl));
+    let items = state.all.filter(q => keep.has(q.srcUrl));
+
+    // ✨ filtrage/tri selon options
+    if (state.opts.newOnly){
+      items = items.filter(q => (state.stats.q[q.id]?.attempts || 0) === 0);
+    }
+
+    if (state.opts.dueFirst){
+      const now = Date.now();
+      items = items.slice().sort((a,b) => {
+        const sa = state.stats.q[a.id] || {}, sb = state.stats.q[b.id] || {};
+        const da = sa.dueAt || 0, db = sb.dueAt || 0;
+        const aDue = da <= now, bDue = db <= now;
+        if (aDue !== bDue) return aDue ? -1 : 1;   // dues d’abord
+        return (da || Infinity) - (db || Infinity); // puis par échéance
+      });
+    }
+
+    if (state.opts.shuffle){
+      items = shuffle(items);
+    }
+
+    return items;
   }
 
   function startSession(kind){
@@ -306,12 +341,12 @@
         const s = state.stats.q[q.id];
         return s && s.attempts > 0 && s.correct < s.attempts; // uniquement manquées
       });
-      pool = shuffle(wrong.slice());
-      pool = pool.slice(0, 20);      // 20 questions
+      pool = shuffle(wrong.slice()).slice(0, Math.min(20, wrong.length));
     } else if (kind === 'exam'){
-      pool = shuffle(items.slice()).slice(0, Math.min(state.exam.total, items.length));
+      pool = items.slice(0, Math.min(state.exam.total, items.length));
+      if (state.opts.shuffle) shuffle(pool);
     } else { // practice
-      pool = shuffle(items.slice()).slice(0, Math.min(20, items.length));
+      pool = items.slice(0, Math.min(20, items.length));
     }
 
     state.pool = pool;
@@ -331,7 +366,7 @@
       state.exam.startedAt = Date.now();
       tickExam();
     } else {
-      $('#subtitle')!.textContent = SOURCES.map(s => s.label).join(' + ');
+      const el = $('#subtitle'); if (el) el.textContent = SOURCES.map(s => s.label).join(' + ');
     }
   }
 
@@ -353,9 +388,9 @@
       if (input){
         input.checked = state.selection.has(src.url);
         input.addEventListener('change', (e) => {
-          if (e.target.checked) state.selection.add(src.url);
+          const checked = !!(e.target && e.target.checked);
+          if (checked) state.selection.add(src.url);
           else state.selection.delete(src.url);
-          // Ne touche pas la session en cours, mais on réactualise les KPIs
           renderKPIs(); save();
         });
       }
@@ -364,45 +399,64 @@
     // Segmented control (modes)
     $$('.seg').forEach(btn => {
       btn.addEventListener('click', () => {
-        $$('.seg').forEach(b => b.classList.remove('active'));
+        $$('.seg').forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected','false');
+        });
         btn.classList.add('active');
+        btn.setAttribute('aria-selected','true');
         const mode = btn.dataset.mode;
         startSession(mode);
         renderKPIs(); save();
       });
     });
 
-    // Options
-    ['opt-newOnly','opt-dueFirst','opt-shuffle'].forEach(id => {
-      const el = $('#'+id);
-      if (el) el.addEventListener('change', () => { /* options d’affichage : pas d’effet sur session en cours */ save(); });
-    });
+    // Options (persistées)
+    const optNew   = $('#opt-newOnly');
+    const optDue   = $('#opt-dueFirst');
+    const optShuf  = $('#opt-shuffle');
+    if (optNew)  optNew.checked  = !!state.opts.newOnly;
+    if (optDue)  optDue.checked  = !!state.opts.dueFirst;
+    if (optShuf) optShuf.checked = !!state.opts.shuffle;
+
+    if (optNew)  optNew.addEventListener('change',  e => { state.opts.newOnly  = !!e.target.checked;  save(); });
+    if (optDue)  optDue.addEventListener('change',  e => { state.opts.dueFirst = !!e.target.checked;  save(); });
+    if (optShuf) optShuf.addEventListener('change', e => { state.opts.shuffle  = !!e.target.checked;  save(); });
 
     // Objectif quotidien
     $('#goal-dec')?.addEventListener('click', () => setGoal(state.goalDaily - 1));
     $('#goal-inc')?.addEventListener('click', () => setGoal(state.goalDaily + 1));
-    $('#goal-input')?.addEventListener('change', e => setGoal(+e.target.value || 1));
-    if ($('#goal-input')) $('#goal-input').value = state.goalDaily;
+    const goalInput = $('#goal-input');
+    if (goalInput) {
+      goalInput.value = state.goalDaily;
+      goalInput.addEventListener('change', e => {
+        const v = parseInt(e.target.value, 10);
+        setGoal(Number.isFinite(v) ? v : 1);
+      });
+    }
 
     // Actions question
     $('#btn-reveal')?.addEventListener('click', reveal);
     $('#btn-next')?.addEventListener('click', next);
     $('#btn-restart')?.addEventListener('click', () => startSession(state.mode === 'exam' ? 'practice' : state.mode));
 
-    // Reset progression (soft) — gardé en haut
+    // Reset progression (soft)
     $('#btn-reset')?.addEventListener('click', resetProgress);
 
     // Reboot complet (hard reset + SW)
     $('#btn-reboot')?.addEventListener('click', hardResetApp);
 
-    // Raccourcis clavier
+    // Raccourcis clavier (✨ A/B/C/D corrigé)
     document.addEventListener('keydown', (e) => {
       if (['INPUT','TEXTAREA'].includes(document.activeElement?.tagName)) return;
       if (e.code === 'Space'){ e.preventDefault(); validate(); }
       else if (e.key === 'n' || e.key === 'N'){ next(); }
       else if (e.key === 'r' || e.key === 'R'){ reveal(); }
-      else if ('1234ABCDabcd'.includes(e.key)){
-        const idx = '1234ABCD'.indexOf(e.key.toUpperCase());
+      else {
+        const key = (e.key || '').toUpperCase();
+        let idx = -1;
+        if ('1234'.includes(key)) idx = Number(key) - 1;
+        else if ('ABCD'.includes(key)) idx = 'ABCD'.indexOf(key);
         if (idx >= 0 && idx < 4){
           const radios = $$('#q-choices input[type=radio]');
           if (radios[idx]){ radios[idx].checked = true; validate(); }
@@ -414,7 +468,8 @@
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       state.ui.deferredPrompt = e;
-      const btn = $('#btn-install'); if (btn) btn.style.display = 'inline-flex';
+      const btn = $('#btn-install');
+      if (btn) btn.hidden = false; // ✨ au lieu de style inline
     });
     $('#btn-install')?.addEventListener('click', () => {
       if (state.ui.deferredPrompt){ state.ui.deferredPrompt.prompt(); }
@@ -427,7 +482,7 @@
 
   function setGoal(n){
     state.goalDaily = clamp(n, 1, 500);
-    if ($('#goal-input')) $('#goal-input').value = state.goalDaily;
+    const inp = $('#goal-input'); if (inp) inp.value = state.goalDaily;
     renderKPIs(); save();
   }
 
@@ -453,6 +508,8 @@
       if (i === 0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
     });
     ctx.stroke();
+    // ✨ points pleins de la même couleur
+    ctx.fillStyle = '#0ea5e9';
     days.forEach((v,i) => {
       const x = 32 + i * ((W - 48) / 13);
       const y = H - 24 - (H - 60) * (v / max);
@@ -461,16 +518,16 @@
   }
 
   function renderKPIs(){
-    if ($('#kpi-total')) $('#kpi-total').textContent = state.all.length.toString();
+    const totalEl = $('#kpi-total'); if (totalEl) totalEl.textContent = state.all.length.toString();
     const due = Object.values(state.stats.q).filter(s => (s.dueAt || 0) <= Date.now()).length;
-    if ($('#kpi-due')) $('#kpi-due').textContent = due.toString();
+    const dueEl = $('#kpi-due'); if (dueEl) dueEl.textContent = due.toString();
 
     const attempts = Object.values(state.stats.q).reduce((a,s)=>a+(s.attempts||0),0);
     const corrects = Object.values(state.stats.q).reduce((a,s)=>a+(s.correct||0),0);
-    if ($('#kpi-accuracy')) $('#kpi-accuracy').textContent = attempts ? Math.round(100*corrects/attempts)+'%' : '—';
+    const accEl = $('#kpi-accuracy'); if (accEl) accEl.textContent = attempts ? Math.round(100*corrects/attempts)+'%' : '—';
 
     const doneToday = state.stats.days[todayKey()] || 0;
-    if ($('#kpi-goal')) $('#kpi-goal').textContent = `${doneToday}/${state.goalDaily}`;
+    const goalEl = $('#kpi-goal'); if (goalEl) goalEl.textContent = `${doneToday}/${state.goalDaily}`;
 
     // Stats par source
     const list = $('#by-source'); if (list) list.innerHTML = '';
@@ -503,19 +560,18 @@
     hud.classList.remove('hidden');
 
     if (state.session.kind === 'exam'){
-      // Le chrono est mis à jour par tickExam ; on affiche Question n/N
       const n = state.index + 1, N = state.session.total || state.pool.length || 0;
-      $('#hud-left')!.textContent  = 'Examen';
-      $('#hud-mid')!.textContent   = `Question ${Math.min(n, N)}/${N}`;
-      $('#hud-right')!.textContent = ''; // pas de score en cours en examen
+      const l = $('#hud-left');  if (l) l.textContent  = 'Examen';
+      const m = $('#hud-mid');   if (m) m.textContent   = `Question ${Math.min(n, N)}/${N}`;
+      const r = $('#hud-right'); if (r) r.textContent = '';
     } else {
       const answeredCount = state.session.answers.length;
       const goodSoFar = state.session.answers.filter(a => a.ok).length;
       const n = Math.max(answeredCount, state.index + 1);
       const N = state.session.total || state.pool.length || 0;
-      $('#hud-left')!.textContent  = (state.session.kind === 'review') ? 'Révisions' : 'Entraînement';
-      $('#hud-mid')!.textContent   = `Question ${Math.min(n, N)}/${N}`;
-      $('#hud-right')!.textContent = `Score ${goodSoFar}/${answeredCount || 0}`;
+      const l = $('#hud-left');  if (l) l.textContent  = (state.session.kind === 'review') ? 'Révisions' : 'Entraînement';
+      const m = $('#hud-mid');   if (m) m.textContent   = `Question ${Math.min(n, N)}/${N}`;
+      const r = $('#hud-right'); if (r) r.textContent = `Score ${goodSoFar}/${answeredCount || 0}`;
     }
   }
 
@@ -545,30 +601,35 @@
     const fb = $('#q-feedback');
 
     if (!q){
-      if ($('#q-text'))    $('#q-text').textContent = 'Aucune question dans la sélection.';
-      if ($('#q-choices')) $('#q-choices').innerHTML = '';
+      const qt = $('#q-text');    if (qt) qt.textContent = 'Aucune question dans la sélection.';
+      const qc = $('#q-choices'); if (qc) qc.innerHTML = '';
       if (fb){ fb.className = 'feedback'; fb.textContent = ''; }
-      if ($('#q-tag'))     $('#q-tag').textContent = '—';
-      if ($('#q-index'))   $('#q-index').textContent = '—';
+      const tg = $('#q-tag');     if (tg) tg.textContent = '—';
+      const qi = $('#q-index');   if (qi) qi.textContent = '—';
       updateNextLabel();
       return;
     }
 
-    $('#q-text')?.textContent   = q.question;
-    $('#q-tag')?.textContent    = q.srcLabel;
-    $('#q-index')?.textContent  = `${state.index + 1} / ${state.pool.length}`;
+    const qt = $('#q-text');   if (qt) qt.textContent   = q.question;
+    const tg = $('#q-tag');    if (tg) tg.textContent    = q.srcLabel;
+    const qi = $('#q-index');  if (qi) qi.textContent  = `${state.index + 1} / ${state.pool.length}`;
 
-    const wrap = $('#q-choices'); if (wrap) wrap.innerHTML = '';
-    q.options.forEach((opt, i) => {
-      const lab = document.createElement('label');
-      lab.className = 'choice';
-      lab.innerHTML = `
-        <input type="radio" name="choice">
-        <span class="letter">${ABCD[i]}</span>
-        <span class="opt-text">${opt}</span>
-      `;
-      wrap?.appendChild(lab);
-    });
+    const wrap = $('#q-choices'); if (wrap) {
+      wrap.innerHTML = '';
+      wrap.setAttribute('role','radiogroup'); // a11y
+      wrap.setAttribute('aria-labelledby','q-text');
+
+      q.options.forEach((opt, i) => {
+        const lab = document.createElement('label');
+        lab.className = 'choice';
+        lab.innerHTML = `
+          <input type="radio" name="choice">
+          <span class="letter">${ABCD[i]}</span>
+          <span class="opt-text">${opt}</span>
+        `;
+        wrap.appendChild(lab);
+      });
+    }
 
     if (fb){ fb.className = 'feedback'; fb.textContent = ''; }
 
@@ -617,7 +678,6 @@
     if (state.session.kind === 'exam'){
       mark(q.answerIndex, idx, /*showSolution*/false);
     } else {
-      // on montrera la solution au clic "Afficher la solution" (next)
       mark(q.answerIndex, idx, /*showSolution*/false);
     }
 
@@ -656,7 +716,8 @@
     const q = current(); if (!q) return;
 
     // Affiche la solution + explication
-    mark(q.answerIndex, state.session.answers.at(-1)?.chosen ?? -1, /*showSolution*/true);
+    const lastChosen = state.session.answers.at(-1)?.chosen ?? -1;
+    mark(q.answerIndex, lastChosen, /*showSolution*/true);
     const fb = $('#q-feedback');
     if (fb){
       fb.className = 'feedback';
@@ -708,10 +769,8 @@
     // Historisation (sauf révision)
     if (state.session.kind === 'practice'){
       state.history.practice.push({ date: Date.now(), total, score, durationMs });
-      // garder un historique compact
       if (state.history.practice.length > 50) state.history.practice = state.history.practice.slice(-50);
     } else if (state.session.kind === 'exam'){
-      // détail complet
       state.history.exam.push({
         date: Date.now(), total, score, durationMs,
         details: state.session.answers.slice()
@@ -754,8 +813,7 @@
         <ul class="res-list">${items}</ul>
       `;
     } else {
-      // entraînement / révision : pas de détail imposé ; on affiche un résumé clair
-      detailHTML = `<p class="muted">Session terminée. Tu peux <button class="ghost" id="res-restart">Recommencer</button> pour générer un nouveau set.</p>`;
+      detailHTML = `<p class="muted">Session terminée. Tu peux <button class="ghost" id="res-restart" type="button">Recommencer</button> pour générer un nouveau set.</p>`;
     }
 
     res.innerHTML = `
@@ -765,13 +823,14 @@
     `;
     res.classList.remove('hidden');
 
-    // bouton recommencer (si présent) :
+    // bouton recommencer (si présent)
     $('#res-restart')?.addEventListener('click', () => startSession(state.session.kind === 'review' ? 'review' : 'practice'));
-    // retour automatique en mode entraînement après examen (sans lancer une session)
+
+    // retour automatique de l’onglet visuel sur "Entraînement" après un examen
     if (kind === 'exam'){
-      // on repasse les onglets sur "Entraînement" (état neutre)
-      $$('.seg').forEach(b => b.classList.remove('active'));
-      document.querySelector('.seg[data-mode="practice"]')?.classList.add('active');
+      $$('.seg').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+      const t = document.querySelector('.seg[data-mode="practice"]');
+      if (t){ t.classList.add('active'); t.setAttribute('aria-selected','true'); }
     }
   }
 
@@ -783,7 +842,7 @@
     const mm = String(Math.floor(remain / 60)).padStart(2,'0');
     const ss = String(remain % 60).padStart(2,'0');
     const qNum = `${Math.min(state.index+1, state.pool.length)}/${state.pool.length}`;
-    $('#subtitle')?.textContent = `Mode examen — ${mm}:${ss} — Question ${qNum}`;
+    const st = $('#subtitle'); if (st) st.textContent = `Mode examen — ${mm}:${ss} — Question ${qNum}`;
     if (remain > 0) setTimeout(tickExam, 500);
     else {
       toast(`Temps écoulé`);
@@ -825,7 +884,7 @@
   // ========= Init =========
   async function init(){
     // Sous-titre (sources actives)
-    $('#subtitle')?.textContent = SOURCES.map(s => s.label).join(' + ');
+    const st = $('#subtitle'); if (st) st.textContent = SOURCES.map(s => s.label).join(' + ');
 
     restore();
     bindUI();
