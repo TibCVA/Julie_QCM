@@ -1,0 +1,89 @@
+:root{
+  --bg:#0b1120;
+  --card:#0f172a;
+  --muted:#94a3b8;
+  --text:#e2e8f0;
+  --primary:#0ea5e9;
+  --primary-2:#38bdf8;
+  --danger:#ef4444;
+  --ok:#10b981;
+  --warn:#f59e0b;
+  --radius:16px;
+  --shadow:0 8px 32px rgba(2,6,23,.35);
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial;
+  background: radial-gradient(1200px 600px at 10% -10%, #0ea5e930, transparent), var(--bg);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+}
+
+.appbar{
+  position:sticky; top:0; z-index:30;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:12px 14px; background:linear-gradient(180deg, rgba(2,8,23,.9), rgba(2,8,23,.7));
+  backdrop-filter: saturate(160%) blur(14px); border-bottom:1px solid #1f2937;
+}
+.brand{display:flex; gap:12px; align-items:center}
+.logo{font-size:28px}
+.title h1{margin:0; font-size:18px; letter-spacing:.2px}
+.title small{color:var(--muted)}
+.top-actions{display:flex; gap:8px}
+.ghost{background:transparent; border:1px solid #334155; color:var(--text); padding:8px 12px; border-radius:10px}
+.ghost:hover{border-color:#556}
+
+.container{max-width:920px; padding:14px; margin:0 auto}
+.kpis{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:10px 0 16px}
+.kpi{background:linear-gradient(180deg, #0b1225, #0a1020); border:1px solid #1f2a44; border-radius:var(--radius); padding:10px 12px; text-align:center; box-shadow:var(--shadow)}
+.kpi-value{font-size:22px; font-weight:700}
+.kpi-label{font-size:12px; color:var(--muted)}
+
+.card{background:linear-gradient(180deg, #0e162b, #0d1426); border:1px solid #1d2540; border-radius:var(--radius); padding:14px; box-shadow:var(--shadow); margin:14px 0}
+.card-header{display:flex; align-items:center; justify-content:space-between; margin-bottom:10px}
+.lbl{display:block; font-size:13px; color:var(--muted); margin-bottom:6px}
+.grid2{display:grid; grid-template-columns:1fr; gap:12px}
+@media(min-width:680px){ .grid2{grid-template-columns:1fr 1fr} }
+.opts label{display:block; margin:6px 0}
+
+.segmented{display:flex; gap:6px}
+.seg{border:1px solid #1f2a44; background:transparent; color:var(--text); padding:6px 10px; border-radius:999px; font-size:14px}
+.seg.active{background:linear-gradient(180deg, var(--primary), var(--primary-2)); color:#00121a; border:0}
+
+.goal{display:flex; align-items:center; gap:8px}
+.goal input{width:80px; text-align:center; border:1px solid #243049; background:#0a1221; color:var(--text); padding:8px 6px; border-radius:10px}
+.right{text-align:right}
+.danger{background:linear-gradient(180deg, #ff4747, #e11d48); border:0; color:white; padding:10px 12px; border-radius:12px}
+.primary{background:linear-gradient(180deg, #22d3ee, #0ea5e9); border:0; color:#002637; padding:12px 14px; border-radius:12px; font-weight:700}
+.primary:active{transform:translateY(1px)}
+.actions{display:flex; gap:10px; justify-content:flex-end; margin-top:8px}
+
+.q-meta{display:flex; gap:10px; align-items:center; margin-bottom:8px}
+.tag{background:#0b3a4a; color:#a5f3fc; padding:4px 8px; border-radius:999px; font-size:12px; border:1px solid #155e75}
+.muted{color:var(--muted); font-size:12px}
+
+h2{margin:6px 0 10px; font-size:18px}
+.choices{display:grid; gap:8px}
+.choice{
+  display:flex; align-items:flex-start; gap:8px; padding:10px; border:1px solid #253252; border-radius:12px; background:#0b1326;
+}
+.choice input{margin-top:3px}
+.choice .letter{width:24px; height:24px; border-radius:50%; display:inline-grid; place-content:center; background:#0c2033; border:1px solid #254161; font-weight:700; color:#7dd3fc}
+.choice.correct{border-color:#136c5e; background:linear-gradient(180deg, #06231a, #09251f)}
+.choice.wrong{border-color:#7f1d1d; background:linear-gradient(180deg, #220909, #1a0a0a)}
+.feedback{min-height:22px; color:#a7f3d0; margin-top:6px}
+.feedback.bad{color:#fecaca}
+
+.list{list-style:none; margin:0; padding:0}
+.list li{display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px dashed #1f2a44}
+
+.foot{padding:40px 14px; color:var(--muted); text-align:center}
+
+button{cursor:pointer}
+button:disabled{opacity:.6; cursor:not-allowed}
+
+kbd{background:#111827; border:1px solid #374151; padding:2px 6px; border-radius:6px; font-size:12px}
+
+canvas{max-width:100%; height:auto; display:block; background:transparent}
