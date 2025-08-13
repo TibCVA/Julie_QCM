@@ -1,4 +1,8 @@
-/* Service Worker — Julie la championne (rev. 2025-08-13b) */
+/* Service Worker — Julie la championne (rev. 2025-08-13b)
+   - Pré-cache les assets principaux + JSON
+   - Cache-first pour statiques / Stale-While-Revalidate pour JSON
+   - Compatible GitHub Pages (chemins relatifs)
+*/
 const CACHE = 'julie-cache-v11';
 
 const ASSETS = [
@@ -9,6 +13,7 @@ const ASSETS = [
   './manifest.webmanifest',
   './icons/icon-192.png',
   './icons/icon-512.png',
+  // Data (disponible hors-ligne)
   './data/annales_qcm_2020_2024_enrichi.json',
   './data/qcm_actualites_2024Q4.json'
 ];
