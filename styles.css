@@ -1,49 +1,69 @@
 /* ==========================================================================
    Julie la championne — Styles globaux (mobile-first, iPhone friendly)
+   Palette claire, lisibilité renforcée
    ========================================================================== */
 
-/* Reset minimal + variables */
+/* Variables */
 :root{
-  --bg:            #0b1326;  /* fond global */
-  --panel:         #0f172a;  /* cartes / panneaux */
-  --panel-2:       #0d152a;
-  --muted:         #94a3b8;
-  --text:          #e2e8f0;
-  --brand:         #2563eb;
-  --brand-2:       #60a5fa;
-  --ok:            #16a34a;
-  --bad:           #dc2626;
-  --border:        #1f2a44;
-  --shadow:        0 10px 30px rgba(0,0,0,.45);
+  --bg:        #f8fafc;
+  --panel:     #ffffff;
+  --panel-2:   #f1f5f9;
+  --muted:     #475569;
+  --text:      #0f172a;
+  --brand:     #2563eb;
+  --brand-2:   #3b82f6;
+  --ok:        #16a34a;
+  --bad:       #dc2626;
+  --border:    #e2e8f0;
 
-  --radius:        14px;
-  --radius-sm:     10px;
-  --space:         14px;
-  --space-lg:      22px;
+  --radius:    12px;
+  --radius-sm: 10px;
+  --space:     14px;
+  --space-lg:  22px;
 
-  --font-ui:       Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-ui:   Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
 }
 
 *{ box-sizing:border-box; }
 html, body{ height:100%; }
 html{ -webkit-text-size-adjust:100%; }
 
-/* Corps */
 body{
   margin:0;
   background:var(--bg);
   color:var(--text);
   font-family:var(--font-ui);
-  line-height:1.45;
+  line-height:1.5;
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
   padding-bottom: calc(env(safe-area-inset-bottom, 0) + 16px);
 }
 
-/* Liens & focus */
-a{ color:var(--brand-2); text-decoration:none; }
+a{ color:var(--brand); text-decoration:none; }
 a:hover{ text-decoration:underline; }
 :focus-visible{ outline:2px solid var(--brand); outline-offset:2px; }
+
+/* Barre d’appli */
+.appbar{
+  position:sticky; top:0; z-index:1000;
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  padding:10px var(--space);
+  background:rgba(255,255,255,.7); backdrop-filter:saturate(1.2) blur(8px);
+  border-bottom:1px solid var(--border);
+}
+.brand{ display:flex; align-items:center; gap:10px; }
+.logo{ font-size:22px; line-height:1; }
+.title{ display:flex; flex-direction:column; }
+h1{ margin:0; font-size:20px; font-weight:800; letter-spacing:.2px; }
+#subtitle{ font-size:13px; color:var(--muted); }
+
+/* Actions d’en-tête */
+.top-actions{ display:flex; align-items:center; gap:8px; }
+.top-actions button{
+  height:34px; padding:0 12px; border-radius:10px; border:1px solid var(--border);
+  background:var(--panel); color:var(--text); font-weight:600;
+}
+.top-actions #btn-install{ display:none; } /* visible si beforeinstallprompt */
 
 /* Conteneur principal */
 .container{
@@ -52,39 +72,6 @@ a:hover{ text-decoration:underline; }
   padding: 18px var(--space);
 }
 
-/* En-tête */
-.header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  margin-bottom:var(--space-lg);
-}
-.title{
-  display:flex; flex-direction:column; gap:4px;
-}
-h1{
-  margin:0;
-  font-size:24px; font-weight:800; letter-spacing:.2px;
-}
-#subtitle{
-  font-size:13px; color:var(--muted);
-}
-
-/* Actions d’en-tête */
-.top-actions{
-  display:flex; align-items:center; gap:8px;
-}
-.top-actions button{
-  height:36px; padding:0 12px; border-radius:10px; border:1px solid var(--border);
-  background:linear-gradient(180deg, #111c34, #0d152a);
-  color:var(--text); font-weight:600;
-}
-.top-actions button:hover{ border-color:#2a3b65; }
-
-/* Ajout demandé : le bouton "Installer" caché par défaut (iOS ne montre pas l’événement) */
-.top-actions #btn-install{ display:none; } /* sera affiché si beforeinstallprompt dispo */
-
 /* KPIs */
 .kpis{
   display:grid; grid-template-columns:repeat(4,1fr); gap:10px;
@@ -92,132 +79,130 @@ h1{
 }
 .kpi{
   background:var(--panel); border:1px solid var(--border); border-radius:var(--radius);
-  padding:12px; box-shadow:var(--shadow);
+  padding:14px; box-shadow:0 8px 24px rgba(2,6,23,.06);
 }
-.kpi .label{ font-size:12px; color:var(--muted); }
-.kpi .value{ font-size:22px; font-weight:800; margin-top:2px; }
+.kpi-value{ font-size:22px; font-weight:800; margin:0 0 4px 0; }
+.kpi-label{ font-size:12px; color:var(--muted); }
 
-/* Sparkline canvas */
-#spark{
-  width:100%; height:110px; display:block;
-  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0));
-  border:1px dashed var(--border); border-radius:var(--radius);
+/* Cartes */
+.card{
+  background:var(--panel); border:1px solid var(--border); border-radius:var(--radius);
+  padding:16px; box-shadow:0 8px 24px rgba(2,6,23,.06);
+  margin-bottom:var(--space-lg);
+}
+.card-header{
+  display:flex; align-items:center; justify-content:space-between; gap:10px;
+  margin-bottom:12px;
 }
 
 /* Segmented control (modes) */
 .segmented{
-  display:flex; background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:4px;
-  box-shadow:var(--shadow); margin-bottom:var(--space-lg);
+  display:flex; background:var(--panel-2); border:1px solid var(--border); border-radius:12px; padding:4px;
 }
 .segmented .seg{
   flex:1 1 auto; height:38px; border:0; background:transparent; color:var(--text);
   border-radius:10px; font-weight:700;
 }
-.segmented .seg.active{ background:#16233f; border:1px solid #23345b; }
+.segmented .seg.active{ background:#e2e8f0; border:1px solid var(--border); }
 
-/* Filtres et options */
-.filters{
-  display:grid; gap:10px; grid-template-columns:1fr;
-  margin-bottom:var(--space-lg);
+/* Grilles */
+.grid2{ display:grid; gap:12px; grid-template-columns:1fr; }
+@media (min-width: 900px){
+  .grid2{ grid-template-columns:1fr 1fr; align-items:start; }
 }
-.panel{
-  background:var(--panel); border:1px solid var(--border); border-radius:var(--radius);
-  padding:12px; box-shadow:var(--shadow);
-}
-.panel h3{ margin:0 0 8px 0; font-size:14px; color:var(--muted); }
 
-/* Liste des sources (checkbox) */
-#sources{ display:grid; grid-template-columns:1fr; gap:6px; }
-.src{ display:block; margin:6px 0 } /* Ajout explicitement demandé */
+/* Labels et options */
+.lbl{ display:block; font-size:12px; color:var(--muted); margin-bottom:6px; }
+.opts{ display:grid; gap:8px; }
+.opts label{ display:flex; align-items:center; gap:10px; }
+
+/* Sources */
+#sources{ display:grid; grid-template-columns:1fr; gap:8px; }
 #sources label{
   display:flex; align-items:center; gap:10px;
-  padding:8px 10px; border-radius:10px; border:1px solid var(--border); background:#0e1730;
+  padding:10px 12px; border-radius:10px; border:1px solid var(--border); background:var(--panel);
 }
-#sources input[type="checkbox"]{ width:18px; height:18px; }
-
-/* Options (toggles) */
-.options{ display:grid; gap:8px; }
-.options label{ display:flex; align-items:center; gap:10px; }
 
 /* Objectif */
-.goal{
-  display:flex; align-items:center; gap:10px; flex-wrap:wrap;
-}
+.goal{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
 .goal input{
-  width:80px; height:36px; text-align:center;
-  background:#0d152a; border:1px solid var(--border); color:var(--text); border-radius:8px;
+  width:88px; height:36px; text-align:center;
+  background:var(--panel); border:1px solid var(--border); color:var(--text); border-radius:8px;
 }
 
-/* Boutons génériques */
+/* Boutons */
 button{
-  background:linear-gradient(180deg, #1b2b53, #16233f);
-  color:var(--text); border:1px solid var(--border); border-radius:12px;
+  background:var(--panel); color:var(--text);
+  border:1px solid var(--border); border-radius:12px;
   height:40px; padding:0 14px; font-weight:700;
 }
 button.ghost{ background:transparent; }
-button.primary{ background:linear-gradient(180deg, #2563eb, #1d4ed8); border-color:#1e40af; }
+button.primary{ background:linear-gradient(180deg, #2563eb, #1d4ed8); color:#fff; border-color:#1e40af; }
+button.danger{ border-color:#fecaca; background:#fee2e2; color:#7f1d1d; }
+button.danger.outline{ background:transparent; border-color:#fecaca; color:#991b1b; }
 
-/* Carte question */
-.card{
-  background:var(--panel); border:1px solid var(--border); border-radius:var(--radius);
-  padding:16px; box-shadow:var(--shadow);
+/* Question */
+.q-meta{ display:flex; align-items:center; justify-content:space-between; gap:10px; color:var(--muted); font-size:12px; margin-bottom:8px; }
+.tag{ background:#eff6ff; color:#1d4ed8; border:1px solid #bfdbfe; padding:2px 8px; border-radius:999px; }
+.muted{ color:var(--muted); }
+#q-text{ font-size:18px; font-weight:800; margin:8px 0 10px 0; }
+
+/* Barre de session (score/chrono) */
+.sessionbar{
+  display:flex; align-items:center; justify-content:space-between; gap:8px;
+  border:1px solid var(--border); background:var(--panel-2); border-radius:10px; padding:8px 10px;
+  margin-bottom:8px; font-weight:700;
 }
-.meta{
-  display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px;
-  color:var(--muted); font-size:12px;
-}
-#q-text{
-  font-size:18px; font-weight:700; margin:0 0 10px 0;
-}
-#q-choices{ display:grid; gap:8px; margin:10px 0; }
+
+/* Choix : flex → plus de “colonne”, texte large et lisible */
+#q-choices{ display:grid; gap:10px; margin:10px 0; }
 .choice{
-  display:grid; grid-template-columns:26px 1fr; gap:10px; align-items:center;
-  padding:10px; border:1px solid var(--border); border-radius:12px; background:#0e1730;
+  display:flex; align-items:flex-start; gap:12px;
+  padding:10px 12px; border:1px solid var(--border); border-radius:12px; background:var(--panel);
 }
-.choice input{ width:18px; height:18px; }
+.choice input{ width:18px; height:18px; margin-top:2px; }
 .choice .letter{
-  display:inline-flex; width:24px; height:24px; border-radius:7px; align-items:center; justify-content:center;
-  background:#0a142b; border:1px solid var(--border); font-weight:800; font-size:12px; color:#bcd0ff;
+  display:inline-flex; min-width:24px; height:24px; border-radius:7px; align-items:center; justify-content:center;
+  background:#eef2ff; border:1px solid #c7d2fe; font-weight:800; font-size:12px; color:#3730a3;
 }
-.choice.correct{ border-color: #155e37; background: #0f1f1a; }
-.choice.wrong{   border-color: #7f1d1d; background: #1a0f12; }
+.choice.correct{ border-color:#86efac; background:#f0fdf4; }
+.choice.wrong{   border-color:#fecaca; background:#fef2f2; }
 
+/* Feedback */
 .feedback{
   margin-top:8px; padding:10px; border:1px dashed var(--border); border-radius:10px; color:var(--text);
-  background:#0e1730;
+  background:var(--panel-2);
 }
-.feedback.bad{ border-color:#7f1d1d; color:#fecaca; background:#1a0f12; }
+.feedback.bad{ border-color:#fecaca; color:#7f1d1d; background:#fef2f2; }
 
-/* Barre d’actions question */
-.actions{
-  display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;
+/* Actions question */
+.actions{ display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; }
+
+/* Sparkline */
+#spark{
+  width:100%; height:110px; display:block;
+  background:linear-gradient(180deg, rgba(2,6,23,.02), rgba(2,6,23,0));
+  border:1px dashed var(--border); border-radius:var(--radius);
 }
 
-/* Liste performance par source */
-#by-source{ list-style:none; padding:0; margin:0; display:grid; gap:6px; }
-#by-source li{
+/* Listes */
+.list{ list-style:none; padding:0; margin:0; display:grid; gap:6px; }
+.list li{
   display:flex; align-items:center; justify-content:space-between;
-  padding:8px 10px; border:1px solid var(--border); border-radius:10px; background:#0e1730;
-}
-.muted{ color:var(--muted); }
-
-/* Grilles desktop */
-@media (min-width: 900px){
-  .grid{
-    display:grid; gap:14px; grid-template-columns: 320px 1fr;
-    align-items:start;
-  }
+  padding:8px 10px; border:1px solid var(--border); border-radius:10px; background:var(--panel);
 }
 
-/* Footer léger */
-footer{
-  margin-top:24px; color:var(--muted); font-size:12px; text-align:center;
-}
+/* Résultats (fin de session) */
+.results-list{ list-style:decimal; margin: 8px 0 0 20px; padding:0; }
+.results-list li{ margin-bottom:6px; }
+.results-list .ok{ color:var(--ok); font-weight:700; }
+.results-list .ko{ color:var(--bad); font-weight:700; }
+
+/* Pied */
+.foot{ margin:24px var(--space) 0; color:var(--muted); font-size:12px; }
+.foot .foot-row{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
 
 /* Utilitaires */
+.right{ text-align:right; }
 .hidden{ display:none !important; }
-
-/* Ajout demandé (rappel) – bouton Installer masqué par défaut sur iOS */
-.top-actions #btn-install{ display:none } /* sera affiché si beforeinstallprompt dispo */
-
-/* Fin du fichier */
+kbd{ background:#e2e8f0; border:1px solid #cbd5e1; border-bottom-width:2px; border-radius:6px; padding:1px 6px; font-size:12px; }
