@@ -1,1 +1,133 @@
-test
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Julie la championne</title>
+  <meta name="description" content="QCM ultra rigoureux — Annales & Actualités" />
+  <meta name="theme-color" content="#0ea5e9" />
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="appbar">
+    <div class="brand">
+      <div class="logo">🏆</div>
+      <div class="title">
+        <h1>Julie la championne</h1>
+        <small id="subtitle">Annales 2020–2024 + Actualités 2024Q4</small>
+      </div>
+    </div>
+    <nav class="top-actions">
+      <button id="btn-install" class="ghost">Installer</button>
+      <button id="btn-settings" class="ghost">⚙︎</button>
+    </nav>
+  </header>
+
+  <main class="container">
+
+    <!-- KPIs -->
+    <section class="kpis" aria-label="indicateurs">
+      <div class="kpi">
+        <div class="kpi-value" id="kpi-total">0</div>
+        <div class="kpi-label">Questions</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-value" id="kpi-due">0</div>
+        <div class="kpi-label">À réviser</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-value" id="kpi-accuracy">—</div>
+        <div class="kpi-label">Précision</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-value" id="kpi-goal">0/0</div>
+        <div class="kpi-label">Objectif jour</div>
+      </div>
+    </section>
+
+    <!-- Filtres -->
+    <section class="card" id="filters">
+      <div class="card-header">
+        <strong>Filtrer & mode</strong>
+        <div class="segmented">
+          <button data-mode="practice" class="seg active">Entraînement</button>
+          <button data-mode="exam" class="seg">Examen</button>
+          <button data-mode="review" class="seg">Révisions</button>
+        </div>
+      </div>
+      <div class="grid2">
+        <div>
+          <label class="lbl">Sources</label>
+          <div id="sources"></div>
+        </div>
+        <div>
+          <label class="lbl">Options</label>
+          <div class="opts">
+            <label><input type="checkbox" id="opt-newOnly"> Prioriser nouvelles</label>
+            <label><input type="checkbox" id="opt-dueFirst" checked> Prioriser dues</label>
+            <label><input type="checkbox" id="opt-shuffle" checked> Aléatoire</label>
+          </div>
+        </div>
+      </div>
+      <div class="grid2">
+        <div>
+          <label class="lbl">Objectif quotidien</label>
+          <div class="goal">
+            <button id="goal-dec" class="ghost">−</button>
+            <input id="goal-input" type="number" min="1" max="500" value="50" inputmode="numeric">
+            <button id="goal-inc" class="ghost">+</button>
+          </div>
+        </div>
+        <div class="right">
+          <button id="btn-reset" class="danger">Réinitialiser progression</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Question -->
+    <section class="card" id="qcard" aria-live="polite">
+      <div class="q-meta">
+        <span id="q-tag" class="tag">—</span>
+        <span id="q-index" class="muted">—</span>
+      </div>
+      <h2 id="q-text">Chargement…</h2>
+      <div id="q-choices" class="choices"></div>
+      <div id="q-feedback" class="feedback"></div>
+      <div class="actions">
+        <button id="btn-reveal" class="ghost">Révéler</button>
+        <button id="btn-next" class="primary">Suivante ↵</button>
+      </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="card" id="stats">
+      <div class="card-header"><strong>Statistiques</strong></div>
+      <div class="grid2">
+        <div>
+          <ul id="by-source" class="list"></ul>
+        </div>
+        <div>
+          <canvas id="spark" width="600" height="200" aria-label="Historique 14 jours"></canvas>
+        </div>
+      </div>
+      <div class="grid2">
+        <div>
+          <button id="btn-export" class="ghost">Exporter progression</button>
+          <input type="file" id="import-file" accept="application/json" hidden>
+          <button id="btn-import" class="ghost">Importer</button>
+        </div>
+        <div class="muted right">Raccourcis : <kbd>N</kbd> suivante • <kbd>R</kbd> révéler • <kbd>␣</kbd> valider</div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="foot">
+    <small>© 2025 – Julie la championne • Ultra rigoureux, zéro invention • Offline/PWA</small>
+  </footer>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
