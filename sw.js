@@ -1,10 +1,10 @@
-/* Service Worker — Julie la championne (rev. 2025-08-13c)
+/* Service Worker — Julie la championne (rev. 2025-08-13e)
    - Pré-cache les assets principaux + JSON
    - Cache-first pour statiques / Stale-While-Revalidate pour JSON
    - Compatible GitHub Pages (chemins relatifs)
    - ✨ JSON: on ne "ignore" plus la querystring pour permettre un bust propre
 */
-const CACHE = 'julie-cache-v12';
+const CACHE = 'julie-cache-v13';
 
 const ASSETS = [
   './',
@@ -36,14 +36,12 @@ self.addEventListener('activate', (event) => {
 
 async function staleWhileRevalidateJSON(request){
   const cache = await caches.open(CACHE);
-  const cached = await cache.match(request /* ✨ pas d'ignoreSearch */);
+  const cached = await cache.match(request /* pas d'ignoreSearch */);
   try {
     const network = await fetch(request);
-    // on met à jour le cache (cloné) si OK
     if (network && network.ok) cache.put(request, network.clone());
     return cached || network;
   } catch (err) {
-    // offline → renvoyer le cache si dispo
     if (cached) return cached;
     throw err;
   }
@@ -60,7 +58,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Statiques : cache first (✨ ignoreSearch pour ne pas dupliquer)
+  // Statiques : cache first (ignoreSearch pour ne pas dupliquer)
   event.respondWith(
     caches.match(req, { ignoreSearch:true })
       .then(hit => hit || fetch(req))
