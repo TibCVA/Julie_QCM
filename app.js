@@ -1,17 +1,18 @@
-/* Julie la championne — Web App QCM (rev. 2025‑08‑13r)
-   - Sessions : Entraînement (20), Examen (50, chrono), Révisions (20 ratées)
-   - Historique persistant, SRS (SM‑2 simplifié), UI accessible
-   - Chemins relatifs (GitHub Pages), PWA offline friendly
+/* Julie la championne — Web App QCM (rev. 2025‑08‑13b)
+   - Deux datasets JSON: Annales 2020–2024 (enrichi) + Actualités 2024Q4
+   - Mobile-first, PWA, révisions espacées (SM‑2 light), stats, mode examen
+   - Chemins relatifs (GitHub Pages)
 */
+
 (() => {
   'use strict';
 
   // ========= Constantes & config =========
-  const APP_VER = '4.2.0';
-  const LS_KEY  = 'julie.v3.state'; // on garde la clé (compat)
+  const APP_VER = '4.1.0';
+  const LS_KEY  = 'julie.v3.state';     // on garde la clé pour conserver l’existant
   const DAY     = 24 * 60 * 60 * 1000;
-  const ABCD    = 'ABCD';
 
+  // IMPORTANT : laissez les chemins *relatifs* au repo GitHub Pages.
   const SOURCES = [
     { id:'annales',  label:'Annales 2020–2024', url:'./data/annales_qcm_2020_2024_enrichi.json', enabled:true },
     { id:'actu24q4', label:'Actualités 2024Q4', url:'./data/qcm_actualites_2024Q4.json',          enabled:true }
@@ -21,34 +22,44 @@
   const state = {
     _ver: APP_VER,
     mode: 'practice', // practice | exam | review
-    all: [],          // questions normalisées
-    pool: [],         // sélection courante (session)
-    index: 0,
-    selection: new Set(SOURCES.map(s => s.url)),
-    goalDaily: 20,
-    exam: { total: 50, timer: 50*60, startedAt: 0 }, // 50 questions / 50 min
+    all: [],          // toutes les questions normalisées
+    pool: [],         // sélection courante (session en cours)
+    index: 0,         // index dans la session en cours
+    selection: new Set(SOURCES.map(s => s.url)), // sources cochées par défaut
+
+    goalDaily: 20, // demandé
+
+    // Paramètres d’examen
+    exam: { total: 50, timer: 50*60, startedAt: 0 },
+
+    // Infos de session (entraînement/examen/révision)
+    session: {
+      kind: null,           // 'practice' | 'exam' | 'review'
+      total: 0,
+      startedAt: 0,
+      answers: [],          // {id, chosen, correctIdx, ok}
+      score: 0
+    },
+
+    // Historique des sessions enregistrées
+    history: {
+      practice: [],         // [{date, total, score, durationMs}]
+      exam: []              // [{date, total, score, durationMs, details:[...]}]
+    },
+
     stats: {
       // par qid: { attempts, correct, streak, easiness, interval, dueAt, lastAt, srcUrl, srcLabel }
       q: {},
-      // par jour (YYYY-MM-DD): nb validations
+      // par jour (YYYY-MM-DD): validations (tentatives comptées)
       days: {}
     },
-    session: {
-      kind: 'practice', // practice | exam | review
-      startedAt: 0,
-      finishedAt: 0,
-      answers: [],      // index choisi par question ou null
-      revealed: [],     // bool par question (examen)
-      score: 0,
-      total: 0
-    },
-    history: {
-      practice: [], // {ts, score, total, durationSec, sources[]}
-      exam: []      // {ts, score, total, durationSec, sources[], items:[{qid, chosen, correct}]}
-    },
+
     ui: { deferredPrompt: null },
-    answered: false,     // question courante validée ?
-    readyForNext: false  // 1er clic “Suivante” = montrer explication ; 2e clic = avancer
+
+    // flags de la question courante
+    answered: false,        // une option a été cochée et enregistrée
+    solutionShown: false,   // solution affichée (entraînement/révision)
+    revealed: false         // solution révélée explicitement (examen)
   };
 
   // ========= Utilitaires DOM & divers =========
@@ -56,6 +67,7 @@
   const $$ = sel => Array.from(document.querySelectorAll(sel));
   const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
   const todayKey = () => new Date().toISOString().slice(0,10);
+  const ABCD = 'ABCD';
 
   function shuffle(arr){
     for (let i = arr.length - 1; i > 0; i--){
@@ -74,16 +86,15 @@
     setTimeout(() => { el.classList.remove('show'); el.remove(); }, 2600);
   }
 
-  // Style toasts (utilise variables CSS si dispo)
+  // Style minimal pour toasts (autonome)
   (function injectToastCSS(){
     const style = document.createElement('style');
     style.textContent = `
       .toast{position:fixed;left:50%;bottom:18px;transform:translate(-50%,20px);opacity:0;
-        background:var(--panel, #fff);border:1px solid var(--border, #e5e7eb);color:var(--text, #0f172a);
-        padding:10px 14px;border-radius:10px;box-shadow:0 8px 24px rgba(2,6,23,.12);transition:.2s;font-size:14px;z-index:9999}
+        background:#111827;border:1px solid #e5e7eb;color:#f9fafb;padding:10px 14px;border-radius:10px;
+        box-shadow:0 8px 30px rgba(0,0,0,.2);transition:.2s;font-size:14px;z-index:9999}
       .toast.show{transform:translate(-50%,0);opacity:1}
-      .toast.bad{border-color:#fecaca;color:#7f1d1d;background:#fee2e2}
-      @media (prefers-reduced-motion: reduce){ .toast{transition:none} }
+      .toast.bad{background:#7f1d1d}
     `;
     document.head.appendChild(style);
   })();
@@ -99,11 +110,11 @@
   }
 
   function scheduleNext(s, wasCorrect){
-    const q = wasCorrect ? 5 : 2;
-    // SM-2 modifié (plafonné, borne basse 1.3)
+    const q = wasCorrect ? 5 : 2; // qualité binaire
     s.easiness = Math.max(1.3, s.easiness + (0.1 - (5 - q) * (0.08 + (5 - q) * 0.02)));
     if (!wasCorrect){
-      s.interval = 1; s.streak = 0;
+      s.interval = 1;
+      s.streak = 0;
     } else {
       s.streak++;
       if (s.streak === 1) s.interval = 1;
@@ -115,8 +126,9 @@
     s.lastAt = now;
   }
 
-  // ========= Normalisation datasets =========
+  // ========= Normalisation datasets (tolérante) =========
   function safeAnswerIndex(raw){
+    // accepte 0–3, 1–4, 'A'..'D', 'a'..'d', '1'..'4' (string)
     if (typeof raw === 'number'){
       if (raw >= 0 && raw <= 3) return raw;
       if (raw >= 1 && raw <= 4) return raw - 1;
@@ -143,11 +155,13 @@
     return '';
   }
 
+  // Retourne un tableau d’objets normalisés :
   // { id, question, options[4], answerIndex, explanation, srcUrl, srcLabel, meta? }
   function normalizeDataset(json, src){
     const out = [];
     const { label: srcLabel, url: srcUrl, id: srcId } = src;
 
+    // 1) Récupérer la liste d’items, quel que soit le conteneur
     let list = [];
     if (Array.isArray(json)) list = json;
     else {
@@ -163,6 +177,7 @@
       }
     }
 
+    // 2) Mapper chaque item vers le format attendu
     list.forEach((raw, i) => {
       const qtext = pickFirstNonEmpty(
         raw.question, raw.q, raw.text, raw.prompt, raw.enonce, raw.enoncé, raw.title
@@ -170,6 +185,7 @@
       const question = (qtext || '').toString().trim();
       if (!question) return;
 
+      // B) Options
       let options = [];
       const objChoices = pickFirstNonEmpty(
         raw.choices, raw.choix, raw.propositions, raw.reponses, raw.réponses, raw.answers, raw.options
@@ -220,11 +236,10 @@
     return out;
   }
 
-  // ========= Chargement =========
+  // ========= Chargement des fichiers =========
   async function fetchJson(url){
-    // On laisse le Service Worker gérer le cache (offline). Pas de 'no-store'.
     const abs = new URL(url, location.href).href;
-    const res = await fetch(abs);
+    const res = await fetch(abs, { cache: 'no-store' });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     return res.json();
   }
@@ -256,7 +271,7 @@
       stats: state.stats,
       history: state.history
     };
-    try { localStorage.setItem(LS_KEY, JSON.stringify(dump)); } catch { /* ignore quota */ }
+    try { localStorage.setItem(LS_KEY, JSON.stringify(dump)); } catch { /* ignore */ }
   }
 
   function restore(){
@@ -266,46 +281,71 @@
       const obj = JSON.parse(raw);
       if (obj && obj._ver){
         state.mode      = obj.mode || 'practice';
-        state.goalDaily = clamp(obj.goalDaily || 20, 1, 500);
+        state.goalDaily = obj.goalDaily || 20;
         state.stats     = obj.stats || { q:{}, days:{} };
         state.history   = obj.history || { practice:[], exam:[] };
         const def = SOURCES.map(s => s.url);
         state.selection = new Set(Array.isArray(obj.selection) ? obj.selection : def);
       }
-    } catch { /* ignore parse */ }
+    } catch { /* ignore */ }
   }
 
-  // ========= Tri/ordre pour sessions =========
-  function orderForPractice(items){
-    const dueFirst = $('#opt-dueFirst')?.checked;
-    const newBoost = $('#opt-newOnly')?.checked;
-    const shuffleOn= $('#opt-shuffle')?.checked;
-
-    const now = Date.now();
-    const scored = items.map(q => {
-      const s = state.stats.q[q.id] || {};
-      const isNew = !(s.attempts > 0);
-      const isDue = (s.dueAt || 0) <= now;
-      let score = Math.random();
-      if (dueFirst && isDue) score += 5;
-      if (newBoost && isNew) score += 3;
-      return { q, score };
-    });
-
-    let arr = scored.sort((a,b)=>b.score-a.score).map(x=>x.q);
-    if (shuffleOn && !dueFirst && !newBoost) arr = shuffle(arr);
-    return arr;
+  // ========= Construction du pool et gestion des sessions =========
+  function buildFilteredItems(){
+    const keep = new Set(state.selection);
+    return state.all.filter(q => keep.has(q.srcUrl));
   }
 
-  // ========= Rendu UI =========
+  function startSession(kind){
+    state.mode = kind;               // 'practice' | 'exam' | 'review'
+    const items = buildFilteredItems();
+    let pool = [];
+
+    if (kind === 'review'){
+      const wrong = items.filter(q => {
+        const s = state.stats.q[q.id];
+        return s && s.attempts > 0 && s.correct < s.attempts; // uniquement manquées
+      });
+      pool = shuffle(wrong.slice());
+      pool = pool.slice(0, 20);      // 20 questions
+    } else if (kind === 'exam'){
+      pool = shuffle(items.slice()).slice(0, Math.min(state.exam.total, items.length));
+    } else { // practice
+      pool = shuffle(items.slice()).slice(0, Math.min(20, items.length));
+    }
+
+    state.pool = pool;
+    state.index = 0;
+    state.session = {
+      kind, total: pool.length, startedAt: Date.now(),
+      answers: [], score: 0
+    };
+    state.answered = false;
+    state.solutionShown = false;
+    state.revealed = false;
+
+    renderHUD();
+    renderQuestion();
+
+    if (kind === 'exam'){
+      state.exam.startedAt = Date.now();
+      tickExam();
+    } else {
+      $('#subtitle')!.textContent = SOURCES.map(s => s.label).join(' + ');
+    }
+  }
+
+  // ========= UI binding =========
   function bindUI(){
-    // Sources
-    const box = $('#sources'); if (box) box.innerHTML = '';
+    // Sources (checkboxes)
+    const box = $('#sources');
+    if (box) box.innerHTML = '';
     for (const src of SOURCES){
       const id = `src-${src.id}`;
       const label = document.createElement('label');
+      label.className = 'src';
       label.innerHTML = `
-        <input type="checkbox" id="${id}" aria-label="${src.label}">
+        <input type="checkbox" id="${id}">
         <span>${src.label}</span>
       `;
       box?.appendChild(label);
@@ -315,31 +355,30 @@
         input.addEventListener('change', (e) => {
           if (e.target.checked) state.selection.add(src.url);
           else state.selection.delete(src.url);
-          startSession(state.mode); save();
+          // Ne touche pas la session en cours, mais on réactualise les KPIs
+          renderKPIs(); save();
         });
       }
     }
 
-    // Modes (onglets)
+    // Segmented control (modes)
     $$('.seg').forEach(btn => {
       btn.addEventListener('click', () => {
-        $$('.seg').forEach(b => {
-          b.classList.remove('active'); b.setAttribute('aria-selected','false');
-        });
-        btn.classList.add('active'); btn.setAttribute('aria-selected','true');
+        $$('.seg').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
         const mode = btn.dataset.mode;
-        state.mode = mode;
-        startSession(mode); save();
+        startSession(mode);
+        renderKPIs(); save();
       });
     });
 
     // Options
     ['opt-newOnly','opt-dueFirst','opt-shuffle'].forEach(id => {
       const el = $('#'+id);
-      if (el) el.addEventListener('change', () => { startSession(state.mode); save(); });
+      if (el) el.addEventListener('change', () => { /* options d’affichage : pas d’effet sur session en cours */ save(); });
     });
 
-    // Objectif
+    // Objectif quotidien
     $('#goal-dec')?.addEventListener('click', () => setGoal(state.goalDaily - 1));
     $('#goal-inc')?.addEventListener('click', () => setGoal(state.goalDaily + 1));
     $('#goal-input')?.addEventListener('change', e => setGoal(+e.target.value || 1));
@@ -347,29 +386,26 @@
 
     // Actions question
     $('#btn-reveal')?.addEventListener('click', reveal);
-    $('#btn-next')?.addEventListener('click', onNext);
-    $('#btn-restart')?.addEventListener('click', () => startSession(state.mode));
+    $('#btn-next')?.addEventListener('click', next);
+    $('#btn-restart')?.addEventListener('click', () => startSession(state.mode === 'exam' ? 'practice' : state.mode));
 
-    // Résultats
-    $('#btn-close-results')?.addEventListener('click', () => { $('#results')?.classList.add('hidden'); });
-
-    // Reset progression (SRS + historique conservé)
+    // Reset progression (soft) — gardé en haut
     $('#btn-reset')?.addEventListener('click', resetProgress);
 
-    // Hard reset (vraie remise à zéro app + cache SW)
-    $('#btn-hard-reset')?.addEventListener('click', hardReset);
+    // Reboot complet (hard reset + SW)
+    $('#btn-reboot')?.addEventListener('click', hardResetApp);
 
     // Raccourcis clavier
     document.addEventListener('keydown', (e) => {
       if (['INPUT','TEXTAREA'].includes(document.activeElement?.tagName)) return;
-      if (e.code === 'Space'){ e.preventDefault(); validateOrRecord(); }
-      else if (e.key === 'n' || e.key === 'N'){ onNext(); }
+      if (e.code === 'Space'){ e.preventDefault(); validate(); }
+      else if (e.key === 'n' || e.key === 'N'){ next(); }
       else if (e.key === 'r' || e.key === 'R'){ reveal(); }
       else if ('1234ABCDabcd'.includes(e.key)){
         const idx = '1234ABCD'.indexOf(e.key.toUpperCase());
         if (idx >= 0 && idx < 4){
           const radios = $$('#q-choices input[type=radio]');
-          if (radios[idx]){ radios[idx].checked = true; }
+          if (radios[idx]){ radios[idx].checked = true; validate(); }
         }
       }
     });
@@ -395,6 +431,7 @@
     renderKPIs(); save();
   }
 
+  // ========= KPI / HUD / Spark =========
   function drawSpark(){
     const el = $('#spark'); if (!el || !el.getContext) return;
     const ctx = el.getContext('2d');
@@ -406,9 +443,9 @@
     const W = el.width, H = el.height;
     const max = Math.max(1, ...days);
     ctx.clearRect(0,0,W,H);
-    ctx.globalAlpha = .25; ctx.strokeStyle = '#94a3b8';
+    ctx.strokeStyle = '#e5e7eb';
     ctx.beginPath(); ctx.moveTo(32, H-24); ctx.lineTo(W-8, H-24); ctx.stroke();
-    ctx.globalAlpha = 1; ctx.strokeStyle = '#2563eb'; ctx.lineWidth = 2;
+    ctx.strokeStyle = '#0ea5e9';
     ctx.beginPath();
     days.forEach((v,i) => {
       const x = 32 + i * ((W - 48) / 13);
@@ -416,11 +453,10 @@
       if (i === 0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
     });
     ctx.stroke();
-    ctx.fillStyle = '#2563eb';
     days.forEach((v,i) => {
       const x = 32 + i * ((W - 48) / 13);
       const y = H - 24 - (H - 60) * (v / max);
-      ctx.beginPath(); ctx.arc(x,y,2.2,0,Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.arc(x,y,2,0,Math.PI*2); ctx.fill();
     });
   }
 
@@ -439,54 +475,82 @@
     // Stats par source
     const list = $('#by-source'); if (list) list.innerHTML = '';
     const agg = {};
-    for (const [,s] of Object.entries(state.stats.q)){
+    for (const s of Object.values(state.stats.q)){
       const key = s.srcLabel || 'Source';
       agg[key] ||= { attempts:0, correct:0 };
       agg[key].attempts += s.attempts || 0;
       agg[key].correct  += s.correct  || 0;
     }
     if (list){
-      Object.entries(agg).forEach(([label,v]) => {
+      for (const [label,v] of Object.entries(agg)){
         const li = document.createElement('li');
         const pct = v.attempts ? Math.round(100*v.correct/v.attempts)+'%' : '—';
         li.innerHTML = `<span>${label}</span><span class="muted">${pct} • ${v.attempts} essais</span>`;
         list.appendChild(li);
-      });
+      }
     }
 
     drawSpark();
+    renderHistory();
   }
 
-  function renderSessionBar(){
-    const el = $('#sessionbar'); if (!el) return;
-    const kind = state.session.kind;
-    const idx = state.index + 1;
-    const total = state.session.total || state.pool.length || 0;
+  function renderHUD(){
+    const hud = $('#session-hud'); if (!hud) return;
 
-    if (kind === 'exam'){
-      const elapsed = Math.max(0, Math.floor((Date.now() - state.exam.startedAt)/1000));
-      const remain  = Math.max(0, state.exam.timer - elapsed);
-      const mm = String(Math.floor(remain / 60)).padStart(2,'0');
-      const ss = String(remain % 60).padStart(2,'0');
-      el.textContent = `Examen — ${idx}/${total} — ${mm}:${ss}`;
-      el.classList.remove('hidden');
-    } else if (kind === 'practice'){
-      el.textContent = `Entraînement — score ${state.session.score}/${total} — ${idx}/${total}`;
-      el.classList.remove('hidden');
-    } else if (kind === 'review'){
-      el.textContent = `Révisions — ${idx}/${total}`;
-      el.classList.remove('hidden');
+    if (!state.session.kind){
+      hud.classList.add('hidden'); return;
+    }
+    hud.classList.remove('hidden');
+
+    if (state.session.kind === 'exam'){
+      // Le chrono est mis à jour par tickExam ; on affiche Question n/N
+      const n = state.index + 1, N = state.session.total || state.pool.length || 0;
+      $('#hud-left')!.textContent  = 'Examen';
+      $('#hud-mid')!.textContent   = `Question ${Math.min(n, N)}/${N}`;
+      $('#hud-right')!.textContent = ''; // pas de score en cours en examen
+    } else {
+      const answeredCount = state.session.answers.length;
+      const goodSoFar = state.session.answers.filter(a => a.ok).length;
+      const n = Math.max(answeredCount, state.index + 1);
+      const N = state.session.total || state.pool.length || 0;
+      $('#hud-left')!.textContent  = (state.session.kind === 'review') ? 'Révisions' : 'Entraînement';
+      $('#hud-mid')!.textContent   = `Question ${Math.min(n, N)}/${N}`;
+      $('#hud-right')!.textContent = `Score ${goodSoFar}/${answeredCount || 0}`;
     }
   }
 
+  function renderHistory(){
+    const box = $('#history'); if (!box) return;
+    const fmt = (ms) => {
+      const m = Math.floor(ms/60000), s = Math.floor((ms%60000)/1000);
+      return `${m} min ${String(s).padStart(2,'0')} s`;
+    };
+    const mkItem = (h, kind) => {
+      const when = new Date(h.date).toLocaleString();
+      const label = kind === 'exam' ? 'Examen' : 'Entraînement';
+      return `<li><span>${label}</span><span class="muted">${when}</span><span class="muted">${h.score}/${h.total} • ${fmt(h.durationMs)}</span></li>`;
+    };
+    const lastPractice = state.history.practice.slice(-6);
+    const lastExam     = state.history.exam.slice(-6);
+    box.innerHTML = [
+      ...lastExam.map(h => mkItem(h, 'exam')),
+      ...lastPractice.map(h => mkItem(h, 'practice'))
+    ].reverse().join('') || '<li class="muted">Aucune session enregistrée pour le moment.</li>';
+  }
+
+  // ========= Rendu d’une question =========
   function renderQuestion(){
+    renderHUD();
     const q = state.pool[state.index];
+    const fb = $('#q-feedback');
+
     if (!q){
-      $('#q-text') && ($('#q-text').textContent = 'Aucune question dans la sélection. Ajuste les filtres.');
-      $('#q-choices') && ($('#q-choices').innerHTML = '');
-      $('#q-feedback') && ($('#q-feedback').textContent = '');
-      $('#q-tag') && ($('#q-tag').textContent = '—');
-      $('#q-index') && ($('#q-index').textContent = '—');
+      if ($('#q-text'))    $('#q-text').textContent = 'Aucune question dans la sélection.';
+      if ($('#q-choices')) $('#q-choices').innerHTML = '';
+      if (fb){ fb.className = 'feedback'; fb.textContent = ''; }
+      if ($('#q-tag'))     $('#q-tag').textContent = '—';
+      if ($('#q-index'))   $('#q-index').textContent = '—';
+      updateNextLabel();
       return;
     }
 
@@ -496,136 +560,116 @@
 
     const wrap = $('#q-choices'); if (wrap) wrap.innerHTML = '';
     q.options.forEach((opt, i) => {
-      const id = `opt-${state.index}-${i}`;
       const lab = document.createElement('label');
       lab.className = 'choice';
-      lab.setAttribute('for', id);
       lab.innerHTML = `
-        <input id="${id}" type="radio" name="choice" aria-label="Réponse ${ABCD[i]}">
+        <input type="radio" name="choice">
         <span class="letter">${ABCD[i]}</span>
-        <span>${opt}</span>
+        <span class="opt-text">${opt}</span>
       `;
       wrap?.appendChild(lab);
     });
 
-    const fb = $('#q-feedback');
-    if (fb){ fb.className = 'feedback hidden'; fb.textContent = ''; }
-
-    // boutons selon mode
-    if (state.mode === 'exam'){ $('#btn-reveal')?.classList.remove('hidden'); }
-    else { $('#btn-reveal')?.classList.add('hidden'); }
-
-    $('#btn-next') && ($('#btn-next').textContent = 'Suivante ↵');
+    if (fb){ fb.className = 'feedback'; fb.textContent = ''; }
 
     state.answered = false;
-    state.readyForNext = false;
-    renderSessionBar();
-
-    // Focus clavier sur la première proposition
-    requestAnimationFrame(() => {
-      const first = $('#q-choices input[type=radio]');
-      first?.focus();
-    });
+    state.solutionShown = false;
+    state.revealed = false;
+    updateNextLabel();
   }
 
-  function mark(correctIdx, chosenIdx){
+  function mark(correctIdx, chosenIdx, showSolution){
     const nodes = $$('#q-choices .choice');
     nodes.forEach((n,i) => {
-      n.classList.remove('correct','wrong');
-      if (i === correctIdx) n.classList.add('correct');
-      if (i === chosenIdx && chosenIdx !== correctIdx) n.classList.add('wrong');
+      n.classList.remove('correct','wrong','chosen');
+      if (!showSolution){
+        if (i === chosenIdx) n.classList.add('chosen'); // surligner uniquement le choix
+      } else {
+        if (i === correctIdx) n.classList.add('correct');
+        if (i === chosenIdx && chosenIdx !== correctIdx) n.classList.add('wrong');
+      }
     });
   }
 
   const current = () => state.pool[state.index];
 
-  function bumpStats(q, ok){
+  function updateNextLabel(){
+    const btn = $('#btn-next'); if (!btn) return;
+    if (state.session.kind === 'exam'){
+      btn.textContent = 'Suivante ↵';
+      return;
+    }
+    // entraînement / révision : 1er clic → montrer la solution ; 2e clic → passer à la suivante
+    btn.textContent = (!state.answered || !state.solutionShown) ? 'Afficher la solution' : 'Question suivante ↵';
+  }
+
+  function validate(){
+    if (state.answered) return;
+    const q = current(); if (!q) return;
+
+    const radios = $$('#q-choices input[type=radio]');
+    const idx = radios.findIndex(r => r.checked);
+    if (idx < 0){ toast('Choisis une réponse'); return; }
+
+    const ok = (idx === q.answerIndex);
+
+    // Marquage : en examen on ne montre pas la solution tant que non "Révéler"
+    if (state.session.kind === 'exam'){
+      mark(q.answerIndex, idx, /*showSolution*/false);
+    } else {
+      // on montrera la solution au clic "Afficher la solution" (next)
+      mark(q.answerIndex, idx, /*showSolution*/false);
+    }
+
+    // Feedback minimal
+    const fb = $('#q-feedback');
+    if (fb){
+      if (state.session.kind === 'exam'){
+        fb.className = 'feedback';
+        fb.textContent = 'Réponse enregistrée. Tu peux passer à la suivante (utilise “Révéler” pour afficher la solution).';
+      } else {
+        fb.className = 'feedback';
+        fb.textContent = 'Réponse enregistrée.';
+      }
+    }
+
+    // SRS + stats
     const s = initItemStat(q.id, q.srcUrl, q.srcLabel);
     s.attempts++; if (ok) s.correct++;
     scheduleNext(s, ok);
+
+    // progression du jour
     const k = todayKey(); state.stats.days[k] = (state.stats.days[k] || 0) + 1;
-  }
 
-  function validateOrRecord(){
-    // utilisé par barre d’espace
-    if (state.mode === 'exam'){
-      recordChoiceExam();
-    } else {
-      validateWithFeedback();
-    }
-  }
+    // session
+    state.session.answers.push({ id: q.id, chosen: idx, correctIdx: q.answerIndex, ok });
+    if (ok) state.session.score++;
 
-  function validateWithFeedback(){
-    if (state.answered) return;
-    const q = current(); if (!q) return;
-    const radios = $$('#q-choices input[type=radio]');
-    const idx = radios.findIndex(r => r.checked);
-    if (idx < 0){ toast('Choisis une réponse'); return; }
-
-    const ok = (idx === q.answerIndex);
-    state.session.answers[state.index] = idx;
-    state.session.score += ok ? 1 : 0;
-
-    mark(q.answerIndex, idx);
-
-    const fb = $('#q-feedback');
-    if (fb){
-      fb.classList.remove('hidden');
-      fb.classList.toggle('bad', !ok);
-      const sol = `Solution : ${ABCD[q.answerIndex]}.`;
-      fb.textContent = ok
-        ? '✅ Bonne réponse ! ' + (q.explanation ? q.explanation : '')
-        : `❌ Mauvaise réponse. ${sol}${q.explanation ? ' ' + q.explanation : ''}`;
-    }
-
-    bumpStats(q, ok);
     state.answered = true;
-    state.readyForNext = true;
-    $('#btn-next') && ($('#btn-next').textContent = 'Question suivante →');
-    renderSessionBar();
-    save(); renderKPIs();
-  }
-
-  function recordChoiceExam(){
-    const q = current(); if (!q) return;
-    const radios = $$('#q-choices input[type=radio]');
-    const idx = radios.findIndex(r => r.checked);
-    if (idx < 0){ toast('Choisis une réponse'); return; }
-
-    state.session.answers[state.index] = idx;
-    // mise à jour SRS/compteurs sans afficher la solution
-    const ok = (idx === q.answerIndex);
-    bumpStats(q, ok);
-
-    nextQuestionOrFinish();
-    save(); renderKPIs();
+    save();
+    renderKPIs();
+    renderHUD();
+    updateNextLabel();
   }
 
   function reveal(){
-    if (state.mode !== 'exam') return;
     const q = current(); if (!q) return;
-    mark(q.answerIndex, state.session.answers[state.index] ?? -1);
+
+    // Affiche la solution + explication
+    mark(q.answerIndex, state.session.answers.at(-1)?.chosen ?? -1, /*showSolution*/true);
     const fb = $('#q-feedback');
     if (fb){
-      fb.classList.remove('hidden'); fb.classList.remove('bad');
-      fb.textContent = `Réponse : ${ABCD[q.answerIndex]}. ${q.explanation || ''}`.trim();
-    }
-    state.session.revealed[state.index] = true;
-  }
-
-  function onNext(){
-    if (state.mode === 'exam'){
-      const hasAnswer = Number.isInteger(state.session.answers[state.index]);
-      if (!hasAnswer){ recordChoiceExam(); return; }
-      nextQuestionOrFinish(); return;
+      fb.className = 'feedback';
+      const txt = `Réponse : ${ABCD[q.answerIndex]}. ${q.explanation || ''}`.trim();
+      fb.textContent = txt;
     }
 
-    // Entraînement / Révisions : 1er clic = feedback, 2e clic = question suivante
-    if (!state.answered){ validateWithFeedback(); return; }
-    nextQuestionOrFinish();
+    state.solutionShown = true;
+    state.revealed = true;
+    updateNextLabel();
   }
 
-  function nextQuestionOrFinish(){
+  function goNextQuestionOrFinish(){
     if (state.index < state.pool.length - 1){
       state.index++; renderQuestion();
     } else {
@@ -633,204 +677,167 @@
     }
   }
 
-  function startSession(mode){
-    const keep = new Set(state.selection);
-    const items = state.all.filter(q => keep.has(q.srcUrl));
+  function next(){
+    const mode = state.session.kind;
 
-    let chosen = [];
-    if (mode === 'practice'){
-      const ordered = orderForPractice(items);
-      chosen = ordered.slice(0, Math.min(20, ordered.length));
-    } else if (mode === 'review'){
-      const missed = items.filter(q => {
-        const s = state.stats.q[q.id];
-        return s && s.attempts > 0 && s.correct < s.attempts; // déjà manquée
-      });
-      if (!missed.length){
-        toast('Aucune question manquée. Basculé en Entraînement.');
-        state.mode = 'practice';
-        $$('.seg').forEach(b => b.classList.remove('active'));
-        document.querySelector('.seg[data-mode="practice"]')?.classList.add('active');
-        const ordered = orderForPractice(items);
-        chosen = ordered.slice(0, Math.min(20, ordered.length));
-      } else {
-        chosen = shuffle(missed).slice(0, Math.min(20, missed.length));
-      }
-    } else if (mode === 'exam'){
-      const base = shuffle(items);
-      chosen = base.slice(0, Math.min(state.exam.total, base.length));
-      state.exam.startedAt = Date.now();
-      tickExam();
+    // si rien n'est coché → on valide pour générer le feedback
+    const anyChecked = $$('#q-choices input[type=radio]').some(r => r.checked);
+    if (!anyChecked){ validate(); return; }
+
+    if (mode === 'exam'){
+      // examen : jamais de solution automatique
+      if (!state.answered){ validate(); return; }
+      goNextQuestionOrFinish();
+      return;
     }
 
-    state.pool = chosen;
-    state.index = 0;
-
-    state.session = {
-      kind: state.mode,
-      startedAt: Date.now(),
-      finishedAt: 0,
-      answers: Array(chosen.length).fill(null),
-      revealed: Array(chosen.length).fill(false),
-      score: 0,
-      total: chosen.length
-    };
-
-    $('#subtitle')?.textContent = SOURCES.map(s => s.label).join(' + ');
-    $('#results')?.classList.add('hidden');
-    renderQuestion();
-    renderKPIs();
-    renderHistory();
-    save();
-  }
-
-  function tickExam(){
-    if (state.mode !== 'exam') return;
-    const elapsed = Math.floor((Date.now() - state.exam.startedAt) / 1000);
-    const remain  = Math.max(0, state.exam.timer - elapsed);
-    renderSessionBar();
-    if (remain > 0) setTimeout(tickExam, 500);
-    else finishSession(); // fin chrono
+    // entraînement / révision : 1er clic après validation → montrer la solution
+    if (!state.answered){ validate(); return; }
+    if (!state.solutionShown){ reveal(); return; }
+    goNextQuestionOrFinish();
   }
 
   function finishSession(){
-    const kind = state.session.kind;
-    state.session.finishedAt = Date.now();
-    const durationSec = Math.round((state.session.finishedAt - state.session.startedAt)/1000);
+    const durationMs = Date.now() - state.session.startedAt;
     const total = state.session.total || state.pool.length;
+    const score = state.session.score;
 
-    // Score final (examen recalculé pour fiabilité)
-    let score = state.session.score;
-    if (kind === 'exam'){
-      score = state.pool.reduce((acc,q,i) => acc + ((state.session.answers[i] === q.answerIndex) ? 1 : 0), 0);
+    // Affichage du résumé / détail
+    renderResultsPanel();
+
+    // Historisation (sauf révision)
+    if (state.session.kind === 'practice'){
+      state.history.practice.push({ date: Date.now(), total, score, durationMs });
+      // garder un historique compact
+      if (state.history.practice.length > 50) state.history.practice = state.history.practice.slice(-50);
+    } else if (state.session.kind === 'exam'){
+      // détail complet
+      state.history.exam.push({
+        date: Date.now(), total, score, durationMs,
+        details: state.session.answers.slice()
+      });
+      if (state.history.exam.length > 50) state.history.exam = state.history.exam.slice(-50);
     }
 
-    // Historique (pas pour review)
-    const histItem = {
-      ts: Date.now(),
-      score, total,
-      durationSec,
-      sources: Array.from(state.selection)
+    save();
+    renderKPIs();
+  }
+
+  function renderResultsPanel(){
+    const res = $('#results'); if (!res) return;
+    const kind = state.session.kind;
+    const total = state.session.total || state.pool.length;
+    const score = state.session.score;
+    const durationMs = Date.now() - state.session.startedAt;
+
+    const fmt = (ms) => {
+      const m = Math.floor(ms/60000), s = Math.floor((ms%60000)/1000);
+      return `${m} min ${String(s).padStart(2,'0')} s`;
     };
-    if (kind === 'practice'){
-      state.history.practice.unshift(histItem);
-      state.history.practice = state.history.practice.slice(0, 50);
-    } else if (kind === 'exam'){
-      histItem.items = state.pool.map((q,i) => ({
-        qid: q.id, chosen: state.session.answers[i], correct: q.answerIndex
-      }));
-      state.history.exam.unshift(histItem);
-      state.history.exam = state.history.exam.slice(0, 50);
+
+    let detailHTML = '';
+    if (kind === 'exam'){
+      const items = state.session.answers.map((a, i) => {
+        const q = state.pool[i];
+        const ok = a.ok ? 'ok' : 'ko';
+        const your = (a.chosen != null) ? ABCD[a.chosen] : '—';
+        const good = ABCD[a.correctIdx];
+        const qShort = q.question.length > 110 ? q.question.slice(0,107)+'…' : q.question;
+        return `<li class="res-item ${ok}">
+          <span class="num">${i+1}.</span>
+          <span class="q">${qShort}</span>
+          <span class="ans">Ta réponse : <strong>${your}</strong> • Bonne : <strong>${good}</strong></span>
+        </li>`;
+      }).join('');
+      detailHTML = `
+        <h3>Détail des questions</h3>
+        <ul class="res-list">${items}</ul>
+      `;
+    } else {
+      // entraînement / révision : pas de détail imposé ; on affiche un résumé clair
+      detailHTML = `<p class="muted">Session terminée. Tu peux <button class="ghost" id="res-restart">Recommencer</button> pour générer un nouveau set.</p>`;
     }
 
-    // Résumé / détails
-    showResults(kind, score, total, durationSec);
+    res.innerHTML = `
+      <div class="card-header"><strong>Résultat de la session</strong></div>
+      <p class="res-head">${(kind==='exam'?'Examen':'Entraînement')} — <strong>${score}/${total}</strong> en <strong>${fmt(durationMs)}</strong></p>
+      ${detailHTML}
+    `;
+    res.classList.remove('hidden');
 
-    // Revenir au mode entraînement après un examen
+    // bouton recommencer (si présent) :
+    $('#res-restart')?.addEventListener('click', () => startSession(state.session.kind === 'review' ? 'review' : 'practice'));
+    // retour automatique en mode entraînement après examen (sans lancer une session)
     if (kind === 'exam'){
-      state.mode = 'practice';
+      // on repasse les onglets sur "Entraînement" (état neutre)
       $$('.seg').forEach(b => b.classList.remove('active'));
       document.querySelector('.seg[data-mode="practice"]')?.classList.add('active');
     }
-
-    renderHistory();
-    save();
   }
 
-  function showResults(kind, score, total, durationSec){
-    const secToMMSS = (s) => {
-      const mm = String(Math.floor(s/60)).padStart(2,'0');
-      const ss = String(s%60).padStart(2,'0');
-      return `${mm}:${ss}`;
-    };
-    $('#results')?.classList.remove('hidden');
-    $('#results-title') && ($('#results-title').textContent =
-      kind === 'exam' ? 'Examen terminé' : (kind === 'practice' ? 'Entraînement terminé' : 'Révisions terminées')
-    );
-    const pct = total ? Math.round(100*score/total) : 0;
-    $('#results-summary') && ($('#results-summary').textContent =
-      (kind === 'review')
-        ? `Durée ${secToMMSS(durationSec)} — ${total} question(s) révisée(s).`
-        : `Score ${score}/${total} (${pct} %) — Durée ${secToMMSS(durationSec)}.`
-    );
-
-    const list = $('#results-list'); if (list) list.innerHTML = '';
-    if (kind === 'exam' && list){
-      state.pool.forEach((q,i) => {
-        const chosen = state.session.answers[i];
-        const ok = (chosen === q.answerIndex);
-        const li = document.createElement('li');
-        const chosenTxt = Number.isInteger(chosen) ? ABCD[chosen] : '—';
-        li.innerHTML = `
-          <div><span class="${ok?'ok':'ko'}" aria-hidden="true">${ok?'✓':'✗'}</span> ${q.question}</div>
-          <div class="muted">Votre réponse : ${chosenTxt} • Juste : ${ABCD[q.answerIndex]}</div>
-        `;
-        list.appendChild(li);
-      });
+  // ========= Chrono examen =========
+  function tickExam(){
+    if (state.session.kind !== 'exam') return;
+    const elapsed = Math.floor((Date.now() - state.exam.startedAt) / 1000);
+    const remain  = Math.max(0, state.exam.timer - elapsed);
+    const mm = String(Math.floor(remain / 60)).padStart(2,'0');
+    const ss = String(remain % 60).padStart(2,'0');
+    const qNum = `${Math.min(state.index+1, state.pool.length)}/${state.pool.length}`;
+    $('#subtitle')?.textContent = `Mode examen — ${mm}:${ss} — Question ${qNum}`;
+    if (remain > 0) setTimeout(tickExam, 500);
+    else {
+      toast(`Temps écoulé`);
+      finishSession();
     }
   }
 
-  function renderHistory(){
-    const el = $('#history-list'); if (!el) return;
-    el.innerHTML = '';
-    const items = [
-      ...state.history.exam.map(x => ({...x, kind:'Examen'})),
-      ...state.history.practice.map(x => ({...x, kind:'Entraînement'}))
-    ].sort((a,b)=>b.ts-a.ts).slice(0,12);
-
-    const secToMMSS = (s) => {
-      const mm = String(Math.floor(s/60)).padStart(2,'0');
-      const ss = String(s%60).padStart(2,'0');
-      return `${mm}:${ss}`;
-    };
-
-    items.forEach(h => {
-      const li = document.createElement('li');
-      const date = new Date(h.ts).toLocaleString();
-      const pct = h.total ? Math.round(100*h.score/h.total)+'%' : '—';
-      li.innerHTML = `
-        <span>${h.kind} • ${date}</span>
-        <span class="muted">${h.score}/${h.total} (${pct}) • ${secToMMSS(h.durationSec)}</span>
-      `;
-      el.appendChild(li);
-    });
-  }
-
-  // ========= Import/Export (placeholder) =========
-  function exportProgress(){ /* réservé ultérieurement */ }
-  function importProgress(){ /* réservé ultérieurement */ }
-
+  // ========= Reset & Reboot =========
   function resetProgress(){
-    if (!confirm('Effacer TOUTE la progression (SRS), mais conserver l’historique ?')) return;
+    if (!confirm('Effacer TOUTE la progression (stats + historique) ?')) return;
     state.stats = { q:{}, days:{} };
+    state.history = { practice:[], exam:[] };
     state.all.forEach(q => initItemStat(q.id, q.srcUrl, q.srcLabel));
-    save(); startSession(state.mode); renderKPIs(); renderHistory();
+    save();
+    startSession('practice');
+    renderKPIs();
     toast('Progression réinitialisée');
   }
 
-  async function hardReset(){
-    if (!confirm('Rebooter l’app (effacer progression + historique + cache) ?')) return;
-    try { localStorage.removeItem(LS_KEY); } catch {}
+  async function hardResetApp(){
+    if (!confirm('Redémarrer complètement l’application (cache + progression) ?')) return;
     try {
+      // 1) localStorage
+      localStorage.removeItem(LS_KEY);
+      // 2) caches SW
       if ('caches' in window){
         const keys = await caches.keys();
         await Promise.all(keys.map(k => caches.delete(k)));
       }
-    } catch {}
+      // 3) unregister service workers
+      if ('serviceWorker' in navigator){
+        const regs = await navigator.serviceWorker.getRegistrations();
+        await Promise.all(regs.map(r => r.unregister()));
+      }
+    } catch { /* ignore */ }
     location.reload();
   }
 
   // ========= Init =========
   async function init(){
+    // Sous-titre (sources actives)
     $('#subtitle')?.textContent = SOURCES.map(s => s.label).join(' + ');
+
     restore();
     bindUI();
 
-    try { await loadAll(); }
-    catch { toast('Erreur de chargement', true); }
+    try {
+      await loadAll();
+    } catch {
+      toast('Erreur de chargement', true);
+    }
 
-    startSession('practice');   // par défaut : entraînement (20)
     renderKPIs();
+    startSession('practice');   // démarre une première session de 20 questions
 
     // Service worker
     if ('serviceWorker' in navigator){
@@ -839,7 +846,7 @@
     }
   }
 
-  // Expose (debug)
+  // Expose quelques actions (debug)
   window.JulieQCM = {
     version: APP_VER,
     state, startSession, renderKPIs, renderQuestion
