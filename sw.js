@@ -1,9 +1,5 @@
-/* Service Worker — Julie la championne (rev. 2025-08-13)
-   - Pré-cache les assets principaux + JSON
-   - Cache-first pour statiques / Stale-While-Revalidate pour JSON
-   - Compatible GitHub Pages (chemins relatifs)
-*/
-const CACHE = 'julie-cache-v10';
+/* Service Worker — Julie la championne (rev. 2025-08-13b) */
+const CACHE = 'julie-cache-v11';
 
 const ASSETS = [
   './',
@@ -13,7 +9,6 @@ const ASSETS = [
   './manifest.webmanifest',
   './icons/icon-192.png',
   './icons/icon-512.png',
-  // Data (disponible hors-ligne)
   './data/annales_qcm_2020_2024_enrichi.json',
   './data/qcm_actualites_2024Q4.json'
 ];
@@ -33,7 +28,6 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Réponses réseau → mise à jour silencieuse du cache
 async function staleWhileRevalidate(event){
   const cache = await caches.open(CACHE);
   const cached = await cache.match(event.request, { ignoreSearch:true });
@@ -45,19 +39,15 @@ async function staleWhileRevalidate(event){
 
 self.addEventListener('fetch', (event) => {
   const req = event.request;
-
-  // Traite uniquement les GET
   if (req.method !== 'GET') return;
 
   const url = new URL(req.url);
 
-  // JSON : S-W-R (rapide + MAJ en arrière-plan)
   if (url.pathname.endsWith('.json')){
     event.respondWith(staleWhileRevalidate(event));
     return;
   }
 
-  // Statiques : cache-first
   event.respondWith(
     caches.match(req, { ignoreSearch:true })
       .then(hit => hit || fetch(req))
