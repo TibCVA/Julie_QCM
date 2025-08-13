@@ -1,10 +1,10 @@
 {
   "id": "ACT-2024Q4",
   "title": "Actualités — Octobre 2024 (ADC24 & Actuel 07/10/2024)",
-  "points": 150,
+  "points": 148,
   "questions": [
     {
-      "question": "Que prévoit la transposition française de la directive CSRD pour la DPEF ?",
+      "question": "Selon les diapositives DPEF/CSRD (octobre 2024), Que prévoit la transposition française de la directive CSRD pour la DPEF ?",
       "choices": {
         "A": "La DPEF est maintenue sans changement après 2025",
         "B": "La DPEF est abrogée à compter du 1er janvier 2025",
@@ -15,7 +15,7 @@
       "answer_text": "La DPEF est abrogée à compter du 01/01/2025 (transposition CSRD)."
     },
     {
-      "question": "Pour quels exercices l'ancien dispositif DPEF reste-t-il applicable ?",
+      "question": "Selon les diapositives DPEF/CSRD (octobre 2024), Pour quels exercices l'ancien dispositif DPEF reste-t-il applicable ?",
       "choices": {
         "A": "Uniquement pour 2023",
         "B": "Pour 2024 si l'entité n’entre pas dans le champ CSRD dès 2024",
@@ -26,7 +26,7 @@
       "answer_text": "Maintien pour 2024 si l’entité n’est pas encore dans le champ CSRD."
     },
     {
-      "question": "En 2024, qui peut légalement vérifier une DPEF ?",
+      "question": "Selon les diapositives DPEF/CSRD (octobre 2024), En 2024, qui peut légalement vérifier une DPEF ?",
       "choices": {
         "A": "Uniquement un OTI accrédité COFRAC",
         "B": "Uniquement un commissaire aux comptes financier",
@@ -37,7 +37,7 @@
       "answer_text": "Trois profils possibles : OTI historique, CAC durabilité, OTI vert."
     },
     {
-      "question": "En 2024, quelles dispositions techniques s'appliquent au CAC durabilité chargé d’émettre un avis sur la DPEF ?",
+      "question": "Selon les diapositives DPEF/CSRD (octobre 2024), En 2024, quelles dispositions techniques s'appliquent au CAC durabilité chargé d’émettre un avis sur la DPEF ?",
       "choices": {
         "A": "Accréditation ISO 17029 et référentiel COFRAC",
         "B": "Articles A.225-1 à A.225-4 du code de commerce",
@@ -48,7 +48,7 @@
       "answer_text": "Les articles A.225-1 à A.225-4 sont rendus applicables."
     },
     {
-      "question": "La recodification a supprimé la mention expresse d’attestation de présence de la DPEF. Quelle position est indiquée ?",
+      "question": "Selon les diapositives DPEF/CSRD (octobre 2024), La recodification a supprimé la mention expresse d’attestation de présence de la DPEF. Quelle position est indiquée ?",
       "choices": {
         "A": "Suppression voulue : toute attestation est interdite",
         "B": "Erreur de plume : la CNCC maintient la référence dans l’avis",
@@ -59,7 +59,7 @@
       "answer_text": "La CNCC la considère comme une omission matérielle."
     },
     {
-      "question": "Quel article vise la liste sur laquelle doivent être inscrits les CAC durabilité pouvant vérifier la DPEF 2024 ?",
+      "question": "Selon les diapositives DPEF/CSRD (octobre 2024), Quel article vise la liste sur laquelle doivent être inscrits les CAC durabilité pouvant vérifier la DPEF 2024 ?",
       "choices": {
         "A": "L.821-10",
         "B": "L.821-13 II",
@@ -70,7 +70,7 @@
       "answer_text": "Liste mentionnée au II de l’article L.821-13."
     },
     {
-      "question": "Conséquence majeure CSRD sur la DPEF rappelée dans le diaporama :",
+      "question": "Selon les diapositives DPEF/CSRD (octobre 2024), Conséquence majeure CSRD sur la DPEF rappelée dans le diaporama :",
       "choices": {
         "A": "Renforcement sans abrogation",
         "B": "Disparition à compter de 2025",
@@ -81,7 +81,7 @@
       "answer_text": "Abrogation de la DPEF au 01/01/2025."
     },
     {
-      "question": "Lettre de mission et rapport DPEF 2024 par un CAC durabilité :",
+      "question": "Selon les diapositives DPEF/CSRD (octobre 2024), Lettre de mission et rapport DPEF 2024 par un CAC durabilité :",
       "choices": {
         "A": "Doivent suivre ISO 17029",
         "B": "Sont adaptés au cas d’espèce ; ISO 17029 non pertinente",
@@ -92,7 +92,7 @@
       "answer_text": "ISO 17029 non pertinente pour la DPEF 2024 par un CAC."
     },
     {
-      "question": "Pourquoi l’avis technique DPEF a-t-il été révisé ?",
+      "question": "Selon les diapositives DPEF/CSRD (octobre 2024), Pourquoi l’avis technique DPEF a-t-il été révisé ?",
       "choices": {
         "A": "Nouvelle NEP 700",
         "B": "Retours COFRAC + mises à jour du code + recodification CSRD",
@@ -103,7 +103,7 @@
       "answer_text": "Triptyque : COFRAC, code de commerce, recodification CSRD."
     },
     {
-      "question": "Un CAC « financier » non inscrit L.821-13 II peut-il vérifier une DPEF 2024 ?",
+      "question": "Selon les diapositives DPEF/CSRD (octobre 2024), Un CAC « financier » non inscrit L.821-13 II peut-il vérifier une DPEF 2024 ?",
       "choices": {
         "A": "Oui, sans condition",
         "B": "Oui, s’il est accrédité COFRAC",
@@ -114,7 +114,7 @@
       "answer_text": "Il faut être CAC durabilité (liste L.821-13 II)."
     },
     {
-      "question": "Quelle caractéristique distingue les SLB des Green Bonds ?",
+      "question": "Selon la section « Sustainability‑Linked Bonds » (diaporama d’octobre 2024), Quelle caractéristique distingue les SLB des Green Bonds ?",
       "choices": {
         "A": "SLB financent des projets précis ; GB objectifs globaux",
         "B": "SLB lient le coût de l’emprunt à l’atteinte d’objectifs ESG ; GB financent des projets spécifiques",
@@ -136,7 +136,7 @@
       "answer_text": "Les SLB sont émis par des entreprises."
     },
     {
-      "question": "Objet des diligences post-émission SLB :",
+      "question": "Selon la section « Sustainability‑Linked Bonds » (diaporama d’octobre 2024), Objet des diligences post-émission SLB :",
       "choices": {
         "A": "Conformité IFRS",
         "B": "Vérifier la réalisation des objectifs ESG du contrat",
@@ -147,7 +147,7 @@
       "answer_text": "Contrôle des KPI/targets contractuels."
     },
     {
-      "question": "Intérêt pour l’émetteur d’un SLB :",
+      "question": "Selon la section « Sustainability‑Linked Bonds » (diaporama d’octobre 2024), Intérêt pour l’émetteur d’un SLB :",
       "choices": {
         "A": "Réduction automatique du capital",
         "B": "Accès aux capitaux et engagement LT démontré",
@@ -158,7 +158,7 @@
       "answer_text": "Accès au marché et signal d’engagement durable."
     },
     {
-      "question": "Bénéfice potentiel pour l’investisseur :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Bénéfice potentiel pour l’investisseur :",
       "choices": {
         "A": "Dividende garanti",
         "B": "Taux bonifié conditionné à la performance ESG",
@@ -169,7 +169,7 @@
       "answer_text": "Le coupon dépend de la performance ESG."
     },
     {
-      "question": "Parmi les références citées pour l’assurance SLB :",
+      "question": "Selon la section « Sustainability‑Linked Bonds » (diaporama d’octobre 2024), Parmi les références citées pour l’assurance SLB :",
       "choices": {
         "A": "ISSA 5000 (exposure draft)",
         "B": "NEP 315",
@@ -180,7 +180,7 @@
       "answer_text": "ISAE 3000 (Revised) et ISSA 5000 en référence."
     },
     {
-      "question": "Rôle du CAC dans les SLB :",
+      "question": "Selon la section « Sustainability‑Linked Bonds » (diaporama d’octobre 2024), Rôle du CAC dans les SLB :",
       "choices": {
         "A": "Avant émission, attester le prospectus",
         "B": "À l’émission, certifier l’allocation des fonds",
@@ -191,7 +191,7 @@
       "answer_text": "Vérification post-émission selon le contrat."
     },
     {
-      "question": "Exemples d’objectifs associés aux SLB :",
+      "question": "Selon la section « Sustainability‑Linked Bonds » (diaporama d’octobre 2024), Exemples d’objectifs associés aux SLB :",
       "choices": {
         "A": "Croissance du CA uniquement",
         "B": "Réduction GES ou lutte contre inégalités",
@@ -202,7 +202,7 @@
       "answer_text": "Exemples cités : GES, inégalités sociales."
     },
     {
-      "question": "Objectif général des SLB :",
+      "question": "Selon la section « Sustainability‑Linked Bonds » (diaporama d’octobre 2024), Objectif général des SLB :",
       "choices": {
         "A": "Financer des projets",
         "B": "Inciter à améliorer la performance E/S/G",
@@ -213,7 +213,7 @@
       "answer_text": "Incitation via la mécanique de coupon."
     },
     {
-      "question": "Particularité clé des SLB :",
+      "question": "Selon la section « Sustainability‑Linked Bonds » (diaporama d’octobre 2024), Particularité clé des SLB :",
       "choices": {
         "A": "Prêts bancaires réglementés Bâle III",
         "B": "KPI de durabilité contractuels",
@@ -224,7 +224,7 @@
       "answer_text": "KPI/cibles font foi dans le contrat."
     },
     {
-      "question": "Obligation annuelle minimale d’un CAC en formation continue :",
+      "question": "Selon l’article A.821‑46 (obligation de formation continue) rappelé dans le support, Obligation annuelle minimale d’un CAC en formation continue :",
       "choices": {
         "A": "Aucune",
         "B": "10 h",
@@ -235,7 +235,7 @@
       "answer_text": "120 h/3 ans dont au moins 20 h la même année."
     },
     {
-      "question": "Volume total sur trois années consécutives :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Volume total sur trois années consécutives :",
       "choices": {
         "A": "60 h",
         "B": "90 h",
@@ -246,7 +246,7 @@
       "answer_text": "120 heures triennales."
     },
     {
-      "question": "Limite colloques/conférences sur 3 ans :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Limite colloques/conférences sur 3 ans :",
       "choices": {
         "A": "Aucune",
         "B": "20 h",
@@ -257,7 +257,7 @@
       "answer_text": "Plafond de 45 heures."
     },
     {
-      "question": "Heures retenues par an pour concevoir/assurer des formations :",
+      "question": "Selon l’article A.821‑46 (obligation de formation continue) rappelé dans le support, Heures retenues par an pour concevoir/assurer des formations :",
       "choices": {
         "A": "10 h",
         "B": "20 h",
@@ -268,7 +268,7 @@
       "answer_text": "Conception/animation : 20 h/an maximum."
     },
     {
-      "question": "Limite triennale pour la rédaction/publication de travaux techniques :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Limite triennale pour la rédaction/publication de travaux techniques :",
       "choices": {
         "A": "10 h",
         "B": "20 h",
@@ -279,7 +279,7 @@
       "answer_text": "Plafond 30 h/3 ans."
     },
     {
-      "question": "Les programmes d’autoformation encadrée comptent-ils ?",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Les programmes d’autoformation encadrée comptent-ils ?",
       "choices": {
         "A": "Non",
         "B": "Oui",
@@ -290,7 +290,7 @@
       "answer_text": "Ils entrent dans l’obligation."
     },
     {
-      "question": "Participation à des travaux techniques : plafond :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Participation à des travaux techniques : plafond :",
       "choices": {
         "A": "10 h/an",
         "B": "20 h/an",
@@ -301,7 +301,7 @@
       "answer_text": "20 heures par an."
     },
     {
-      "question": "Programme de formation continue particulière :",
+      "question": "Selon l’article A.821‑46 (obligation de formation continue) rappelé dans le support, Programme de formation continue particulière :",
       "choices": {
         "A": "Non pris en compte",
         "B": "Compte dans l’obligation",
@@ -312,7 +312,7 @@
       "answer_text": "Il se cumule dans les 120 h."
     },
     {
-      "question": "La base réglementaire citée pour l’obligation de formation :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), La base réglementaire citée pour l’obligation de formation :",
       "choices": {
         "A": "L.821-10",
         "B": "A.821-46",
@@ -323,7 +323,7 @@
       "answer_text": "Article A.821-46."
     },
     {
-      "question": "Enseignement à distance encadré :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Enseignement à distance encadré :",
       "choices": {
         "A": "Ne compte pas",
         "B": "Compte dans les 120 h",
@@ -334,7 +334,7 @@
       "answer_text": "Pris en compte, sous encadrement."
     },
     {
-      "question": "Cours à l’université : limite annuelle retenue :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Cours à l’université : limite annuelle retenue :",
       "choices": {
         "A": "Non pris en compte",
         "B": "45 h/an",
@@ -345,7 +345,7 @@
       "answer_text": "Jusqu’à 20 h/an."
     },
     {
-      "question": "Un colloque d’une journée (7 h) :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Un colloque d’une journée (7 h) :",
       "choices": {
         "A": "Jamais retenu",
         "B": "Retenu dans la limite 45 h/3 ans",
@@ -356,7 +356,7 @@
       "answer_text": "Entre dans le plafond colloques."
     },
     {
-      "question": "Somme de toutes activités de formation sur 3 ans :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Somme de toutes activités de formation sur 3 ans :",
       "choices": {
         "A": "Ne dépasse jamais 120 h",
         "B": "Peut dépasser 120 h",
@@ -367,7 +367,7 @@
       "answer_text": "Le total reste 120 h sur 3 ans."
     },
     {
-      "question": "Les autoformations encadrées et webinaires :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Les autoformations encadrées et webinaires :",
       "choices": {
         "A": "Exclus",
         "B": "Pris en compte dans les plafonds",
@@ -378,7 +378,7 @@
       "answer_text": "Comptabilisés selon les plafonds applicables."
     },
     {
-      "question": "Activité incompatible de manière générale avec la fonction de CAC :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Activité incompatible de manière générale avec la fonction de CAC :",
       "choices": {
         "A": "Un emploi salarié (hors exceptions enseignement/CAC/EC)",
         "B": "Un mandat d’administrateur indépendant",
@@ -389,7 +389,7 @@
       "answer_text": "Incompatibilité d’emploi salarié sauf exceptions prévues."
     },
     {
-      "question": "Le CAC peut-il détenir un intérêt dans l’entité auditée ?",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Le CAC peut-il détenir un intérêt dans l’entité auditée ?",
       "choices": {
         "A": "Oui si non significatif",
         "B": "Oui si approuvé par l’AG",
@@ -400,7 +400,7 @@
       "answer_text": "Interdiction de tout intérêt direct/indirect (L.821-31)."
     },
     {
-      "question": "Négociation d’instruments financiers de l’entité auditée :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Négociation d’instruments financiers de l’entité auditée :",
       "choices": {
         "A": "Libre pour associés non signataires",
         "B": "Interdite pour associés, salariés et toute personne participant à la mission",
@@ -411,7 +411,7 @@
       "answer_text": "Interdiction s’étendant aux participants à la mission."
     },
     {
-      "question": "Activité commerciale du CAC :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Activité commerciale du CAC :",
       "choices": {
         "A": "Libre",
         "B": "Interdite sauf accessoire à l’EC ou en société pluriprofessionnelle",
@@ -422,7 +422,7 @@
       "answer_text": "L.821-27 : exception strictement encadrée."
     },
     {
-      "question": "Emploi rémunéré chez un expert-comptable :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Emploi rémunéré chez un expert-comptable :",
       "choices": {
         "A": "Toujours incompatible",
         "B": "Toujours compatible",
@@ -433,7 +433,7 @@
       "answer_text": "C’est une des exceptions prévues par le texte."
     },
     {
-      "question": "Qui, en plus des associés, est visé par l’interdiction de transactions ?",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Qui, en plus des associés, est visé par l’interdiction de transactions ?",
       "choices": {
         "A": "Uniquement stagiaires",
         "B": "Uniquement le signataire",
@@ -444,7 +444,7 @@
       "answer_text": "Interdiction étendue à toute personne impliquée."
     },
     {
-      "question": "Intérêt dans une filiale de l’entité auditée :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Intérêt dans une filiale de l’entité auditée :",
       "choices": {
         "A": "Autorisé si non consolidée",
         "B": "Prohibé également",
@@ -455,7 +455,7 @@
       "answer_text": "L.821-31 vise contrôlées/contrôlante."
     },
     {
-      "question": "L’enseignement rattaché à la profession :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), L’enseignement rattaché à la profession :",
       "choices": {
         "A": "Interdit",
         "B": "Exception admise à l’interdiction d’emploi salarié",
@@ -466,7 +466,7 @@
       "answer_text": "Exception expresse de L.821-27."
     },
     {
-      "question": "Détention d’un fonds indiciel large comprenant l’émetteur :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Détention d’un fonds indiciel large comprenant l’émetteur :",
       "choices": {
         "A": "Explicitement autorisée par la diapo",
         "B": "Non détaillée ; prudence au regard de l’indépendance",
@@ -477,7 +477,7 @@
       "answer_text": "Non traité ; appliquer l’analyse d’indépendance."
     },
     {
-      "question": "La règle d’interdiction s’applique aux missions :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), La règle d’interdiction s’applique aux missions :",
       "choices": {
         "A": "Comptes uniquement",
         "B": "Comptes et informations de durabilité",
@@ -488,7 +488,7 @@
       "answer_text": "La mission de certification englobe comptes et durabilité."
     },
     {
-      "question": "Possession indirecte d’un intérêt comprend :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Possession indirecte d’un intérêt comprend :",
       "choices": {
         "A": "Uniquement titres en direct",
         "B": "Intérêts via véhicules contrôlés",
@@ -499,7 +499,7 @@
       "answer_text": "La notion couvre l’indirect (véhicules contrôlés)."
     },
     {
-      "question": "Salarié du cabinet participant ponctuellement :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Salarié du cabinet participant ponctuellement :",
       "choices": {
         "A": "Peut négocier après accord",
         "B": "Libre si intérêt non substantiel",
@@ -510,7 +510,7 @@
       "answer_text": "Toute personne participant à la mission est visée."
     },
     {
-      "question": "Activité commerciale non accessoire à l’EC :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Activité commerciale non accessoire à l’EC :",
       "choices": {
         "A": "Prohibée par L.821-27",
         "B": "Permise < 10 k€",
@@ -521,7 +521,7 @@
       "answer_text": "Interdite de principe."
     },
     {
-      "question": "Contrôle du respect de l’indépendance :",
+      "question": "Selon les règles de déontologie (L.821‑27 et L.821‑31) rappelées dans le diaporama, Contrôle du respect de l’indépendance :",
       "choices": {
         "A": "Assemblées générales",
         "B": "Contrôles H2A/H3C et revues de mandats",
@@ -532,7 +532,7 @@
       "answer_text": "Thème des contrôles 2023."
     },
     {
-      "question": "Base juridique mentionnée pour les incompatibilités/indépendance :",
+      "question": "Selon les règles de déontologie (L.821‑27 et L.821‑31) rappelées dans le diaporama, Base juridique mentionnée pour les incompatibilités/indépendance :",
       "choices": {
         "A": "L.821-27 & L.821-31",
         "B": "L.823-10",
@@ -543,7 +543,7 @@
       "answer_text": "Articles cités sur la diapo déontologie."
     },
     {
-      "question": "À qui le CAC signale-t-il les irrégularités/inexactitudes ?",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), À qui le CAC signale-t-il les irrégularités/inexactitudes ?",
       "choices": {
         "A": "Uniquement à l’AG",
         "B": "À la plus prochaine AG ou organe compétent",
@@ -554,7 +554,7 @@
       "answer_text": "Signalement à la prochaine AG ou organe compétent."
     },
     {
-      "question": "Dans quels cas informer aussi les organes d’administration/direction ?",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Dans quels cas informer aussi les organes d’administration/direction ?",
       "choices": {
         "A": "Toujours",
         "B": "Jamais",
@@ -565,7 +565,7 @@
       "answer_text": "Ajout prévu par L.821-63 (durabilité)."
     },
     {
-      "question": "Que doit faire le CAC face à des faits délictueux ?",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Que doit faire le CAC face à des faits délictueux ?",
       "choices": {
         "A": "Les garder sous scellés",
         "B": "Les révéler au procureur",
@@ -576,7 +576,7 @@
       "answer_text": "Révélation obligatoire au procureur."
     },
     {
-      "question": "Le signalement prévu par L.821-10 concerne :",
+      "question": "Selon les obligations de signalement et de révélation (L.821‑10 et L.821‑63) présentées, Le signalement prévu par L.821-10 concerne :",
       "choices": {
         "A": "Uniquement fraude fiscale",
         "B": "Irrégularités et inexactitudes",
@@ -587,7 +587,7 @@
       "answer_text": "Portée générale du texte."
     },
     {
-      "question": "Révélation au procureur remplace-t-elle le signalement AG ?",
+      "question": "Selon les obligations de signalement et de révélation (L.821‑10 et L.821‑63) présentées, Révélation au procureur remplace-t-elle le signalement AG ?",
       "choices": {
         "A": "Oui",
         "B": "Non, obligations distinctes",
@@ -598,7 +598,7 @@
       "answer_text": "Les deux obligations se cumulent selon les cas."
     },
     {
-      "question": "Base du dispositif de signalement citée :",
+      "question": "Selon les obligations de signalement et de révélation (L.821‑10 et L.821‑63) présentées, Base du dispositif de signalement citée :",
       "choices": {
         "A": "L.821-27",
         "B": "L.821-10",
@@ -609,7 +609,7 @@
       "answer_text": "L.821-10 (révélation/irrégularités)."
     },
     {
-      "question": "Le support précise cette obligation pour le CAC qui :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Le support précise cette obligation pour le CAC qui :",
       "choices": {
         "A": "Assure une mission es qualité de CAC",
         "B": "Fait du seul conseil",
@@ -620,7 +620,7 @@
       "answer_text": "Visé dès qu’il agit en qualité de CAC."
     },
     {
-      "question": "Information des organes d’administration/direction est liée :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Information des organes d’administration/direction est liée :",
       "choices": {
         "A": "Au comité RSE",
         "B": "À la certification comptes/durabilité",
@@ -631,7 +631,7 @@
       "answer_text": "Liée à la mission de certification."
     },
     {
-      "question": "La révélation au procureur est :",
+      "question": "Selon les obligations de signalement et de révélation (L.821‑10 et L.821‑63) présentées, La révélation au procureur est :",
       "choices": {
         "A": "Facultative",
         "B": "Obligatoire pour des faits délictueux",
@@ -642,7 +642,7 @@
       "answer_text": "Obligation légale de révélation."
     },
     {
-      "question": "Référence complémentaire mentionnée :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Référence complémentaire mentionnée :",
       "choices": {
         "A": "L.821-54",
         "B": "L.821-63 (durabilité)",
@@ -653,7 +653,7 @@
       "answer_text": "Renvoi à L.821-63 pour la durabilité."
     },
     {
-      "question": "Nombre de contrôles de cabinets EIP en 2023 :",
+      "question": "D’après le panorama H2A/H3C 2023 repris dans le support, Nombre de contrôles de cabinets EIP en 2023 :",
       "choices": {
         "A": "52",
         "B": "60",
@@ -664,7 +664,7 @@
       "answer_text": "72 contrôles EIP."
     },
     {
-      "question": "Contrôles de cabinets non EIP en 2023 (majoritairement CNCC) :",
+      "question": "D’après le panorama H2A/H3C 2023 repris dans le support, Contrôles de cabinets non EIP en 2023 (majoritairement CNCC) :",
       "choices": {
         "A": "426",
         "B": "526",
@@ -675,7 +675,7 @@
       "answer_text": "726 non EIP dont 707 par la CNCC."
     },
     {
-      "question": "Taux d’insuffisance NEP 330 chez les EIP (2023) :",
+      "question": "D’après le panorama H2A/H3C 2023 repris dans le support, Taux d’insuffisance NEP 330 chez les EIP (2023) :",
       "choices": {
         "A": "38 %",
         "B": "52 %",
@@ -686,7 +686,7 @@
       "answer_text": "NEP 330 : 60 % pour les EIP."
     },
     {
-      "question": "Taux d’insuffisance NEP 600 chez les non EIP (2023) :",
+      "question": "D’après le panorama H2A/H3C 2023 repris dans le support, Taux d’insuffisance NEP 600 chez les non EIP (2023) :",
       "choices": {
         "A": "10 %",
         "B": "20 %",
@@ -697,7 +697,7 @@
       "answer_text": "NEP 600 : 38 % non EIP (65 % EIP)."
     },
     {
-      "question": "NEP 230 (documentation), insuffisance chez les EIP (2023) :",
+      "question": "D’après le panorama H2A/H3C 2023 repris dans le support, NEP 230 (documentation), insuffisance chez les EIP (2023) :",
       "choices": {
         "A": "35 %",
         "B": "52 %",
@@ -708,7 +708,7 @@
       "answer_text": "NEP 230 : 52 % EIP."
     },
     {
-      "question": "Thèmes particulièrement vérifiés en 2023 :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Thèmes particulièrement vérifiés en 2023 :",
       "choices": {
         "A": "Formation, indépendance, LCB-FT, acceptation/poursuite",
         "B": "IFRS 15",
@@ -719,7 +719,7 @@
       "answer_text": "Ces thèmes sont listés dans le panorama."
     },
     {
-      "question": "Taux d’insuffisance NEP 540 chez les non EIP (2023) :",
+      "question": "D’après le panorama H2A/H3C 2023 repris dans le support, Taux d’insuffisance NEP 540 chez les non EIP (2023) :",
       "choices": {
         "A": "1 %",
         "B": "10 %",
@@ -730,7 +730,7 @@
       "answer_text": "NEP 540 : 1 % non EIP (55 % EIP)."
     },
     {
-      "question": "NEP affichant ~13 % d’insuffisance chez les EIP (10 % non EIP) :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), NEP affichant ~13 % d’insuffisance chez les EIP (10 % non EIP) :",
       "choices": {
         "A": "NEP 315",
         "B": "NEP 330",
@@ -741,7 +741,7 @@
       "answer_text": "NEP 570 – continuité d’exploitation."
     },
     {
-      "question": "Part des contrôles non EIP assurés par la CNCC (2023) :",
+      "question": "D’après le panorama H2A/H3C 2023 repris dans le support, Part des contrôles non EIP assurés par la CNCC (2023) :",
       "choices": {
         "A": "65 %",
         "B": "80 %",
@@ -752,7 +752,7 @@
       "answer_text": "707/726 ≈ 97 %."
     },
     {
-      "question": "NEP visées par les vérifications thématiques sur mandats (2023) :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), NEP visées par les vérifications thématiques sur mandats (2023) :",
       "choices": {
         "A": "315, 330 et 600",
         "B": "500, 520 et 570",
@@ -763,7 +763,7 @@
       "answer_text": "315/330/600 explicitement citées."
     },
     {
-      "question": "Autres vérifications 2023 incluent :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Autres vérifications 2023 incluent :",
       "choices": {
         "A": "Prévention des difficultés des entreprises",
         "B": "Seule LCB-FT",
@@ -774,7 +774,7 @@
       "answer_text": "Thème listé par le H3C."
     },
     {
-      "question": "Dispositif de contrôle de qualité interne :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Dispositif de contrôle de qualité interne :",
       "choices": {
         "A": "L.821-10",
         "B": "A.821-46",
@@ -785,7 +785,7 @@
       "answer_text": "Référence citée : D.821-82."
     },
     {
-      "question": "Taux d’insuffisance NEP 315 chez les EIP (2023) :",
+      "question": "D’après le panorama H2A/H3C 2023 repris dans le support, Taux d’insuffisance NEP 315 chez les EIP (2023) :",
       "choices": {
         "A": "20 %",
         "B": "27 %",
@@ -796,7 +796,7 @@
       "answer_text": "NEP 315 : 38 % EIP (20 % non EIP)."
     },
     {
-      "question": "Taux d’insuffisance NEP 9605 chez les non EIP (2023) :",
+      "question": "D’après le panorama H2A/H3C 2023 repris dans le support, Taux d’insuffisance NEP 9605 chez les non EIP (2023) :",
       "choices": {
         "A": "1 %",
         "B": "4 %",
@@ -807,7 +807,7 @@
       "answer_text": "NEP 9605 : 4 % non EIP (20 % EIP)."
     },
     {
-      "question": "Bonne combinaison des volumes de contrôles 2023 :",
+      "question": "D’après le panorama H2A/H3C 2023 repris dans le support, Bonne combinaison des volumes de contrôles 2023 :",
       "choices": {
         "A": "EIP 72 / non EIP 726 (707 CNCC)",
         "B": "EIP 97 / non EIP 503",
@@ -818,7 +818,7 @@
       "answer_text": "Chiffres exacts rappelés par la présentation."
     },
     {
-      "question": "Modifications d’une société de CAC à notifier à la H2A :",
+      "question": "D’après le panorama H2A/H3C 2023 repris dans le support, Modifications d’une société de CAC à notifier à la H2A :",
       "choices": {
         "A": "Changement d’adresse seul",
         "B": "Forme sociale, répartition droits de vote, dirigeants",
@@ -829,7 +829,7 @@
       "answer_text": "Ces trois cas sont listés explicitement."
     },
     {
-      "question": "À défaut d’information de la H2A, l’inscription modificative au greffe :",
+      "question": "D’après le panorama H2A/H3C 2023 repris dans le support, À défaut d’information de la H2A, l’inscription modificative au greffe :",
       "choices": {
         "A": "Sans effet",
         "B": "Suspendue",
@@ -840,7 +840,7 @@
       "answer_text": "Suspension de l’inscription modificative."
     },
     {
-      "question": "Pour modifier la liste des CAC il faut :",
+      "question": "Selon les diapositives sur la liste des commissaires aux comptes (H2A), Pour modifier la liste des CAC il faut :",
       "choices": {
         "A": "Publication au JORF",
         "B": "Décision de la H2A",
@@ -851,7 +851,7 @@
       "answer_text": "Nécessité d’une décision H2A."
     },
     {
-      "question": "Entités concernées par ces obligations :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Entités concernées par ces obligations :",
       "choices": {
         "A": "Uniquement EIP",
         "B": "Toutes les sociétés de CAC concernées",
@@ -862,7 +862,7 @@
       "answer_text": "Aucune restriction aux EIP sur la diapo."
     },
     {
-      "question": "Lien de ces obligations avec la H2A :",
+      "question": "D’après le panorama H2A/H3C 2023 repris dans le support, Lien de ces obligations avec la H2A :",
       "choices": {
         "A": "Certification des comptes",
         "B": "Tenue/actualisation de la liste",
@@ -873,7 +873,7 @@
       "answer_text": "Rôle de la H2A sur la liste."
     },
     {
-      "question": "Quand un élément est-il « exceptionnel » (ANC 2022-06) ?",
+      "question": "Selon la modernisation des états financiers (ANC 2022‑06), Quand un élément est-il « exceptionnel » (ANC 2022-06) ?",
       "choices": {
         "A": "Dès qu’il est inhabituel",
         "B": "S’il est non récurrent par nature",
@@ -884,7 +884,7 @@
       "answer_text": "Caractère majeur/rare et effets significatifs."
     },
     {
-      "question": "Exemple d’événement pouvant conduire à un résultat exceptionnel :",
+      "question": "Selon la modernisation des états financiers (ANC 2022‑06), Exemple d’événement pouvant conduire à un résultat exceptionnel :",
       "choices": {
         "A": "Variation courante de stock",
         "B": "Catastrophe naturelle ou expropriation",
@@ -895,7 +895,7 @@
       "answer_text": "Exemples listés : catastrophe, expropriation…"
     },
     {
-      "question": "Les transferts de charges (sauf subrogation) :",
+      "question": "Selon la modernisation des états financiers (ANC 2022‑06), Les transferts de charges (sauf subrogation) :",
       "choices": {
         "A": "Sont maintenus",
         "B": "Sont supprimés",
@@ -906,7 +906,7 @@
       "answer_text": "Suppression hors subrogation."
     },
     {
-      "question": "Conséquence de la suppression des transferts :",
+      "question": "Selon le parcours de formation des équipes durabilité (41 h) présenté, Conséquence de la suppression des transferts :",
       "choices": {
         "A": "Baisse résultat imposable",
         "B": "Meilleure comparabilité et ventilation à l’origine",
@@ -917,7 +917,7 @@
       "answer_text": "Comparabilité et rattachement par nature."
     },
     {
-      "question": "Modèles de bilan désormais possibles :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Modèles de bilan désormais possibles :",
       "choices": {
         "A": "Liste uniquement",
         "B": "Tableau ou liste",
@@ -928,7 +928,7 @@
       "answer_text": "Deux formats normalisés."
     },
     {
-      "question": "Classement des indemnités d’assurance :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Classement des indemnités d’assurance :",
       "choices": {
         "A": "Toujours exceptionnel",
         "B": "Toujours exploitation",
@@ -939,7 +939,7 @@
       "answer_text": "Traitement selon la nature de l’indemnité."
     },
     {
-      "question": "La structure de l’annexe :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), La structure de l’annexe :",
       "choices": {
         "A": "Inchangée",
         "B": "Réorganisée et allégée sur certains points",
@@ -950,7 +950,7 @@
       "answer_text": "Réorganisation présentée dans le diaporama."
     },
     {
-      "question": "La réforme modernise :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), La réforme modernise :",
       "choices": {
         "A": "Uniquement le résultat financier",
         "B": "Appellations/sous-totaux, présentation, principes de classement",
@@ -961,7 +961,7 @@
       "answer_text": "Plusieurs volets de présentation."
     },
     {
-      "question": "Appréciation de l’« exceptionnel » :",
+      "question": "Selon la modernisation des états financiers (ANC 2022‑06), Appréciation de l’« exceptionnel » :",
       "choices": {
         "A": "Seuil monétaire unique",
         "B": "Rareté/événement majeur/effet significatif",
@@ -972,7 +972,7 @@
       "answer_text": "Pas de seuil monétaire unique."
     },
     {
-      "question": "Sous-totaux modernisés du compte de résultat :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Sous-totaux modernisés du compte de résultat :",
       "choices": {
         "A": "Exploitation, financier, exceptionnel modernisés",
         "B": "Résultat net seul",
@@ -983,7 +983,7 @@
       "answer_text": "Le règlement précise la présentation."
     },
     {
-      "question": "Traitement d’éléments ordinaires mis autrefois en 'exceptionnel' :",
+      "question": "Selon la modernisation des états financiers (ANC 2022‑06), Traitement d’éléments ordinaires mis autrefois en 'exceptionnel' :",
       "choices": {
         "A": "Maintien",
         "B": "Reclassement par nature adéquate",
@@ -994,7 +994,7 @@
       "answer_text": "Exceptionnel resserré → reclassement."
     },
     {
-      "question": "Caractérisation des « événements majeurs » :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Caractérisation des « événements majeurs » :",
       "choices": {
         "A": "Fréquents et peu significatifs",
         "B": "Rares et d’ampleur importante",
@@ -1005,7 +1005,7 @@
       "answer_text": "Rares, effets significatifs."
     },
     {
-      "question": "Indemnités d’assurance — cas d’exploitation :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Indemnités d’assurance — cas d’exploitation :",
       "choices": {
         "A": "Toujours financière",
         "B": "Peut relever de l’exploitation (pertes d’exploitation)",
@@ -1016,7 +1016,7 @@
       "answer_text": "Selon la nature (ex. pertes d’exploitation)."
     },
     {
-      "question": "Objectif général de la modernisation :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Objectif général de la modernisation :",
       "choices": {
         "A": "Alléger contrôle fiscal",
         "B": "Renforcer lisibilité et comparabilité",
@@ -1027,7 +1027,7 @@
       "answer_text": "Lisibilité et comparabilité accrues."
     },
     {
-      "question": "Impact sur le plan de comptes :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Impact sur le plan de comptes :",
       "choices": {
         "A": "Aucun",
         "B": "Ajustements liés aux nouvelles présentations",
@@ -1038,7 +1038,7 @@
       "answer_text": "Des adaptations du plan sont prévues."
     },
     {
-      "question": "Événement ordinaire d’un montant élevé est-il « exceptionnel » ?",
+      "question": "Selon la modernisation des états financiers (ANC 2022‑06), Événement ordinaire d’un montant élevé est-il « exceptionnel » ?",
       "choices": {
         "A": "Oui",
         "B": "Non",
@@ -1049,7 +1049,7 @@
       "answer_text": "La nature prime sur le seul montant."
     },
     {
-      "question": "Le diaporama fournit-il des exemples d’« exceptionnel » ?",
+      "question": "Selon la modernisation des états financiers (ANC 2022‑06), Le diaporama fournit-il des exemples d’« exceptionnel » ?",
       "choices": {
         "A": "Oui (catastrophe, expropriation…)",
         "B": "Non",
@@ -1060,7 +1060,7 @@
       "answer_text": "Exemples concrets listés."
     },
     {
-      "question": "Approche de ventilation des charges après suppression des transferts :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Approche de ventilation des charges après suppression des transferts :",
       "choices": {
         "A": "Créer 'autres produits'",
         "B": "Ventiler dans les postes d’origine",
@@ -1071,7 +1071,7 @@
       "answer_text": "Ventilation par nature d’origine."
     },
     {
-      "question": "Présentation du bilan — liberté offerte :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Présentation du bilan — liberté offerte :",
       "choices": {
         "A": "Libre sans cadre",
         "B": "Choix entre deux formats normalisés",
@@ -1082,7 +1082,7 @@
       "answer_text": "Choix entre tableau et liste."
     },
     {
-      "question": "Principe d’allocation des valeurs comptables en scission partielle :",
+      "question": "Selon les diapositives sur les scissions partielles (PCG), Principe d’allocation des valeurs comptables en scission partielle :",
       "choices": {
         "A": "Juste valeur systématique",
         "B": "Proportionnalité et maintien des VNC",
@@ -1093,7 +1093,7 @@
       "answer_text": "Répartition par VNC (PCG 747-1/747-2)."
     },
     {
-      "question": "Traitement de la VNC des immobilisations transférées :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Traitement de la VNC des immobilisations transférées :",
       "choices": {
         "A": "À la juste valeur",
         "B": "À la VNC répartie selon PCG",
@@ -1104,7 +1104,7 @@
       "answer_text": "Application des règles PCG."
     },
     {
-      "question": "La scission partielle entraîne :",
+      "question": "Selon les diapositives sur les scissions partielles (PCG), La scission partielle entraîne :",
       "choices": {
         "A": "Aucune modification de périmètre",
         "B": "Changement d’entité pour les actifs transférés",
@@ -1115,7 +1115,7 @@
       "answer_text": "Périmètre transféré identifié."
     },
     {
-      "question": "Le diaporama présente-t-il des exemples chiffrés de scission ?",
+      "question": "Selon les diapositives sur les scissions partielles (PCG), Le diaporama présente-t-il des exemples chiffrés de scission ?",
       "choices": {
         "A": "Oui",
         "B": "Non",
@@ -1126,7 +1126,7 @@
       "answer_text": "Cas chiffrés illustratifs."
     },
     {
-      "question": "Références PCG de la scission partielle :",
+      "question": "Selon les diapositives sur les scissions partielles (PCG), Références PCG de la scission partielle :",
       "choices": {
         "A": "747-1 et 747-2",
         "B": "512-1 et 512-2",
@@ -1137,7 +1137,7 @@
       "answer_text": "PCG 747-1/747-2."
     },
     {
-      "question": "Fusion sans échange de titres :",
+      "question": "Selon les diapositives sur les fusions sans échange de titres, Fusion sans échange de titres :",
       "choices": {
         "A": "Fusion avec augmentation de capital",
         "B": "Absorbante détient déjà 100 % de l’absorbée, pas d’émission",
@@ -1148,7 +1148,7 @@
       "answer_text": "Pas d’émission de titres lorsqu’il y a détention préalable totale."
     },
     {
-      "question": "Point d’attention pour le CAA dans ces opérations :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Point d’attention pour le CAA dans ces opérations :",
       "choices": {
         "A": "Aucun commissariat",
         "B": "Points d’attention spécifiques méthode/évaluation",
@@ -1159,7 +1159,7 @@
       "answer_text": "Points techniques malgré l’absence d’échange."
     },
     {
-      "question": "Incidence sur les capitaux propres de l’absorbante :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Incidence sur les capitaux propres de l’absorbante :",
       "choices": {
         "A": "Toujours nulle",
         "B": "Peut exister (écarts/éliminations) sans émission",
@@ -1170,7 +1170,7 @@
       "answer_text": "Effets comptables à traiter."
     },
     {
-      "question": "La documentation du diaporama comporte :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), La documentation du diaporama comporte :",
       "choices": {
         "A": "Aucun exemple",
         "B": "Des cas pratiques",
@@ -1181,7 +1181,7 @@
       "answer_text": "Cas concrets présentés."
     },
     {
-      "question": "Absence d’échange de titres signifie :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Absence d’échange de titres signifie :",
       "choices": {
         "A": "Jamais d’apports",
         "B": "Pas d’augmentation de capital liée à l’opération",
@@ -1192,7 +1192,7 @@
       "answer_text": "Pas de rémunération de l’apport par émission."
     },
     {
-      "question": "La NEP 315 porte sur :",
+      "question": "D’après le panorama H2A/H3C 2023 repris dans le support, La NEP 315 porte sur :",
       "choices": {
         "A": "Documentation",
         "B": "Connaissance de l’entité et évaluation des risques",
@@ -1203,7 +1203,7 @@
       "answer_text": "Compréhension de l’entité et risques d’anomalies significatives."
     },
     {
-      "question": "La NEP 330 traite :",
+      "question": "D’après le panorama H2A/H3C 2023 repris dans le support, La NEP 330 traite :",
       "choices": {
         "A": "Réponses d’audit aux risques identifiés",
         "B": "Comité d’audit",
@@ -1214,7 +1214,7 @@
       "answer_text": "Procédures en réponse aux risques."
     },
     {
-      "question": "La NEP 600 traite :",
+      "question": "D’après le panorama H2A/H3C 2023 repris dans le support, La NEP 600 traite :",
       "choices": {
         "A": "Audit des comptes consolidés",
         "B": "Parties liées",
@@ -1225,7 +1225,7 @@
       "answer_text": "Spécificités de l’audit consolidé."
     },
     {
-      "question": "Quel taux d’insuffisance 2023 pour la NEP 600 chez les EIP ?",
+      "question": "D’après le panorama H2A/H3C 2023 repris dans le support, Quel taux d’insuffisance 2023 pour la NEP 600 chez les EIP ?",
       "choices": {
         "A": "38 %",
         "B": "52 %",
@@ -1236,7 +1236,7 @@
       "answer_text": "NEP 600 : 65 % EIP."
     },
     {
-      "question": "Articulation 315/330 :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Articulation 315/330 :",
       "choices": {
         "A": "330 précède 315",
         "B": "315 évalue les risques ; 330 définit les réponses",
@@ -1247,7 +1247,7 @@
       "answer_text": "Évaluation puis réponses."
     },
     {
-      "question": "En 2023, ces NEP ont fait l’objet :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), En 2023, ces NEP ont fait l’objet :",
       "choices": {
         "A": "D’aucun examen",
         "B": "De vérifications thématiques",
@@ -1258,7 +1258,7 @@
       "answer_text": "Vérifications ciblées 315/330/600."
     },
     {
-      "question": "La NEP 315 n’implique pas :",
+      "question": "D’après le panorama H2A/H3C 2023 repris dans le support, La NEP 315 n’implique pas :",
       "choices": {
         "A": "Compréhension du contrôle interne pertinent",
         "B": "Identification de risques d’AS",
@@ -1269,7 +1269,7 @@
       "answer_text": "Le périmètre consolidé relève d’autres référentiels."
     },
     {
-      "question": "La NEP 330 couvre :",
+      "question": "D’après le panorama H2A/H3C 2023 repris dans le support, La NEP 330 couvre :",
       "choices": {
         "A": "Tests de cheminement uniquement",
         "B": "Réponses globales et procédures de fond",
@@ -1280,7 +1280,7 @@
       "answer_text": "Réponses globales + procédures de fond."
     },
     {
-      "question": "La NEP 600 peut conduire à :",
+      "question": "D’après le panorama H2A/H3C 2023 repris dans le support, La NEP 600 peut conduire à :",
       "choices": {
         "A": "Aucun travail sur composantes",
         "B": "Coordination des travaux sur composantes",
@@ -1291,7 +1291,7 @@
       "answer_text": "Coordination/composantes en consolidé."
     },
     {
-      "question": "Constat global du panorama 2023 sur ces NEP :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Constat global du panorama 2023 sur ces NEP :",
       "choices": {
         "A": "Conformité unanime",
         "B": "Taux d’insuffisance significatifs à corriger",
@@ -1302,7 +1302,7 @@
       "answer_text": "Nécessite vigilance renforcée."
     },
     {
-      "question": "Effet de la transposition CSRD en France :",
+      "question": "Selon les diapositives DPEF/CSRD (octobre 2024), Effet de la transposition CSRD en France :",
       "choices": {
         "A": "Aucun",
         "B": "Recodification d’articles du code de commerce",
@@ -1313,7 +1313,7 @@
       "answer_text": "Recodification (ex. L.823-10 → L.821-54)."
     },
     {
-      "question": "Nouvelle référence remplaçant L.823-10 :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Nouvelle référence remplaçant L.823-10 :",
       "choices": {
         "A": "L.821-54",
         "B": "L.821-27",
@@ -1324,7 +1324,7 @@
       "answer_text": "Transfert vers L.821-54."
     },
     {
-      "question": "La CSRD conduit à :",
+      "question": "Selon les diapositives DPEF/CSRD (octobre 2024), La CSRD conduit à :",
       "choices": {
         "A": "Maintien illimité de la DPEF",
         "B": "Rapport de durabilité conforme ESRS",
@@ -1335,7 +1335,7 @@
       "answer_text": "Déploiement du rapport de durabilité."
     },
     {
-      "question": "Pour 2024, la DPEF :",
+      "question": "Selon les diapositives DPEF/CSRD (octobre 2024), Pour 2024, la DPEF :",
       "choices": {
         "A": "N’est plus vérifiable",
         "B": "Peut être vérifiée par OTI historique/CAC durabilité/OTI vert",
@@ -1346,7 +1346,7 @@
       "answer_text": "Intervenants autorisés précisés."
     },
     {
-      "question": "Raisons de mise à jour de l’avis technique :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Raisons de mise à jour de l’avis technique :",
       "choices": {
         "A": "AMF uniquement",
         "B": "COFRAC + actualisation légale",
@@ -1357,7 +1357,7 @@
       "answer_text": "Retours COFRAC et mises à jour du code."
     },
     {
-      "question": "Attestation de présence de la DPEF :",
+      "question": "Selon les diapositives DPEF/CSRD (octobre 2024), Attestation de présence de la DPEF :",
       "choices": {
         "A": "Supprimée définitivement",
         "B": "Maintenue par position CNCC (omission matérielle)",
@@ -1368,7 +1368,7 @@
       "answer_text": "CNCC parle d’erreur de plume."
     },
     {
-      "question": "Applicabilité des articles A.225-1 à A.225-4 :",
+      "question": "Selon les diapositives DPEF/CSRD (octobre 2024), Applicabilité des articles A.225-1 à A.225-4 :",
       "choices": {
         "A": "OTI uniquement",
         "B": "Applicables au CAC durabilité 2024",
@@ -1379,7 +1379,7 @@
       "answer_text": "Applicables directement au CAC durabilité."
     },
     {
-      "question": "Assurance sur le rapport de durabilité CSRD (phase initiale) :",
+      "question": "Selon les diapositives DPEF/CSRD (octobre 2024), Assurance sur le rapport de durabilité CSRD (phase initiale) :",
       "choices": {
         "A": "Raisonnable obligatoire",
         "B": "Limitée au départ",
@@ -1390,7 +1390,7 @@
       "answer_text": "Assurance limitée au lancement."
     },
     {
-      "question": "Formation des équipes d’audit à la durabilité :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Formation des équipes d’audit à la durabilité :",
       "choices": {
         "A": "41 h structurées en 3 séquences",
         "B": "120 h obligatoires",
@@ -1401,7 +1401,7 @@
       "answer_text": "41 h au total, 3 séquences."
     },
     {
-      "question": "Références documentaires de la séquence CSRD :",
+      "question": "Selon les diapositives DPEF/CSRD (octobre 2024), Références documentaires de la séquence CSRD :",
       "choices": {
         "A": "CNCC – communiqué transposition",
         "B": "AMF uniquement",
@@ -1412,7 +1412,7 @@
       "answer_text": "Lien documentaire CNCC."
     },
     {
-      "question": "Séquence 1 « Rapport de durabilité » — durée indiquée :",
+      "question": "Selon le parcours de formation des équipes durabilité (41 h) présenté, Séquence 1 « Rapport de durabilité » — durée indiquée :",
       "choices": {
         "A": "3 h",
         "B": "7 h",
@@ -1423,7 +1423,7 @@
       "answer_text": "Séquence de 7 heures."
     },
     {
-      "question": "Séquence 2 « ESRS/EFRAG » — durée indiquée :",
+      "question": "Selon les diapositives DPEF/CSRD (octobre 2024), Séquence 2 « ESRS/EFRAG » — durée indiquée :",
       "choices": {
         "A": "3 h",
         "B": "7 h",
@@ -1434,7 +1434,7 @@
       "answer_text": "Séquence de 14 heures."
     },
     {
-      "question": "Séquence 3 « Audit & assurance durabilité » — durée indiquée :",
+      "question": "Selon le parcours de formation des équipes durabilité (41 h) présenté, Séquence 3 « Audit & assurance durabilité » — durée indiquée :",
       "choices": {
         "A": "3 h",
         "B": "7 h",
@@ -1445,7 +1445,7 @@
       "answer_text": "Séquence de 20 heures."
     },
     {
-      "question": "Prestations « hors CSRD » proposées aux clients incluent :",
+      "question": "Selon les diapositives DPEF/CSRD (octobre 2024), Prestations « hors CSRD » proposées aux clients incluent :",
       "choices": {
         "A": "Audit interne obligatoire",
         "B": "Diagnostic RSE et trajectoire extra-financière",
@@ -1456,7 +1456,7 @@
       "answer_text": "Diagnostic RSE/diagnostic extra-financier proposés."
     },
     {
-      "question": "Prestation « vérification post-émission » concerne :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Prestation « vérification post-émission » concerne :",
       "choices": {
         "A": "Les Green Loans",
         "B": "Les SLB",
@@ -1467,7 +1467,7 @@
       "answer_text": "Vérification contractuelle des KPI SLB."
     },
     {
-      "question": "Public visé par la formation équipes durabilité :",
+      "question": "Selon le parcours de formation des équipes durabilité (41 h) présenté, Public visé par la formation équipes durabilité :",
       "choices": {
         "A": "CAC et équipes audit",
         "B": "Direction financière seule",
@@ -1478,7 +1478,7 @@
       "answer_text": "Formation destinée aux équipes d’audit."
     },
     {
-      "question": "La séquence ESRS couvre :",
+      "question": "Selon les diapositives DPEF/CSRD (octobre 2024), La séquence ESRS couvre :",
       "choices": {
         "A": "Uniquement taxonomie",
         "B": "Cadre ESRS/EFRAG et principes",
@@ -1489,7 +1489,7 @@
       "answer_text": "Cœur de la séquence n°2."
     },
     {
-      "question": "La séquence « Audit durabilité » vise :",
+      "question": "Selon le parcours de formation des équipes durabilité (41 h) présenté, La séquence « Audit durabilité » vise :",
       "choices": {
         "A": "Procédures et assurance limitées",
         "B": "Only ESG ratings",
@@ -1500,7 +1500,7 @@
       "answer_text": "Procédures/audit & assurance."
     },
     {
-      "question": "Un livrable typique « hors CSRD » indiqué :",
+      "question": "Selon les diapositives DPEF/CSRD (octobre 2024), Un livrable typique « hors CSRD » indiqué :",
       "choices": {
         "A": "Prospectus AMF",
         "B": "Attestation DPEF 2024",
@@ -1511,7 +1511,7 @@
       "answer_text": "Attestation DPEF 2024 par CAC durabilité."
     },
     {
-      "question": "Durée totale de la formation équipes durabilité :",
+      "question": "Selon le parcours de formation des équipes durabilité (41 h) présenté, Durée totale de la formation équipes durabilité :",
       "choices": {
         "A": "20 h",
         "B": "21 h",
@@ -1522,7 +1522,7 @@
       "answer_text": "Total de 41 heures."
     },
     {
-      "question": "Quel triptyque explique la révision de l’avis technique DPEF 2024 ?",
+      "question": "Selon les diapositives DPEF/CSRD (octobre 2024), Quel triptyque explique la révision de l’avis technique DPEF 2024 ?",
       "choices": {
         "A": "LCB-FT, RGPD, IFRS",
         "B": "COFRAC, actualisation code, recodification CSRD",
@@ -1533,7 +1533,7 @@
       "answer_text": "Les trois ressorts explicités sur les slides."
     },
     {
-      "question": "L’omission de l’alinéa sur l’attestation de présence lors de la recodification est considérée comme :",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), L’omission de l’alinéa sur l’attestation de présence lors de la recodification est considérée comme :",
       "choices": {
         "A": "Volontaire",
         "B": "Erreur matérielle selon la CNCC",
@@ -1544,7 +1544,7 @@
       "answer_text": "Erreur de plume mentionnée."
     },
     {
-      "question": "Intervenants possibles pour la DPEF 2024 (rappel) :",
+      "question": "Selon les diapositives DPEF/CSRD (octobre 2024), Intervenants possibles pour la DPEF 2024 (rappel) :",
       "choices": {
         "A": "OTI historique, CAC durabilité, OTI vert",
         "B": "CAC financier seul",
@@ -1555,7 +1555,7 @@
       "answer_text": "Trois profils listés explicitement."
     },
     {
-      "question": "ISO 17029 pour la DPEF 2024 assurée par un CAC durabilité est :",
+      "question": "Selon les diapositives DPEF/CSRD (octobre 2024), ISO 17029 pour la DPEF 2024 assurée par un CAC durabilité est :",
       "choices": {
         "A": "Obligatoire",
         "B": "Partiellement applicable",
@@ -1566,7 +1566,7 @@
       "answer_text": "Le support indique qu’elle n’est pas pertinente."
     },
     {
-      "question": "La DPEF 2024 est-elle encore mentionnée au rapport de gestion ?",
+      "question": "Selon les diapositives DPEF/CSRD (octobre 2024), La DPEF 2024 est-elle encore mentionnée au rapport de gestion ?",
       "choices": {
         "A": "Non",
         "B": "Oui, avec attestation de présence évoquée",
@@ -1577,7 +1577,7 @@
       "answer_text": "Mention et attestation de présence évoquées."
     },
     {
-      "question": "Si l’entité entre dans le champ CSRD dès 2024, la DPEF ancienne rédaction :",
+      "question": "Selon les diapositives DPEF/CSRD (octobre 2024), Si l’entité entre dans le champ CSRD dès 2024, la DPEF ancienne rédaction :",
       "choices": {
         "A": "S’applique quand même",
         "B": "Ne s’applique pas",
@@ -1588,7 +1588,7 @@
       "answer_text": "Le maintien 2024 vise les entités hors champ CSRD."
     },
     {
-      "question": "Rôle des articles A.225-1 à A.225-4 en 2024 pour un CAC durabilité :",
+      "question": "Selon les diapositives DPEF/CSRD (octobre 2024), Rôle des articles A.225-1 à A.225-4 en 2024 pour un CAC durabilité :",
       "choices": {
         "A": "Aucun",
         "B": "Référentiel applicable pour la DPEF 2024",
@@ -1599,7 +1599,7 @@
       "answer_text": "Applicables directement."
     },
     {
-      "question": "Finalité de la CSRD en matière de reporting :",
+      "question": "Selon les diapositives DPEF/CSRD (octobre 2024), Finalité de la CSRD en matière de reporting :",
       "choices": {
         "A": "Remplacer la RSE par la liasse fiscale",
         "B": "Imposer un rapport de durabilité conforme ESRS",
@@ -1610,7 +1610,7 @@
       "answer_text": "Rapport de durabilité ESRS."
     },
     {
-      "question": "Quel est le bon enchaînement ?",
+      "question": "Selon les supports d’actualité d’octobre 2024 (ADC24 & Actuel 07/10/2024), Quel est le bon enchaînement ?",
       "choices": {
         "A": "CSRD→DPEF renforcée",
         "B": "DPEF transitoire 2024 → Abrogation 2025 → CSRD",
@@ -1621,7 +1621,7 @@
       "answer_text": "Transition décrite dans les slides."
     },
     {
-      "question": "Pour un CAC durabilité intervenant en 2024 sur DPEF, le périmètre de vérification :",
+      "question": "Selon les diapositives DPEF/CSRD (octobre 2024), Pour un CAC durabilité intervenant en 2024 sur DPEF, le périmètre de vérification :",
       "choices": {
         "A": "Se borne à ISO 17029",
         "B": "Suit A.225-1 à A.225-4 et l’avis technique",
