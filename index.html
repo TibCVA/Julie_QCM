@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Julie la championne</title>
   <meta name="description" content="QCM ultra rigoureux — Annales & Actualités" />
-  <meta name="theme-color" content="#0ea5e9" />
+  <meta name="theme-color" content="#2563eb" />
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="apple-touch-icon" href="icons/icon-192.png">
   <link rel="stylesheet" href="styles.css">
@@ -21,7 +21,6 @@
     </div>
     <nav class="top-actions">
       <button id="btn-install" class="ghost">Installer</button>
-      <button id="btn-settings" class="ghost">⚙︎</button>
     </nav>
   </header>
 
@@ -47,16 +46,17 @@
       </div>
     </section>
 
-    <!-- Filtres -->
+    <!-- Filtres & mode -->
     <section class="card" id="filters">
       <div class="card-header">
-        <strong>Filtrer & mode</strong>
+        <strong>Mode & filtres</strong>
         <div class="segmented">
           <button data-mode="practice" class="seg active">Entraînement</button>
           <button data-mode="exam" class="seg">Examen</button>
           <button data-mode="review" class="seg">Révisions</button>
         </div>
       </div>
+
       <div class="grid2">
         <div>
           <label class="lbl">Sources</label>
@@ -65,18 +65,19 @@
         <div>
           <label class="lbl">Options</label>
           <div class="opts">
-            <label><input type="checkbox" id="opt-newOnly"> Prioriser nouvelles</label>
-            <label><input type="checkbox" id="opt-dueFirst" checked> Prioriser dues</label>
+            <label><input type="checkbox" id="opt-newOnly"> Favoriser les nouvelles (jamais vues)</label>
+            <label><input type="checkbox" id="opt-dueFirst" checked> Cartes dues d’abord (SRS)</label>
             <label><input type="checkbox" id="opt-shuffle" checked> Aléatoire</label>
           </div>
         </div>
       </div>
+
       <div class="grid2">
         <div>
           <label class="lbl">Objectif quotidien</label>
           <div class="goal">
             <button id="goal-dec" class="ghost">−</button>
-            <input id="goal-input" type="number" min="1" max="500" value="50" inputmode="numeric">
+            <input id="goal-input" type="number" min="1" max="500" value="20" inputmode="numeric">
             <button id="goal-inc" class="ghost">+</button>
           </div>
         </div>
@@ -92,12 +93,24 @@
         <span id="q-tag" class="tag">—</span>
         <span id="q-index" class="muted">—</span>
       </div>
+      <div id="sessionbar" class="sessionbar hidden"></div>
       <h2 id="q-text">Chargement…</h2>
       <div id="q-choices" class="choices"></div>
-      <div id="q-feedback" class="feedback"></div>
+      <div id="q-feedback" class="feedback hidden"></div>
       <div class="actions">
-        <button id="btn-reveal" class="ghost">Révéler</button>
+        <button id="btn-reveal" class="ghost hidden">Révéler</button>
+        <button id="btn-restart" class="ghost">Recommencer</button>
         <button id="btn-next" class="primary">Suivante ↵</button>
+      </div>
+    </section>
+
+    <!-- Résultats (fin de session) -->
+    <section class="card hidden" id="results">
+      <div class="card-header"><strong id="results-title">Résultats</strong></div>
+      <p id="results-summary" class="muted"></p>
+      <ol id="results-list" class="results-list"></ol>
+      <div class="right">
+        <button id="btn-close-results" class="ghost">Fermer</button>
       </div>
     </section>
 
@@ -112,20 +125,22 @@
           <canvas id="spark" width="600" height="200" aria-label="Historique 14 jours"></canvas>
         </div>
       </div>
-      <div class="grid2">
-        <div>
-          <button id="btn-export" class="ghost">Exporter progression</button>
-          <input type="file" id="import-file" accept="application/json" hidden>
-          <button id="btn-import" class="ghost">Importer</button>
-        </div>
-        <div class="muted right">Raccourcis : <kbd>N</kbd> suivante • <kbd>R</kbd> révéler • <kbd>␣</kbd> valider</div>
-      </div>
+      <div class="muted right">Raccourcis : <kbd>N</kbd> suivante • <kbd>R</kbd> révéler • <kbd>␣</kbd> valider</div>
+    </section>
+
+    <!-- Historique -->
+    <section class="card" id="history">
+      <div class="card-header"><strong>Historique des sessions</strong></div>
+      <ul id="history-list" class="list"></ul>
     </section>
 
   </main>
 
   <footer class="foot">
-    <small>© 2025 – Julie la championne • Ultra rigoureux, zéro invention • Offline/PWA</small>
+    <div class="foot-row">
+      <small>© 2025 – Julie la championne • Ultra rigoureux, zéro invention • Offline/PWA</small>
+      <button id="btn-hard-reset" class="danger outline">Rebooter l’app</button>
+    </div>
   </footer>
 
   <script src="app.js" defer></script>
