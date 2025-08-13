@@ -1,33 +1,65 @@
-const CACHE = 'julie-v2.1';
+/* Service Worker — Julie la championne (rev. 2025-08-13)
+   - Pré-cache les assets principaux + JSON
+   - Cache-first pour statiques / Stale-While-Revalidate pour JSON
+   - Compatible GitHub Pages (chemins relatifs)
+*/
+const CACHE = 'julie-cache-v10';
+
 const ASSETS = [
-  './', './index.html', './styles.css', './app.js',
+  './',
+  './index.html',
+  './styles.css',
+  './app.js',
   './manifest.webmanifest',
-  './icons/icon-192.png', './icons/icon-512.png',
-  // Data (si tu veux tout hors-ligne, ajoute-les ici ; sinon on les cache à la volée)
+  './icons/icon-192.png',
+  './icons/icon-512.png',
+  // Data (disponible hors-ligne)
   './data/annales_qcm_2020_2024_enrichi.json',
   './data/qcm_actualites_2024Q4.json'
 ];
 
-self.addEventListener('install', e=>{
-  e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)));
-});
-self.addEventListener('activate', e=>{
-  e.waitUntil(
-    caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k))))
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    caches.open(CACHE).then(cache => cache.addAll(ASSETS))
+      .then(() => self.skipWaiting())
   );
 });
-self.addEventListener('fetch', e=>{
-  const req = e.request;
-  // Cache-then-network pour JSON, cache-first pour statiques
-  if(req.url.endsWith('.json')){
-    e.respondWith(
-      fetch(req).then(res=>{
-        const clone = res.clone();
-        caches.open(CACHE).then(c=>c.put(req, clone));
-        return res;
-      }).catch(()=>caches.match(req))
-    );
-  }else{
-    e.respondWith(caches.match(req).then(cached=> cached || fetch(req)));
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then(keys =>
+      Promise.all(keys.map(k => k !== CACHE ? caches.delete(k) : Promise.resolve()))
+    ).then(() => self.clients.claim())
+  );
+});
+
+// Réponses réseau → mise à jour silencieuse du cache
+async function staleWhileRevalidate(event){
+  const cache = await caches.open(CACHE);
+  const cached = await cache.match(event.request, { ignoreSearch:true });
+  const fetchPromise = fetch(event.request)
+    .then(res => { cache.put(event.request, res.clone()); return res; })
+    .catch(() => cached || Promise.reject('offline'));
+  return cached || fetchPromise;
+}
+
+self.addEventListener('fetch', (event) => {
+  const req = event.request;
+
+  // Traite uniquement les GET
+  if (req.method !== 'GET') return;
+
+  const url = new URL(req.url);
+
+  // JSON : S-W-R (rapide + MAJ en arrière-plan)
+  if (url.pathname.endsWith('.json')){
+    event.respondWith(staleWhileRevalidate(event));
+    return;
   }
+
+  // Statiques : cache-first
+  event.respondWith(
+    caches.match(req, { ignoreSearch:true })
+      .then(hit => hit || fetch(req))
+  );
 });
