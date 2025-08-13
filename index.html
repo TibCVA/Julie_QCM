@@ -1,43 +1,31 @@
 <!doctype html>
-<html lang="fr" dir="ltr">
+<html lang="fr">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="color-scheme" content="light dark" />
-  <meta name="description" content="QCM ultra rigoureux — Annales & Actualités — Entraînement, Examen, Révisions avec SRS." />
-  <meta name="theme-color" content="#2563eb" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <title>Julie la championne</title>
-
-  <!-- PWA -->
+  <meta name="description" content="QCM ultra rigoureux — Annales & Actualités" />
+  <meta name="theme-color" content="#0ea5e9" />
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="icon" href="icons/icon-192.png" sizes="192x192">
   <link rel="apple-touch-icon" href="icons/icon-192.png">
-
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <noscript>
-    <div class="toast bad" style="position:static; transform:none; opacity:1; margin:12px">
-      L’application nécessite JavaScript.
-    </div>
-  </noscript>
-
-  <header class="appbar" role="banner">
+  <header class="appbar">
     <div class="brand">
-      <div class="logo" aria-hidden="true">🏆</div>
+      <div class="logo">🏆</div>
       <div class="title">
         <h1>Julie la championne</h1>
         <small id="subtitle">Annales 2020–2024 + Actualités 2024Q4</small>
       </div>
     </div>
-    <nav class="top-actions" aria-label="actions">
-      <button id="btn-install" class="ghost" type="button" aria-label="Installer l’application">Installer</button>
+    <nav class="top-actions">
+      <button id="btn-install" class="ghost">Installer</button>
     </nav>
   </header>
 
-  <main class="container" id="main" tabindex="-1">
+  <main class="container">
+
     <!-- KPIs -->
     <section class="kpis" aria-label="indicateurs">
       <div class="kpi">
@@ -58,27 +46,32 @@
       </div>
     </section>
 
-    <!-- Filtres & mode -->
-    <section class="card" id="filters" aria-labelledby="filters-title">
+    <!-- Filtres & modes -->
+    <section class="card" id="filters">
       <div class="card-header">
-        <strong id="filters-title">Mode & filtres</strong>
-        <div class="segmented" role="tablist" aria-label="Choix du mode">
-          <button data-mode="practice" class="seg active" role="tab" aria-selected="true" type="button">Entraînement</button>
-          <button data-mode="exam" class="seg" role="tab" aria-selected="false" type="button">Examen</button>
-          <button data-mode="review" class="seg" role="tab" aria-selected="false" type="button">Révisions</button>
+        <strong>Filtrer & mode</strong>
+        <div class="segmented">
+          <button data-mode="practice" class="seg active">Entraînement</button>
+          <button data-mode="exam" class="seg">Examen</button>
+          <button data-mode="review" class="seg">Révisions</button>
+        </div>
+        <div id="session-hud" class="session-hud hidden">
+          <span id="hud-left"></span>
+          <span id="hud-mid"></span>
+          <span id="hud-right"></span>
         </div>
       </div>
 
       <div class="grid2">
         <div>
-          <label class="lbl" for="sources">Sources</label>
-          <div id="sources" role="group" aria-label="Sélection des sources"></div>
+          <label class="lbl">Sources</label>
+          <div id="sources"></div>
         </div>
         <div>
-          <span class="lbl">Options</span>
-          <div class="opts" role="group" aria-label="Options de sélection">
-            <label><input type="checkbox" id="opt-newOnly"> Favoriser les nouvelles (jamais vues)</label>
-            <label><input type="checkbox" id="opt-dueFirst" checked> Cartes dues d’abord (SRS)</label>
+          <label class="lbl">Options</label>
+          <div class="opts">
+            <label><input type="checkbox" id="opt-newOnly"> Prioriser nouvelles</label>
+            <label><input type="checkbox" id="opt-dueFirst" checked> Réviser d’abord les questions dues</label>
             <label><input type="checkbox" id="opt-shuffle" checked> Aléatoire</label>
           </div>
         </div>
@@ -86,76 +79,61 @@
 
       <div class="grid2">
         <div>
-          <label class="lbl" for="goal-input">Objectif quotidien</label>
+          <label class="lbl">Objectif quotidien</label>
           <div class="goal">
-            <button id="goal-dec" class="ghost" type="button" aria-label="Diminuer l’objectif">−</button>
-            <input id="goal-input" type="number" min="1" max="500" value="20" inputmode="numeric" autocomplete="off" aria-describedby="goal-help">
-            <button id="goal-inc" class="ghost" type="button" aria-label="Augmenter l’objectif">+</button>
+            <button id="goal-dec" class="ghost">−</button>
+            <input id="goal-input" type="number" min="1" max="500" value="20" inputmode="numeric">
+            <button id="goal-inc" class="ghost">+</button>
           </div>
-          <small id="goal-help" class="muted">Suivi dans le compteur « Objectif jour ».</small>
         </div>
         <div class="right">
-          <button id="btn-reset" class="danger" type="button">Réinitialiser progression</button>
+          <button id="btn-reset" class="danger">Réinitialiser progression</button>
         </div>
       </div>
     </section>
 
     <!-- Question -->
-    <section class="card" id="qcard" aria-live="polite" aria-labelledby="q-title">
+    <section class="card" id="qcard" aria-live="polite">
       <div class="q-meta">
         <span id="q-tag" class="tag">—</span>
         <span id="q-index" class="muted">—</span>
       </div>
-      <div id="sessionbar" class="sessionbar hidden" aria-live="polite"></div>
-      <h2 id="q-title">Question</h2>
-      <p id="q-text" class="q-text">Chargement…</p>
-      <div id="q-choices" class="choices" role="radiogroup" aria-label="Propositions de réponse"></div>
-      <div id="q-feedback" class="feedback hidden" role="status" aria-live="polite"></div>
+      <h2 id="q-text">Chargement…</h2>
+      <div id="q-choices" class="choices"></div>
+      <div id="q-feedback" class="feedback"></div>
       <div class="actions">
-        <button id="btn-reveal" class="ghost hidden" type="button">Révéler</button>
-        <button id="btn-restart" class="ghost" type="button">Recommencer</button>
-        <button id="btn-next" class="primary" type="button">Suivante ↵</button>
+        <button id="btn-reveal" class="ghost">Révéler</button>
+        <button id="btn-next" class="primary">Suivante ↵</button>
+        <button id="btn-restart" class="ghost">Recommencer</button>
       </div>
     </section>
 
-    <!-- Résultats (fin de session) -->
-    <section class="card hidden" id="results" aria-labelledby="results-title" aria-live="polite">
-      <div class="card-header"><strong id="results-title">Résultats</strong></div>
-      <p id="results-summary" class="muted"></p>
-      <ol id="results-list" class="results-list"></ol>
-      <div class="right">
-        <button id="btn-close-results" class="ghost" type="button" aria-label="Fermer les résultats">Fermer</button>
-      </div>
-    </section>
+    <!-- Résultats de session -->
+    <section class="card hidden" id="results"></section>
 
     <!-- Stats -->
-    <section class="card" id="stats" aria-labelledby="stats-title">
-      <div class="card-header"><strong id="stats-title">Statistiques</strong></div>
+    <section class="card" id="stats">
+      <div class="card-header"><strong>Statistiques</strong></div>
       <div class="grid2">
         <div>
-          <ul id="by-source" class="list" aria-label="Performance par source"></ul>
+          <ul id="by-source" class="list"></ul>
         </div>
         <div>
-          <canvas id="spark" width="600" height="200" aria-label="Historique des validations sur 14 jours"></canvas>
+          <canvas id="spark" width="600" height="200" aria-label="Historique 14 jours"></canvas>
         </div>
       </div>
-      <div class="muted right">
-        Raccourcis : <kbd>N</kbd> suivante • <kbd>R</kbd> révéler • <kbd>␣</kbd> valider
-      </div>
+      <div class="card-subheader">Historique des sessions</div>
+      <ul id="history" class="list"></ul>
+      <div class="muted right">Raccourcis : <kbd>N</kbd> suivante • <kbd>R</kbd> révéler • <kbd>␣</kbd> valider</div>
     </section>
 
-    <!-- Historique -->
-    <section class="card" id="history" aria-labelledby="history-title">
-      <div class="card-header"><strong id="history-title">Historique des sessions</strong></div>
-      <ul id="history-list" class="list" aria-live="polite"></ul>
-    </section>
   </main>
 
   <footer class="foot">
-    <div class="foot-row">
-      <small>© 2025 – Julie la championne • Ultra rigoureux, zéro invention • Offline/PWA</small>
-      <button id="btn-hard-reset" class="danger outline" type="button">Rebooter l’app</button>
+    <div class="foot-actions">
+      <button id="btn-reboot" class="danger-outline">Redémarrer l’application (remise à zéro)</button>
     </div>
+    <small>© 2025 – Julie la championne • Ultra rigoureux, zéro invention • Offline/PWA</small>
   </footer>
 
   <script src="app.js" defer></script>
