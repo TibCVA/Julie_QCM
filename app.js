@@ -516,7 +516,11 @@
 
   function renderKPIs(){
     const totalEl = $('#kpi-total'); if (totalEl) totalEl.textContent = state.all.length.toString();
-    const due = Object.values(state.stats.q).filter(s => (s.dueAt || 0) <= Date.now()).length;
+
+    // 🔧 MODIF UNIQUE : ne compter « À réviser » que pour les sources cochées
+    const keep = new Set(state.selection);
+    const due = Object.values(state.stats.q)
+      .filter(s => (s.dueAt || 0) <= Date.now() && keep.has(s.srcUrl)).length;
     const dueEl = $('#kpi-due'); if (dueEl) dueEl.textContent = due.toString();
 
     const attempts = Object.values(state.stats.q).reduce((a,s)=>a+(s.attempts||0),0);
